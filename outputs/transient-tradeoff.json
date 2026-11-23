@@ -1,0 +1,58 @@
+{
+  "measuredFrom": "outputs/case4b_reattack_plus7st_*.wav",
+  "scenario": "220 Hz note with a re-attack at 0.6 s at the same pitch; transposed +7 st",
+  "columns": {
+    "attackRiseMs": "10%→90% envelope rise at the re-attack (lower = sharper)",
+    "postOnsetPitchSdHz": "pitch scatter over 150 ms after the attack (lower = steadier)",
+    "attackWindowAmplitude": "amplitude of the target partial in the first 30 ms after the attack",
+    "comparedToContinue": "correlation / mean absolute difference against continue mode at the attack"
+  },
+  "rows": [
+    {
+      "mode": "auto",
+      "file": "case4b_reattack_plus7st_auto.wav",
+      "attackRiseMs": 76.3265306122449,
+      "postOnsetPitchMeanHz": 329.63355122158293,
+      "postOnsetPitchSdHz": 0.03125,
+      "attackWindowAmplitude": 0.27193267215602834,
+      "comparedToContinue": {
+        "corr": 0.999829350127897,
+        "meanAbsDiff": 0.0019322955419146825
+      }
+    },
+    {
+      "mode": "continue",
+      "file": "case4b_reattack_plus7st_continue.wav",
+      "attackRiseMs": 76.3265306122449,
+      "postOnsetPitchMeanHz": 329.63355122158293,
+      "postOnsetPitchSdHz": 0.03125,
+      "attackWindowAmplitude": 0.27204934110454826,
+      "comparedToContinue": null
+    },
+    {
+      "mode": "reset",
+      "file": "case4b_reattack_plus7st_reset.wav",
+      "attackRiseMs": 53.378684807256235,
+      "postOnsetPitchMeanHz": 329.63355122158293,
+      "postOnsetPitchSdHz": 0.03125,
+      "attackWindowAmplitude": 0.26583403097906505,
+      "comparedToContinue": {
+        "corr": 0.2538844864915008,
+        "meanAbsDiff": 0.24193090322066327
+      }
+    },
+    {
+      "mode": "always",
+      "file": "case4b_reattack_plus7st_always.wav",
+      "attackRiseMs": 67.34693877551021,
+      "postOnsetPitchMeanHz": 306.10230122158293,
+      "postOnsetPitchSdHz": 0.0625,
+      "attackWindowAmplitude": 0.08336455388243318,
+      "comparedToContinue": {
+        "corr": 0.0724531870494829,
+        "meanAbsDiff": 0.23300521054776077
+      }
+    }
+  ],
+  "conclusion": "Continue mode keeps the pitch trajectory smooth but reconstructs the attack from propagated phases; reset mode rebuilds the attack coherently, changing the waveform at the attack while the sustained portion stays pitch-stable. Resetting every frame scatters the pitch considerably, which is why auto mode only resets when onset reliability is high."
+}

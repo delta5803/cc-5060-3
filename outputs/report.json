@@ -1,0 +1,1111 @@
+{
+  "generatedAt": "2026-11-23T18:42:58.595Z",
+  "kernel": {
+    "version": "1.0.0",
+    "engine": "peak-locked phase vocoder + band-limited resampler",
+    "durationPreserved": true,
+    "playbackRateUsed": false,
+    "ratio": {
+      "min": 0.5,
+      "max": 2,
+      "continuous": true,
+      "step": 0.0001
+    },
+    "semitones": {
+      "min": -12,
+      "max": 12,
+      "step": 0.01
+    },
+    "transientModes": [
+      "auto",
+      "continue",
+      "reset",
+      "always"
+    ],
+    "transientThreshold": {
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "default": 0.5
+    },
+    "phaseLock": true,
+    "frameSize": 2048,
+    "overlap": 4,
+    "autoFrameSize": true,
+    "notes": [
+      "Duration is preserved by sample count; playbackRate is never used.",
+      "Upshifting band-limits content above Nyquist/ratio before resampling.",
+      "Partials closer than about 1.5 FFT bins merge into one component.",
+      "Mono processing; multichannel must be processed channel by channel."
+    ],
+    "limitations": [
+      "Transposition range is +/-12 semitones (ratio 0.5..2.0).",
+      "Onsets closer than 40 ms are merged into one reset decision.",
+      "Strongly inharmonic material may lose partial identity and drift.",
+      "At +12 st broad-band material is band-limited and sounds darker."
+    ]
+  },
+  "sampleRate": 44100,
+  "files": [
+    {
+      "role": "input",
+      "file": "case1_sine220_input.wav",
+      "path": "/workspace/outputs/case1_sine220_input.wav",
+      "bytes": 141164,
+      "samples": 70560,
+      "seconds": 1.6
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "file": "case1_sine220_plus7st.wav",
+      "path": "/workspace/outputs/case1_sine220_plus7st.wav",
+      "bytes": 141164,
+      "samples": 70560,
+      "seconds": 1.6
+    },
+    {
+      "role": "output",
+      "semitones": -5,
+      "file": "case1_sine220_minus5st.wav",
+      "path": "/workspace/outputs/case1_sine220_minus5st.wav",
+      "bytes": 141164,
+      "samples": 70560,
+      "seconds": 1.6
+    },
+    {
+      "role": "output",
+      "semitones": 3.5,
+      "file": "case1_sine220_plus3p5st.wav",
+      "path": "/workspace/outputs/case1_sine220_plus3p5st.wav",
+      "bytes": 141164,
+      "samples": 70560,
+      "seconds": 1.6
+    },
+    {
+      "role": "output",
+      "semitones": 12,
+      "file": "case1_sine220_plus12st.wav",
+      "path": "/workspace/outputs/case1_sine220_plus12st.wav",
+      "bytes": 141164,
+      "samples": 70560,
+      "seconds": 1.6
+    },
+    {
+      "role": "output",
+      "semitones": -12,
+      "file": "case1_sine220_minus12st.wav",
+      "path": "/workspace/outputs/case1_sine220_minus12st.wav",
+      "bytes": 141164,
+      "samples": 70560,
+      "seconds": 1.6
+    },
+    {
+      "role": "input",
+      "file": "case2_dual_input.wav",
+      "path": "/workspace/outputs/case2_dual_input.wav",
+      "bytes": 123524,
+      "samples": 61740,
+      "seconds": 1.4
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "file": "case2_dual_plus7st.wav",
+      "path": "/workspace/outputs/case2_dual_plus7st.wav",
+      "bytes": 123524,
+      "samples": 61740
+    },
+    {
+      "role": "output",
+      "semitones": -5,
+      "file": "case2_dual_minus5st.wav",
+      "path": "/workspace/outputs/case2_dual_minus5st.wav",
+      "bytes": 123524,
+      "samples": 61740
+    },
+    {
+      "role": "input",
+      "file": "case3_phrase_input.wav",
+      "path": "/workspace/outputs/case3_phrase_input.wav",
+      "bytes": 211724,
+      "samples": 105840,
+      "seconds": 2.4
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "transientMode": "auto",
+      "file": "case3_phrase_plus7st_auto.wav",
+      "path": "/workspace/outputs/case3_phrase_plus7st_auto.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_plus7st_auto.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_plus7st_auto.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "transientMode": "continue",
+      "file": "case3_phrase_plus7st_continue.wav",
+      "path": "/workspace/outputs/case3_phrase_plus7st_continue.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_plus7st_continue.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_plus7st_continue.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "transientMode": "reset",
+      "file": "case3_phrase_plus7st_reset.wav",
+      "path": "/workspace/outputs/case3_phrase_plus7st_reset.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_plus7st_reset.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_plus7st_reset.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": -5,
+      "transientMode": "auto",
+      "file": "case3_phrase_minus5st_auto.wav",
+      "path": "/workspace/outputs/case3_phrase_minus5st_auto.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_minus5st_auto.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_minus5st_auto.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": -5,
+      "transientMode": "continue",
+      "file": "case3_phrase_minus5st_continue.wav",
+      "path": "/workspace/outputs/case3_phrase_minus5st_continue.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_minus5st_continue.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_minus5st_continue.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": -5,
+      "transientMode": "reset",
+      "file": "case3_phrase_minus5st_reset.wav",
+      "path": "/workspace/outputs/case3_phrase_minus5st_reset.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_minus5st_reset.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_minus5st_reset.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": 12,
+      "transientMode": "auto",
+      "file": "case3_phrase_plus12st_auto.wav",
+      "path": "/workspace/outputs/case3_phrase_plus12st_auto.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_plus12st_auto.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_plus12st_auto.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": 12,
+      "transientMode": "continue",
+      "file": "case3_phrase_plus12st_continue.wav",
+      "path": "/workspace/outputs/case3_phrase_plus12st_continue.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_plus12st_continue.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_plus12st_continue.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": 12,
+      "transientMode": "reset",
+      "file": "case3_phrase_plus12st_reset.wav",
+      "path": "/workspace/outputs/case3_phrase_plus12st_reset.wav",
+      "bytes": 211724,
+      "samples": 105840
+    },
+    {
+      "role": "trace",
+      "file": "traces/case3_phrase_plus12st_reset.trace.json",
+      "samples": 214,
+      "path": "/workspace/outputs/traces/case3_phrase_plus12st_reset.trace.json"
+    },
+    {
+      "role": "output",
+      "semitones": -3,
+      "file": "case4_tail_padded_minus3st.wav",
+      "samples": 41895
+    },
+    {
+      "role": "input",
+      "file": "case4b_reattack_input.wav",
+      "path": "/workspace/outputs/case4b_reattack_input.wav",
+      "bytes": 123524,
+      "samples": 61740,
+      "seconds": 1.4
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "transientMode": "auto",
+      "file": "case4b_reattack_plus7st_auto.wav",
+      "samples": 61740
+    },
+    {
+      "role": "trace",
+      "file": "traces/case4b_reattack_plus7st_auto.trace.json",
+      "samples": 128
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "transientMode": "continue",
+      "file": "case4b_reattack_plus7st_continue.wav",
+      "samples": 61740
+    },
+    {
+      "role": "trace",
+      "file": "traces/case4b_reattack_plus7st_continue.trace.json",
+      "samples": 128
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "transientMode": "reset",
+      "file": "case4b_reattack_plus7st_reset.wav",
+      "samples": 61740
+    },
+    {
+      "role": "trace",
+      "file": "traces/case4b_reattack_plus7st_reset.trace.json",
+      "samples": 128
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "transientMode": "always",
+      "file": "case4b_reattack_plus7st_always.wav",
+      "samples": 61740
+    },
+    {
+      "role": "trace",
+      "file": "traces/case4b_reattack_plus7st_always.trace.json",
+      "samples": 128
+    },
+    {
+      "role": "input",
+      "file": "case5_dense_chord_input.wav",
+      "path": "/workspace/outputs/case5_dense_chord_input.wav",
+      "bytes": 132344,
+      "samples": 66150
+    },
+    {
+      "role": "output",
+      "semitones": 7,
+      "file": "case5_dense_plus7st.wav",
+      "samples": 66150
+    },
+    {
+      "role": "output",
+      "semitones": -5,
+      "file": "case5_dense_minus5st.wav",
+      "samples": 66150
+    }
+  ],
+  "cases": [
+    {
+      "id": "sine220_7st",
+      "kind": "single-sine",
+      "inputSeconds": 1.6,
+      "outputSeconds": 1.6,
+      "semitones": 7,
+      "ratio": 1.4983070768766815,
+      "targetHz": 329.6275569128699,
+      "measuredHz": 329.60000000000036,
+      "frequencyErrorCents": -0.14473747456237507,
+      "amplitudeIn": 0.49954480644735894,
+      "amplitudeOut": 0.4996637610435373,
+      "durationPreserved": true,
+      "inputSamples": 70560,
+      "outputSamples": 70560,
+      "file": "case1_sine220_plus7st.wav"
+    },
+    {
+      "id": "sine220_-5st",
+      "kind": "single-sine",
+      "inputSeconds": 1.6,
+      "outputSeconds": 1.6,
+      "semitones": -5,
+      "ratio": 0.7491535384383408,
+      "targetHz": 164.81377845643496,
+      "measuredHz": 164.79999999999984,
+      "frequencyErrorCents": -0.14473747456583505,
+      "amplitudeIn": 0.49954480644735894,
+      "amplitudeOut": 0.4992862099882556,
+      "durationPreserved": true,
+      "inputSamples": 70560,
+      "outputSamples": 70560,
+      "file": "case1_sine220_minus5st.wav"
+    },
+    {
+      "id": "sine220_3.5st",
+      "kind": "single-sine",
+      "inputSeconds": 1.6,
+      "outputSeconds": 1.6,
+      "semitones": 3.5,
+      "ratio": 1.2240535433046553,
+      "targetHz": 269.2917795270242,
+      "measuredHz": 269.3000000000003,
+      "frequencyErrorCents": 0.052847307581756896,
+      "amplitudeIn": 0.49954480644735894,
+      "amplitudeOut": 0.4995026070487542,
+      "durationPreserved": true,
+      "inputSamples": 70560,
+      "outputSamples": 70560,
+      "file": "case1_sine220_plus3p5st.wav"
+    },
+    {
+      "id": "sine220_12st",
+      "kind": "single-sine",
+      "inputSeconds": 1.6,
+      "outputSeconds": 1.6,
+      "semitones": 12,
+      "ratio": 2,
+      "targetHz": 440,
+      "measuredHz": 440,
+      "frequencyErrorCents": 0,
+      "amplitudeIn": 0.49954480644735894,
+      "amplitudeOut": 0.49983677261165305,
+      "durationPreserved": true,
+      "inputSamples": 70560,
+      "outputSamples": 70560,
+      "file": "case1_sine220_plus12st.wav"
+    },
+    {
+      "id": "sine220_-12st",
+      "kind": "single-sine",
+      "inputSeconds": 1.6,
+      "outputSeconds": 1.6,
+      "semitones": -12,
+      "ratio": 0.5,
+      "targetHz": 110,
+      "measuredHz": 110,
+      "frequencyErrorCents": 0,
+      "amplitudeIn": 0.49954480644735894,
+      "amplitudeOut": 0.5002849743548315,
+      "durationPreserved": true,
+      "inputSamples": 70560,
+      "outputSamples": 70560,
+      "file": "case1_sine220_minus12st.wav"
+    },
+    {
+      "id": "dual440_554_7st",
+      "kind": "two-partial-chord",
+      "semitones": 7,
+      "ratio": 1.4983070768766815,
+      "targets": [
+        659.2551138257398,
+        830.6090026727416
+      ],
+      "measured": [
+        659.2296024431663,
+        830.6481024054676
+      ],
+      "amplitudesIn": [
+        0.3190612612844067,
+        0.23869964797643423
+      ],
+      "amplitudesOut": [
+        0.32011798645021344,
+        0.24000360823091027
+      ],
+      "durationPreserved": true,
+      "inputSamples": 61740,
+      "outputSamples": 61740,
+      "file": "case2_dual_plus7st.wav"
+    },
+    {
+      "id": "dual440_554_-5st",
+      "kind": "two-partial-chord",
+      "semitones": -5,
+      "ratio": 0.7491535384383408,
+      "targets": [
+        329.6275569128699,
+        415.3045013363708
+      ],
+      "measured": [
+        329.6648012215836,
+        415.27405120273403
+      ],
+      "amplitudesIn": [
+        0.3190612612844067,
+        0.23869964797643423
+      ],
+      "amplitudesOut": [
+        0.3209435803313384,
+        0.24164810252746646
+      ],
+      "durationPreserved": true,
+      "inputSamples": 61740,
+      "outputSamples": 61740,
+      "file": "case2_dual_minus5st.wav"
+    },
+    {
+      "id": "phrase_7st_auto",
+      "kind": "phrase-with-attacks",
+      "semitones": 7,
+      "transientMode": "auto",
+      "ratio": 1.4983070768766815,
+      "targetFundamentalHz": 293.6681870678296,
+      "measuredFundamentalHz": 440.49684922520237,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 2,
+      "resets": [
+        {
+          "frame": 12,
+          "timeSec": 0.13932,
+          "reliability": 1
+        },
+        {
+          "frame": 73,
+          "timeSec": 0.847528,
+          "reliability": 1
+        }
+      ],
+      "file": "case3_phrase_plus7st_auto.wav"
+    },
+    {
+      "id": "phrase_7st_continue",
+      "kind": "phrase-with-attacks",
+      "semitones": 7,
+      "transientMode": "continue",
+      "ratio": 1.4983070768766815,
+      "targetFundamentalHz": 293.6681870678296,
+      "measuredFundamentalHz": 440.49684922520237,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 0,
+      "resets": [],
+      "file": "case3_phrase_plus7st_continue.wav"
+    },
+    {
+      "id": "phrase_7st_reset",
+      "kind": "phrase-with-attacks",
+      "semitones": 7,
+      "transientMode": "reset",
+      "ratio": 1.4983070768766815,
+      "targetFundamentalHz": 293.6681870678296,
+      "measuredFundamentalHz": 440.49684922520237,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 2,
+      "resets": [
+        {
+          "frame": 12,
+          "timeSec": 0.13932,
+          "reliability": 1
+        },
+        {
+          "frame": 73,
+          "timeSec": 0.847528,
+          "reliability": 1
+        }
+      ],
+      "file": "case3_phrase_plus7st_reset.wav"
+    },
+    {
+      "id": "phrase_-5st_auto",
+      "kind": "phrase-with-attacks",
+      "semitones": -5,
+      "transientMode": "auto",
+      "ratio": 0.7491535384383408,
+      "targetFundamentalHz": 146.8340935339148,
+      "measuredFundamentalHz": 220.29842461260074,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 2,
+      "resets": [
+        {
+          "frame": 12,
+          "timeSec": 0.13932,
+          "reliability": 1
+        },
+        {
+          "frame": 73,
+          "timeSec": 0.847528,
+          "reliability": 1
+        }
+      ],
+      "file": "case3_phrase_minus5st_auto.wav"
+    },
+    {
+      "id": "phrase_-5st_continue",
+      "kind": "phrase-with-attacks",
+      "semitones": -5,
+      "transientMode": "continue",
+      "ratio": 0.7491535384383408,
+      "targetFundamentalHz": 146.8340935339148,
+      "measuredFundamentalHz": 220.29842461260074,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 0,
+      "resets": [],
+      "file": "case3_phrase_minus5st_continue.wav"
+    },
+    {
+      "id": "phrase_-5st_reset",
+      "kind": "phrase-with-attacks",
+      "semitones": -5,
+      "transientMode": "reset",
+      "ratio": 0.7491535384383408,
+      "targetFundamentalHz": 146.8340935339148,
+      "measuredFundamentalHz": 220.29842461260074,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 2,
+      "resets": [
+        {
+          "frame": 12,
+          "timeSec": 0.13932,
+          "reliability": 1
+        },
+        {
+          "frame": 73,
+          "timeSec": 0.847528,
+          "reliability": 1
+        }
+      ],
+      "file": "case3_phrase_minus5st_reset.wav"
+    },
+    {
+      "id": "phrase_12st_auto",
+      "kind": "phrase-with-attacks",
+      "semitones": 12,
+      "transientMode": "auto",
+      "ratio": 2,
+      "targetFundamentalHz": 392,
+      "measuredFundamentalHz": 588,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 2,
+      "resets": [
+        {
+          "frame": 12,
+          "timeSec": 0.13932,
+          "reliability": 1
+        },
+        {
+          "frame": 73,
+          "timeSec": 0.847528,
+          "reliability": 1
+        }
+      ],
+      "file": "case3_phrase_plus12st_auto.wav"
+    },
+    {
+      "id": "phrase_12st_continue",
+      "kind": "phrase-with-attacks",
+      "semitones": 12,
+      "transientMode": "continue",
+      "ratio": 2,
+      "targetFundamentalHz": 392,
+      "measuredFundamentalHz": 588,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 0,
+      "resets": [],
+      "file": "case3_phrase_plus12st_continue.wav"
+    },
+    {
+      "id": "phrase_12st_reset",
+      "kind": "phrase-with-attacks",
+      "semitones": 12,
+      "transientMode": "reset",
+      "ratio": 2,
+      "targetFundamentalHz": 392,
+      "measuredFundamentalHz": 588,
+      "inputOnsetSec": 0.15034013605442179,
+      "outputOnsetSec": 0.15034013605442179,
+      "inputEndSec": 1.443265306122449,
+      "outputEndSec": 1.443265306122449,
+      "durationPreserved": true,
+      "inputSamples": 105840,
+      "outputSamples": 105840,
+      "onsetEvents": 2,
+      "resetCount": 2,
+      "resets": [
+        {
+          "frame": 12,
+          "timeSec": 0.13932,
+          "reliability": 1
+        },
+        {
+          "frame": 73,
+          "timeSec": 0.847528,
+          "reliability": 1
+        }
+      ],
+      "file": "case3_phrase_plus12st_reset.wav"
+    },
+    {
+      "id": "short_fragments",
+      "kind": "short-and-tail",
+      "results": [
+        {
+          "ms": 2,
+          "semitones": 4,
+          "inputSamples": 88,
+          "outputSamples": 88,
+          "durationPreserved": true,
+          "peak": 0.03168679028749466,
+          "finite": true
+        },
+        {
+          "ms": 2,
+          "semitones": -3,
+          "inputSamples": 88,
+          "outputSamples": 88,
+          "durationPreserved": true,
+          "peak": 0.0255994014441967,
+          "finite": true
+        },
+        {
+          "ms": 16,
+          "semitones": 4,
+          "inputSamples": 706,
+          "outputSamples": 706,
+          "durationPreserved": true,
+          "peak": 0.7230350375175476,
+          "finite": true
+        },
+        {
+          "ms": 16,
+          "semitones": -3,
+          "inputSamples": 706,
+          "outputSamples": 706,
+          "durationPreserved": true,
+          "peak": 0.6399821639060974,
+          "finite": true
+        },
+        {
+          "ms": 64,
+          "semitones": 4,
+          "inputSamples": 2822,
+          "outputSamples": 2822,
+          "durationPreserved": true,
+          "peak": 0.6639176607131958,
+          "finite": true
+        },
+        {
+          "ms": 64,
+          "semitones": -3,
+          "inputSamples": 2822,
+          "outputSamples": 2822,
+          "durationPreserved": true,
+          "peak": 0.6185720562934875,
+          "finite": true
+        },
+        {
+          "ms": 256,
+          "semitones": 4,
+          "inputSamples": 11290,
+          "outputSamples": 11290,
+          "durationPreserved": true,
+          "peak": 0.6639176607131958,
+          "finite": true
+        },
+        {
+          "ms": 256,
+          "semitones": -3,
+          "inputSamples": 11290,
+          "outputSamples": 11290,
+          "durationPreserved": true,
+          "peak": 0.6193665862083435,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "id": "tail_handling",
+      "kind": "short-and-tail",
+      "inputSamples": 41895,
+      "outputSamples": 41895,
+      "durationPreserved": true,
+      "inputOnsetSec": 0.10022675736961452,
+      "outputOnsetSec": 0.10022675736961452,
+      "inputEndSec": 0.6013605442176871,
+      "outputEndSec": 0.6013605442176871,
+      "edgeSilenceOutStart": 0,
+      "edgeSilenceOutEnd": 0,
+      "file": "case4_tail_padded_minus3st.wav"
+    },
+    {
+      "id": "reattack_same_pitch",
+      "kind": "same-pitch-reattack",
+      "results": [
+        {
+          "mode": "auto",
+          "resets": 1,
+          "onsetEvents": 3,
+          "frames": 128,
+          "file": "case4b_reattack_plus7st_auto.wav",
+          "durationPreserved": true
+        },
+        {
+          "mode": "continue",
+          "resets": 0,
+          "onsetEvents": 3,
+          "frames": 128,
+          "file": "case4b_reattack_plus7st_continue.wav",
+          "durationPreserved": true
+        },
+        {
+          "mode": "reset",
+          "resets": 3,
+          "onsetEvents": 3,
+          "frames": 128,
+          "file": "case4b_reattack_plus7st_reset.wav",
+          "durationPreserved": true
+        },
+        {
+          "mode": "always",
+          "resets": 128,
+          "onsetEvents": 3,
+          "frames": 128,
+          "file": "case4b_reattack_plus7st_always.wav",
+          "durationPreserved": true
+        }
+      ]
+    },
+    {
+      "id": "dense_chord_7st",
+      "kind": "dense-seven-partials",
+      "semitones": 7,
+      "ratio": 1.4983070768766815,
+      "targets": [
+        293.6681870678296,
+        369.99194956392773,
+        439.99285619560635,
+        523.2537804576435,
+        587.3363741356592,
+        659.2551138257398,
+        739.9838991278555
+      ],
+      "measured": [
+        293.6847777144387,
+        369.9923520857319,
+        439.99321338582604,
+        523.2910914347618,
+        587.3695554288765,
+        659.2923581344535,
+        739.9847041714634
+      ],
+      "errorsCents": [
+        0.09780249368125442,
+        0.0018834438818891759,
+        0.001405431044276769,
+        0.12344245479278022,
+        0.09780249367856368,
+        0.09780249367933247,
+        0.0018834438811203542
+      ],
+      "inputAmps": [
+        0.04524346141909907,
+        0.0452832233529745,
+        0.04488038157040869,
+        0.04530761781858194,
+        0.04513573528087844,
+        0.044684330613074724,
+        0.04494275091694826
+      ],
+      "outputAmps": [
+        0.04500095441954616,
+        0.045226304409119074,
+        0.04474607480717036,
+        0.045231084150872146,
+        0.04519623277778484,
+        0.045169218574969486,
+        0.045039617830268025
+      ],
+      "durationPreserved": true,
+      "inputSamples": 66150,
+      "outputSamples": 66150,
+      "file": "case5_dense_plus7st.wav"
+    },
+    {
+      "id": "dense_chord_-5st",
+      "kind": "dense-seven-partials",
+      "semitones": -5,
+      "ratio": 0.7491535384383408,
+      "targets": [
+        146.8340935339148,
+        184.99597478196387,
+        219.99642809780318,
+        261.62689022882176,
+        293.6681870678296,
+        329.6275569128699,
+        369.99194956392773
+      ],
+      "measured": [
+        146.79238885721898,
+        184.9461760428656,
+        219.99660669291285,
+        261.6455457173809,
+        293.6847777144387,
+        329.64617906722697,
+        369.9923520857319
+      ],
+      "errorsCents": [
+        -0.49178504744303686,
+        -0.46609056608464844,
+        0.0014054310427391253,
+        0.12344245479278022,
+        0.09780249368125442,
+        0.09780249368048563,
+        0.0018834438818891759
+      ],
+      "inputAmps": [
+        0.04524346141909907,
+        0.0452832233529745,
+        0.04488038157040869,
+        0.04530761781858194,
+        0.04513573528087844,
+        0.044684330613074724,
+        0.04494275091694826
+      ],
+      "outputAmps": [
+        0.04475677378105344,
+        0.04462447770753132,
+        0.04493438243725665,
+        0.04483655573338147,
+        0.04480681950743812,
+        0.04452611153993717,
+        0.04503115023444116
+      ],
+      "durationPreserved": true,
+      "inputSamples": 66150,
+      "outputSamples": 66150,
+      "file": "case5_dense_minus5st.wav"
+    },
+    {
+      "id": "range_and_alias",
+      "kind": "limits",
+      "ratioRange": [
+        {
+          "semitones": 12,
+          "ok": true,
+          "outputLength": 8820
+        },
+        {
+          "semitones": 12.5,
+          "ok": false,
+          "code": "RATIO_OUT_OF_RANGE",
+          "message": "Pitch ratio outside supported range",
+          "detail": {
+            "ratio": 2.058604473286984,
+            "min": 0.5,
+            "max": 2
+          }
+        },
+        {
+          "semitones": -12,
+          "ok": true,
+          "outputLength": 8820
+        },
+        {
+          "semitones": -13,
+          "ok": false,
+          "code": "RATIO_OUT_OF_RANGE",
+          "message": "Pitch ratio outside supported range",
+          "detail": {
+            "ratio": 0.47193715634084676,
+            "min": 0.5,
+            "max": 2
+          }
+        }
+      ],
+      "highFrequency": [
+        {
+          "semitones": 12,
+          "ok": true,
+          "note": "content above Nyquist/ratio is band-limited rather than aliased",
+          "outputLength": 8820
+        },
+        {
+          "semitones": 12.5,
+          "ok": false,
+          "code": "RATIO_OUT_OF_RANGE",
+          "message": "Pitch ratio outside supported range"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Transposition range is limited to +/-12 semitones (ratio 0.5..2.0). Beyond that, resampling band-limits too much content and quality degrades.",
+    "Dense chords with partials closer than ~1.5 FFT bins share a region; the quieter partial can lose amplitude or inherit a neighbour phase. Measure per-partial error before relying on it for dense orchestral material.",
+    "Percussive/transient material is handled by phase reset at detected onsets. Onsets that coincide within 40 ms are merged into one decision, so very fast repeated attacks (rolls, flams) may smear the second attack.",
+    "Strongly inharmonic signals (bells, cymbals) have no stable peak identity; the tracker may re-identify partials and produce pitch drift.",
+    "Upshifting by +12 st with broadband content leaves little headroom above the shifted Nyquist; the anti-alias filter removes it (correct, but audibly darker).",
+    "Mono processing only in the browser build. Stereo/multichannel must be processed channel-by-channel with the same parameter set."
+  ],
+  "shortFragmentResults": [
+    {
+      "ms": 2,
+      "semitones": 4,
+      "inputSamples": 88,
+      "outputSamples": 88,
+      "durationPreserved": true,
+      "peak": 0.03168679028749466,
+      "finite": true
+    },
+    {
+      "ms": 2,
+      "semitones": -3,
+      "inputSamples": 88,
+      "outputSamples": 88,
+      "durationPreserved": true,
+      "peak": 0.0255994014441967,
+      "finite": true
+    },
+    {
+      "ms": 16,
+      "semitones": 4,
+      "inputSamples": 706,
+      "outputSamples": 706,
+      "durationPreserved": true,
+      "peak": 0.7230350375175476,
+      "finite": true
+    },
+    {
+      "ms": 16,
+      "semitones": -3,
+      "inputSamples": 706,
+      "outputSamples": 706,
+      "durationPreserved": true,
+      "peak": 0.6399821639060974,
+      "finite": true
+    },
+    {
+      "ms": 64,
+      "semitones": 4,
+      "inputSamples": 2822,
+      "outputSamples": 2822,
+      "durationPreserved": true,
+      "peak": 0.6639176607131958,
+      "finite": true
+    },
+    {
+      "ms": 64,
+      "semitones": -3,
+      "inputSamples": 2822,
+      "outputSamples": 2822,
+      "durationPreserved": true,
+      "peak": 0.6185720562934875,
+      "finite": true
+    },
+    {
+      "ms": 256,
+      "semitones": 4,
+      "inputSamples": 11290,
+      "outputSamples": 11290,
+      "durationPreserved": true,
+      "peak": 0.6639176607131958,
+      "finite": true
+    },
+    {
+      "ms": 256,
+      "semitones": -3,
+      "inputSamples": 11290,
+      "outputSamples": 11290,
+      "durationPreserved": true,
+      "peak": 0.6193665862083435,
+      "finite": true
+    }
+  ]
+}

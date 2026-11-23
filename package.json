@@ -1,0 +1,15 @@
+{
+  "name": "spectral-pitch-transposer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Duration-preserving musical pitch transposer: peak-locked phase vocoder + band-limited resampling, with a spectral editing window.",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node tests/run-tests.mjs",
+    "render": "node scripts/render-cases.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}

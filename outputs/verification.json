@@ -1,0 +1,333 @@
+{
+  "verifiedAt": "2026-11-23T18:48:21.081Z",
+  "source": "parsed from exported WAV files in outputs/",
+  "durationPairs": [
+    {
+      "id": "sine220_7st",
+      "inputSamplesFromDisk": 70560,
+      "outputSamplesFromDisk": 70560,
+      "sameCount": true,
+      "seconds": 1.6
+    },
+    {
+      "id": "sine220_-5st",
+      "inputSamplesFromDisk": 70560,
+      "outputSamplesFromDisk": 70560,
+      "sameCount": true,
+      "seconds": 1.6
+    },
+    {
+      "id": "sine220_3.5st",
+      "inputSamplesFromDisk": 70560,
+      "outputSamplesFromDisk": 70560,
+      "sameCount": true,
+      "seconds": 1.6
+    },
+    {
+      "id": "sine220_12st",
+      "inputSamplesFromDisk": 70560,
+      "outputSamplesFromDisk": 70560,
+      "sameCount": true,
+      "seconds": 1.6
+    },
+    {
+      "id": "sine220_-12st",
+      "inputSamplesFromDisk": 70560,
+      "outputSamplesFromDisk": 70560,
+      "sameCount": true,
+      "seconds": 1.6
+    },
+    {
+      "id": "dual440_554_7st",
+      "inputSamplesFromDisk": 61740,
+      "outputSamplesFromDisk": 61740,
+      "sameCount": true,
+      "seconds": 1.4
+    },
+    {
+      "id": "dual440_554_-5st",
+      "inputSamplesFromDisk": 61740,
+      "outputSamplesFromDisk": 61740,
+      "sameCount": true,
+      "seconds": 1.4
+    },
+    {
+      "id": "phrase_7st_auto",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_7st_continue",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_7st_reset",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_-5st_auto",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_-5st_continue",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_-5st_reset",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_12st_auto",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_12st_continue",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "phrase_12st_reset",
+      "inputSamplesFromDisk": 105840,
+      "outputSamplesFromDisk": 105840,
+      "sameCount": true,
+      "seconds": 2.4
+    },
+    {
+      "id": "tail_handling",
+      "inputSamplesFromDisk": 41895,
+      "outputSamplesFromDisk": 41895,
+      "sameCount": true,
+      "seconds": 0.95
+    },
+    {
+      "id": "dense_chord_7st",
+      "inputSamplesFromDisk": 66150,
+      "outputSamplesFromDisk": 66150,
+      "sameCount": true,
+      "seconds": 1.5
+    },
+    {
+      "id": "dense_chord_-5st",
+      "inputSamplesFromDisk": 66150,
+      "outputSamplesFromDisk": 66150,
+      "sameCount": true,
+      "seconds": 1.5
+    }
+  ],
+  "checks": [
+    {
+      "name": "all exported WAVs parse with declared sample counts",
+      "ok": true,
+      "detail": "23 files"
+    },
+    {
+      "name": "every exported take has the same sample count as its on-disk source",
+      "ok": true,
+      "detail": "19 pairs"
+    },
+    {
+      "name": "pitch measured from file sine220_7st",
+      "ok": true,
+      "detail": "target 329.63 measured 329.66 (0.16 c)"
+    },
+    {
+      "name": "pitch measured from file sine220_-5st",
+      "ok": true,
+      "detail": "target 164.81 measured 164.80 (-0.17 c)"
+    },
+    {
+      "name": "pitch measured from file sine220_3.5st",
+      "ok": true,
+      "detail": "target 269.29 measured 269.28 (-0.07 c)"
+    },
+    {
+      "name": "pitch measured from file sine220_12st",
+      "ok": true,
+      "detail": "target 440.00 measured 440.00 (0.00 c)"
+    },
+    {
+      "name": "pitch measured from file sine220_-12st",
+      "ok": true,
+      "detail": "target 110.00 measured 110.00 (0.00 c)"
+    },
+    {
+      "name": "event positions from file phrase_7st_auto",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_7st_continue",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_7st_reset",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_-5st_auto",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_-5st_continue",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_-5st_reset",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_12st_auto",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_12st_continue",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "event positions from file phrase_12st_reset",
+      "ok": true,
+      "detail": "onset 0.1503 vs 0.1503, end 1.4433 vs 1.4433"
+    },
+    {
+      "name": "output is transposed, not the original sine220_7st",
+      "ok": true,
+      "detail": "zero-lag corr 0.002, source 220 Hz target 329.6 Hz"
+    },
+    {
+      "name": "output is transposed, not the original sine220_-5st",
+      "ok": true,
+      "detail": "zero-lag corr 0.001, source 220 Hz target 164.8 Hz"
+    },
+    {
+      "name": "output is transposed, not the original sine220_3.5st",
+      "ok": true,
+      "detail": "zero-lag corr -0.005, source 220 Hz target 269.3 Hz"
+    },
+    {
+      "name": "output is transposed, not the original sine220_12st",
+      "ok": true,
+      "detail": "zero-lag corr 0.001, source 220 Hz target 440.0 Hz"
+    },
+    {
+      "name": "output is transposed, not the original sine220_-12st",
+      "ok": true,
+      "detail": "zero-lag corr -0.002, source 220 Hz target 110.0 Hz"
+    },
+    {
+      "name": "output is transposed, not the original dual440_554_7st",
+      "ok": true,
+      "detail": "zero-lag corr -0.001, source 440 Hz target 659.3 Hz"
+    },
+    {
+      "name": "output is transposed, not the original dual440_554_-5st",
+      "ok": true,
+      "detail": "zero-lag corr -0.000, source 440 Hz target 329.6 Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_7st_auto",
+      "ok": true,
+      "detail": "zero-lag corr 0.015, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_7st_continue",
+      "ok": true,
+      "detail": "zero-lag corr 0.022, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_7st_reset",
+      "ok": true,
+      "detail": "zero-lag corr 0.015, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_-5st_auto",
+      "ok": true,
+      "detail": "zero-lag corr 0.009, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_-5st_continue",
+      "ok": true,
+      "detail": "zero-lag corr 0.011, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_-5st_reset",
+      "ok": true,
+      "detail": "zero-lag corr 0.009, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_12st_auto",
+      "ok": true,
+      "detail": "zero-lag corr 0.265, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_12st_continue",
+      "ok": true,
+      "detail": "zero-lag corr 0.255, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original phrase_12st_reset",
+      "ok": true,
+      "detail": "zero-lag corr 0.265, source 196 Hz target — Hz"
+    },
+    {
+      "name": "output is transposed, not the original dense_chord_7st",
+      "ok": true,
+      "detail": "zero-lag corr 0.156, source 196 Hz target 293.7 Hz"
+    },
+    {
+      "name": "output is transposed, not the original dense_chord_-5st",
+      "ok": true,
+      "detail": "zero-lag corr 0.140, source 196 Hz target 146.8 Hz"
+    },
+    {
+      "name": "tail export has exact padded length",
+      "ok": true,
+      "detail": "41895"
+    },
+    {
+      "name": "tail export starts silent",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tail export ends silent",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tail export keeps onset at 0.10 s",
+      "ok": true,
+      "detail": "0.1002"
+    }
+  ],
+  "passed": 38,
+  "failed": 0
+}

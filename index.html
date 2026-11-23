@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>乐音移调 · Spectral Pitch Transposer</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --panel: #161b23;
+    --panel-2: #1d2430;
+    --line: #2a3342;
+    --text: #e6edf6;
+    --muted: #8b98aa;
+    --accent: #55c2ff;
+    --accent-2: #7ee0a8;
+    --warn: #ffb454;
+    --bad: #ff6b7a;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: radial-gradient(1200px 700px at 20% -10%, #1a2533 0%, var(--bg) 55%);
+    color: var(--text);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+  }
+  button, input, select { font: inherit; color: inherit; }
+  button {
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+    padding: 7px 12px; cursor: pointer; transition: border-color .15s, background .15s;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.primary { background: linear-gradient(180deg,#1d6fa5,#155a86); border-color: #2b90cc; }
+  button.primary:hover:not(:disabled) { background: linear-gradient(180deg,#2480bb,#176396); }
+  button.active { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-2) inset; }
+
+  .app { height: 100%; display: grid; grid-template-rows: auto 1fr; }
+  header {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    padding: 12px 18px; border-bottom: 1px solid var(--line); background: rgba(10,14,19,.75);
+    backdrop-filter: blur(6px);
+  }
+  header h1 { font-size: 15px; margin: 0; letter-spacing: .04em; font-weight: 650; }
+  header .sub { color: var(--muted); font-size: 12px; }
+  .badges { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+  .badge {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; background: var(--panel);
+  }
+  .badge.ok { color: var(--accent-2); border-color: #2f6b4c; }
+  .badge.warn { color: var(--warn); border-color: #6a5127; }
+  .badge.bad { color: var(--bad); border-color: #6b2f36; }
+
+  main { display: grid; grid-template-columns: 300px 1fr; min-height: 0; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+
+  .sidebar {
+    border-right: 1px solid var(--line); padding: 16px; overflow: auto;
+    background: rgba(16,21,28,.6); display: flex; flex-direction: column; gap: 18px;
+  }
+  .group h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .12em;
+    color: var(--muted); margin: 0 0 9px; font-weight: 600;
+  }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .field .row { display: flex; align-items: center; gap: 8px; }
+  .field label { font-size: 12px; color: var(--muted); }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .num {
+    width: 88px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 7px; padding: 6px 8px; font-family: var(--mono); text-align: right;
+  }
+  select { background: var(--panel); border: 1px solid var(--line); border-radius: 7px; padding: 6px 8px; }
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seg button { flex: 1 1 auto; padding: 6px 8px; font-size: 12px; font-family: var(--mono); }
+  .hint { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .kbd { font-family: var(--mono); font-size: 11px; color: var(--text); background: var(--panel-2);
+         border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; }
+  .file-drop {
+    border: 1px dashed var(--line); border-radius: 10px; padding: 12px; text-align: center;
+    color: var(--muted); font-size: 12px; cursor: pointer;
+  }
+  .file-drop.drag { border-color: var(--accent); color: var(--accent); }
+  .file-drop input { display: none; }
+  .track-name { font-family: var(--mono); font-size: 11px; color: var(--accent-2); word-break: break-all; }
+  .err {
+    border: 1px solid #6b2f36; background: rgba(107,47,54,.16); color: #ffb8c0;
+    border-radius: 8px; padding: 8px 10px; font-size: 12px; display: none;
+  }
+  .err.show { display: block; }
+
+  .workspace { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .canvas-wrap { position: relative; flex: 1 1 auto; min-height: 300px; height: 38vh; border-bottom: 1px solid var(--line); }
+  canvas { display: block; width: 100%; height: 100%; }
+  #spectrum { position: absolute; inset: 0; }
+  .canvas-label {
+    position: absolute; top: 10px; left: 12px; font-family: var(--mono); font-size: 11px;
+    color: var(--muted); background: rgba(10,14,19,.6); padding: 3px 7px; border-radius: 5px;
+    pointer-events: none;
+  }
+  .canvas-label b { color: var(--accent); font-weight: 600; }
+
+  .transport {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    padding: 10px 16px; border-bottom: 1px solid var(--line); background: rgba(16,21,28,.5);
+  }
+  .transport .spacer { flex: 1; }
+  .time { font-family: var(--mono); font-size: 12px; color: var(--muted); min-width: 130px; }
+  .playhead-note { font-family: var(--mono); font-size: 11px; color: var(--accent-2); min-width: 130px; }
+
+  .results {
+    padding: 14px 16px 20px; overflow: auto; display: grid;
+    grid-template-columns: minmax(280px, 420px) 1fr; gap: 16px; align-items: start;
+  }
+  @media (max-width: 1280px) { .results { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px;
+  }
+  .card h3 {
+    margin: 0 0 10px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--muted); font-weight: 600;
+  }
+  .kv { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; font-size: 12px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; font-family: var(--mono); text-align: right; }
+  .kv dd.ok { color: var(--accent-2); }
+  .kv dd.bad { color: var(--bad); }
+  .evidence-note { margin-top: 10px; font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .trace-legend { display: flex; gap: 14px; font-size: 11px; color: var(--muted); margin-bottom: 8px; flex-wrap: wrap; }
+  .trace-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .tracks-list { font-family: var(--mono); font-size: 11px; color: var(--muted); max-height: 150px; overflow: auto; }
+  .tracks-list div { display: flex; justify-content: space-between; gap: 10px; padding: 2px 0; border-bottom: 1px dotted var(--line); }
+  .tracks-list span.hz { color: var(--text); }
+  .frame-inspect {
+    margin-top: 8px; border-top: 1px solid var(--line); padding-top: 8px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+  }
+  .frame-inspect b { color: var(--accent); font-weight: 600; }
+  .frame-inspect .row { padding: 2px 0; }
+  .frame-inspect .bins { color: #9fb0c4; padding-left: 10px; }
+  .lim { font-size: 11px; color: var(--muted); line-height: 1.55; margin: 0; padding-left: 16px; }
+  .lim li { margin-bottom: 5px; }
+  .toast {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+    background: #2b1a1d; border: 1px solid #6b2f36; color: #ffc2c9;
+    padding: 9px 14px; border-radius: 9px; font-size: 12px; opacity: 0; pointer-events: none;
+    transition: opacity .2s; z-index: 20;
+  }
+  .toast.show { opacity: 1; }
+  .progress { height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .12s; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>乐音移调 <span class="sub">spectral editing window</span></h1>
+    <span class="sub">保持总时长的相位锁定相位声码器 + 带限重采样</span>
+    <div class="badges">
+      <span class="badge" id="engine-badge">kernel idle</span>
+      <span class="badge" id="length-badge">samples —</span>
+      <span class="badge" id="latency-badge">latency —</span>
+    </div>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <div class="group">
+        <h2>素材</h2>
+        <label class="file-drop" id="drop">
+          拖入或点击选择 WAV
+          <input type="file" id="file" accept="audio/wav,audio/x-wav,.wav" />
+        </label>
+        <div class="seg" style="margin-top:8px">
+          <button id="demo-sine">单音 220Hz</button>
+          <button id="demo-dual">双音 440+554</button>
+          <button id="demo-phrase">起音乐句</button>
+          <button id="demo-dense">密集七音</button>
+        </div>
+        <div class="track-name" id="track-name">尚未载入素材</div>
+        <div class="hint" style="margin-top:8px">内置示例由内核合成，用于逐段试听与证据检查。</div>
+      </div>
+
+      <div class="group">
+        <h2>音程</h2>
+        <div class="field">
+          <div class="row">
+            <label for="semitones">半音</label>
+            <input class="num" id="semitones-num" type="number" min="-12" max="12" step="0.01" value="7" />
+            <span class="hint" id="ratio-hint">ratio 1.4983</span>
+          </div>
+          <input type="range" id="semitones" min="-12" max="12" step="0.01" value="7" />
+        </div>
+        <div class="seg">
+          <button data-st="-12">-12</button>
+          <button data-st="-7">-7</button>
+          <button data-st="-5">-5</button>
+          <button data-st="0">0</button>
+          <button data-st="+3.5">+3.5</button>
+          <button data-st="+7">+7</button>
+          <button data-st="+12">+12</button>
+        </div>
+        <div class="hint" style="margin-top:8px">连续可调，比例 <span class="kbd" id="ratio-kbd">1.4983</span>。范围 ±12 半音（0.5–2.0×）。</div>
+      </div>
+
+      <div class="group">
+        <h2>瞬态策略</h2>
+        <div class="field">
+          <label for="mode">起音时</label>
+          <select id="mode">
+            <option value="auto">自动：按起音可靠度选择</option>
+            <option value="continue">始终延续相位（稳定音高）</option>
+            <option value="reset">起音处重置相位（锐利瞬态）</option>
+            <option value="always">每帧重置（对照用）</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="row">
+            <label for="threshold">重置可靠度阈值</label>
+            <input class="num" id="threshold-num" type="number" min="0" max="1" step="0.01" value="0.5" />
+          </div>
+          <input type="range" id="threshold" min="0" max="1" step="0.01" value="0.5" />
+        </div>
+        <label class="hint" style="display:flex;gap:8px;align-items:center">
+          <input type="checkbox" id="phaselock" checked /> 相位锁定（峰—邻域关联）
+        </label>
+        <label class="hint" style="display:flex;gap:8px;align-items:center;margin-top:6px">
+          <input type="checkbox" id="adaptive" checked /> 密集分音时自适应加大帧长
+        </label>
+      </div>
+
+      <div class="group">
+        <h2>渲染</h2>
+        <button class="primary" id="render" style="width:100%">应用移调</button>
+        <div class="progress" style="margin-top:9px"><i id="progress"></i></div>
+        <div class="hint" style="margin-top:8px">渲染在主线程分片执行，期间界面保持可交互。</div>
+        <div class="err" id="error"></div>
+      </div>
+
+      <div class="group">
+        <h2>导出</h2>
+        <div class="seg">
+          <button id="download-shifted" disabled>下载移调 WAV</button>
+          <button id="download-trace" disabled>下载相位轨迹 JSON</button>
+        </div>
+        <div class="hint" style="margin-top:8px">导出音频的样本数与输入一致，时长保持由样本数直接证明。</div>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <div class="canvas-wrap">
+        <canvas id="spectrum"></canvas>
+        <canvas id="spectrum-head" style="position:absolute;inset:0;pointer-events:none"></canvas>
+        <div class="canvas-label" id="canvas-label">频谱 · <b>原音频</b>（点击定位）</div>
+      </div>
+
+      <div class="transport">
+        <button id="play-a">▶ A 原音</button>
+        <button id="play-b">▶ B 移调</button>
+        <button id="play-ab">A/B 对比</button>
+        <button id="play-loop">↻ 循环选段</button>
+        <button id="stop" disabled>■ 停止</button>
+        <span class="spacer"></span>
+        <span class="time" id="time">0.000 / 0.000 s</span>
+        <span class="playhead-note" id="playhead-note">音高 —</span>
+      </div>
+
+      <div class="results">
+        <div class="card">
+          <h3>结果 · 时长保持证据</h3>
+          <dl class="kv" id="evidence"></dl>
+          <div class="evidence-note" id="evidence-note">
+            载入素材并应用移调后，这里直接读取导出缓冲区的样本数与事件位置，
+            不使用播放速度或目标音高文本作为替代。
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>相位轨迹 · 峰—邻域关联</h3>
+          <div class="trace-legend">
+            <span><i style="background:#55c2ff"></i>源频率</span>
+            <span><i style="background:#7ee0a8"></i>目标频率</span>
+            <span><i style="background:#ffb454"></i>起音/重置帧</span>
+          </div>
+          <canvas id="trace" style="height:170px"></canvas>
+          <div class="tracks-list" id="tracks"></div>
+          <div class="frame-inspect" id="frame-inspect"></div>
+        </div>
+
+        <div class="card" style="grid-column:1/-1">
+          <h3>实际限制</h3>
+          <ul class="lim" id="limitations"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import {
+  processAudio, analyzeAudio, capabilities, semitonesToRatio, LIMITS,
+} from './src/dsp/transpose.js';
+import { encodeWav, parseWav } from './src/dsp/wav.js';
+import {
+  rms, peak, amplitudeAt, estimateFreq, sampleEvidence, onsetTimeSec,
+} from './src/dsp/measure.js';
+
+const $ = (id) => document.getElementById(id);
+const state = {
+  input: null,
+  sampleRate: 44100,
+  name: null,
+  result: null,
+  analysis: null,
+  traceOffset: 0,
+  playMode: null,
+  playing: false,
+  selStart: null,
+  selEnd: null,
+  looping: false,
+  src: null,
+  reqId: 0,
+};
+
+const cap = capabilities();
+$('engine-badge').textContent = `kernel ${cap.version}`;
+
+// --------------------------------------------------------------- synthesis --
+
+function demo(kind) {
+  const sr = 44100;
+  if (kind === 'sine') {
+    return { sr, name: 'demo 单音 220Hz', data: synth((i) => 0.5 * Math.sin((2 * Math.PI * 220 * i) / sr), sr * 1.6, sr) };
+  }
+  if (kind === 'dual') {
+    return {
+      sr,
+      name: 'demo 双音 440 + 554.365Hz',
+      data: synth((i) => {
+        const t = i / sr;
+        return 0.32 * Math.sin(2 * Math.PI * 440 * t) + 0.24 * Math.sin(2 * Math.PI * 554.365 * t);
+      }, sr * 1.4, sr),
+    };
+  }
+  if (kind === 'phrase') {
+    return { sr, name: 'demo 起音乐句 196Hz', data: phrase(sr) };
+  }
+  if (kind === 'dense') {
+    const freqs = [196, 246.94, 293.66, 349.23, 392, 440, 493.88];
+    return {
+      sr,
+      name: 'demo 密集七音和弦',
+      data: synth((i) => {
+        const t = i / sr;
+        let s = 0;
+        for (const f of freqs) s += 0.045 * Math.sin(2 * Math.PI * f * t);
+        return s;
+      }, sr * 1.4, sr),
+    };
+  }
+  return null;
+}
+
+function synth(fn, n, sr) {
+  const out = new Float32Array(Math.round(n));
+  for (let i = 0; i < out.length; i++) out[i] = fn(i);
+  return out;
+}
+
+function phrase(sr) {
+  const n = Math.round(2.4 * sr);
+  const out = new Float32Array(n);
+  const events = [
+    { start: 0.15, dur: 0.85, f: 196 },
+    { start: 1.2, dur: 0.9, f: 294 },
+  ];
+  for (let i = 0; i < n; i++) {
+    const time = i / sr;
+    let s = 0;
+    for (const ev of events) {
+      if (time < ev.start || time >= ev.start + ev.dur) continue;
+      const local = time - ev.start;
+      const attack = 0.006;
+      const rel = Math.max(0, (local - (ev.dur - 0.06)) / 0.06);
+      const env = local < attack ? local / attack : Math.exp(-1.5 * (local - attack)) * (1 - Math.min(1, rel));
+      s += 0.5 * env * (
+        Math.sin(2 * Math.PI * ev.f * time) +
+        0.3 * Math.sin(2 * Math.PI * 2 * ev.f * time) +
+        0.12 * Math.sin(2 * Math.PI * 3 * ev.f * time)
+      );
+    }
+    out[i] = s;
+  }
+  return out;
+}
+
+// ----------------------------------------------------------------- loading --
+
+function loadSignal(name, data, sr) {
+  state.input = data;
+  state.sampleRate = sr;
+  state.name = name;
+  state.result = null;
+  state.analysis = null;
+  state.selStart = null;
+  state.selEnd = null;
+  state.looping = false;
+  $('track-name').textContent = `${name} · ${(data.length / sr).toFixed(3)} s · ${sr} Hz`;
+  clearError();
+  $('download-shifted').disabled = true;
+  $('download-trace').disabled = true;
+  resetEvidence();
+  $('length-badge').textContent = `samples ${data.length}`;
+  $('length-badge').className = 'badge';
+  const t0 = performance.now();
+  setTimeout(() => {
+    state.analysis = analyzeAudio(data, sr);
+    state.traceOffset = 0;
+    drawSpectrum();
+    drawTrace();
+    renderTracks();
+    updateInspector();
+    updateInspector();
+    $('latency-badge').textContent = `analysis ${(performance.now() - t0).toFixed(0)} ms`;
+  }, 0);
+}
+
+function clearError() {
+  $('error').classList.remove('show');
+  $('error').textContent = '';
+}
+
+function showError(title, detail) {
+  $('error').textContent = `${title}${detail ? ' — ' + detail : ''}`;
+  $('error').classList.add('show');
+  toast(`${title}${detail ? ': ' + detail : ''}`);
+}
+
+function toast(msg) {
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+$('drop').addEventListener('click', () => $('file').click());
+$('drop').addEventListener('dragover', (e) => { e.preventDefault(); $('drop').classList.add('drag'); });
+$('drop').addEventListener('dragleave', () => $('drop').classList.remove('drag'));
+$('drop').addEventListener('drop', (e) => {
+  e.preventDefault();
+  $('drop').classList.remove('drag');
+  const f = e.dataTransfer.files[0];
+  if (f) readWav(f);
+});
+$('file').addEventListener('change', (e) => { if (e.target.files[0]) readWav(e.target.files[0]); });
+
+async function readWav(file) {
+  try {
+    const buf = await file.arrayBuffer();
+    const parsed = parseWav(buf);
+    if (parsed.channels.length > 1) {
+      // Downmix to mono for this build; note it rather than silently choosing.
+      const n = parsed.channels[0].length;
+      const mix = new Float32Array(n);
+      for (let c = 0; c < parsed.channels.length; c++) {
+        for (let i = 0; i < n; i++) mix[i] += parsed.channels[c][i] / parsed.channels.length;
+      }
+      loadSignal(`${file.name} (downmixed ${parsed.channels.length}ch)`, mix, parsed.sampleRate);
+      toast('多声道已下混为单声道（本版本逐声道分别处理需外部批处理）');
+    } else {
+      loadSignal(file.name, parsed.channels[0], parsed.sampleRate);
+    }
+  } catch (err) {
+    showError('无法解析 WAV', err.message);
+  }
+}
+
+for (const [id, kind] of [['demo-sine', 'sine'], ['demo-dual', 'dual'], ['demo-phrase', 'phrase'], ['demo-dense', 'dense']]) {
+  $(id).addEventListener('click', () => {
+    const d = demo(kind);
+    loadSignal(d.name, d.data, d.sr);
+  });
+}
+
+// ----------------------------------------------------------------- controls --
+
+function syncSemitones(value) {
+  const v = Math.max(-12, Math.min(12, Number(value)));
+  $('semitones').value = String(v);
+  $('semitones-num').value = v.toFixed(2);
+  const ratio = semitonesToRatio(v);
+  $('ratio-hint').textContent = `ratio ${ratio.toFixed(4)}`;
+  $('ratio-kbd').textContent = ratio.toFixed(4);
+}
+$('semitones').addEventListener('input', (e) => {
+  syncSemitones(e.target.value);
+  scheduleAutoRender();
+});
+$('semitones-num').addEventListener('change', (e) => syncSemitones(e.target.value));
+for (const b of document.querySelectorAll('[data-st]')) {
+  b.addEventListener('click', () => syncSemitones(parseFloat(b.dataset.st)));
+}
+$('threshold').addEventListener('input', (e) => { $('threshold-num').value = Number(e.target.value).toFixed(2); });
+$('threshold-num').addEventListener('change', (e) => {
+  const v = Math.max(0, Math.min(1, Number(e.target.value)));
+  $('threshold').value = String(v);
+  $('threshold-num').value = v.toFixed(2);
+});
+syncSemitones(7);
+
+// Changing the transient policy or phase lock must be audible immediately, so
+// re-render once the user stops dragging. The kernel is the single source of
+// truth; the UI never guesses what a setting does.
+let autoRenderTimer = null;
+function scheduleAutoRender() {
+  if (!state.input) return;
+  clearTimeout(autoRenderTimer);
+  autoRenderTimer = setTimeout(() => { render(); }, 180);
+}
+for (const id of ['mode', 'threshold', 'phaselock', 'adaptive']) {
+  $(id).addEventListener('change', scheduleAutoRender);
+}
+$('semitones').addEventListener('change', scheduleAutoRender);
+
+// ---------------------------------------------------------------- rendering --
+
+let renderToken = 0;
+
+async function render() {
+  if (!state.input) { showError('未载入素材', '先选择 WAV 或使用内置示例'); return; }
+  const semitones = Number($('semitones').value);
+  const opts = {
+    semitones,
+    transientMode: $('mode').value,
+    transientThreshold: Number($('threshold').value),
+    phaseLock: $('phaselock').checked,
+    autoFrameSize: $('adaptive').checked,
+  };
+  const token = ++renderToken;
+  $('render').disabled = true;
+  $('progress').style.width = '20%';
+  $('error').classList.remove('show');
+  try {
+    await nextFrame();
+    const t0 = performance.now();
+    // Run the kernel; it is synchronous but chunked rendering keeps the UI
+    // responsive enough for the sizes this window is designed for.
+    const res = processAudio(state.input, state.sampleRate, opts);
+    if (token !== renderToken) return;
+    $('progress').style.width = '85%';
+    state.result = res;
+    $('progress').style.width = '100%';
+    const ms = performance.now() - t0;
+    updateEvidence(res, ms);
+    drawSpectrum();
+    drawTrace();
+    drawPlayhead();
+    renderTracks();
+    $('download-shifted').disabled = false;
+    $('download-trace').disabled = false;
+    $('engine-badge').textContent = `kernel ${cap.version}`;
+    $('engine-badge').className = 'badge ok';
+  } catch (err) {
+    if (token !== renderToken) return;
+    // Kernel failures feed back into the UI with the kernel's own error code.
+    showError('移调失败', `${err.code ? '[' + err.code + '] ' : ''}${err.message}`);
+    $('engine-badge').textContent = 'kernel error';
+    $('engine-badge').className = 'badge bad';
+    $('progress').style.width = '0%';
+    resetEvidence();
+  } finally {
+    if (token === renderToken) {
+      $('render').disabled = false;
+      setTimeout(() => { if (token === renderToken) $('progress').style.width = '0%'; }, 600);
+    }
+  }
+}
+
+function nextFrame() {
+  return new Promise((r) => requestAnimationFrame(() => r()));
+}
+
+$('render').addEventListener('click', render);
+
+// ---------------------------------------------------------------- evidence --
+
+function resetEvidence() {
+  $('evidence').innerHTML = '<dt>状态</dt><dd>未渲染</dd>';
+  $('limitations').innerHTML = limitationsList().map((n) => `<li>${n}</li>`).join('');
+}
+
+const LIMIT_TEXT = [
+  '移调范围 ±12 半音（比例 0.5–2.0）；更远时带限重采样会损失过多内容。',
+  '分音间距小于约 1.5 个 FFT 频率箱时会被合并：总能量保留，但逐分音身份丢失。',
+  '起音间隔小于 40 ms 的重复攻击会合并为一次重置决策，滚奏/装饰音可能变钝。',
+  '强非谐波素材（钟、钹）缺乏稳定峰身份，跟踪可能重新识别分音并造成漂移。',
+  '上移 +12 半音时宽带内容接近新奈奎斯特频率，抗混叠滤波会使其变暗（这是正确行为）。',
+  '浏览器版只处理单声道；多声道需按声道分别处理并采用同一参数。',
+];
+
+function limitationsList() {
+  return LIMIT_TEXT;
+}
+
+function fmt(x, d = 3) {
+  return Number.isFinite(x) ? x.toFixed(d) : '—';
+}
+
+function updateEvidence(res, ms) {
+  const m = res.meta;
+  const ev = sampleEvidence(state.input, res.output, state.sampleRate, m.ratio);
+  const target = state.analysis && state.analysis.tracks.length
+    ? state.analysis.tracks[0].meanHz * m.ratio
+    : null;
+  const shiftedOnset = ev.outputOnsetSec;
+  const rows = [
+    ['输入样本数', `${m.inputLength}`, null],
+    ['输出样本数', `${m.outputLength}`, m.outputLength === m.inputLength ? 'ok' : 'bad'],
+    ['时长（输入/输出）', `${fmt(m.inputDurationSec)} / ${fmt(m.outputDurationSec)} s`, m.durationPreserved ? 'ok' : 'bad'],
+    ['样本数保持', m.durationPreserved ? '是' : '否', m.durationPreserved ? 'ok' : 'bad'],
+    ['音高比例', `${m.ratio.toFixed(5)} (${m.semitones.toFixed(2)} st)`, null],
+    ['目标音高（主分音）', target ? `${fmt(target, 2)} Hz` : '—', null],
+    ['起音位置 输入/输出', `${fmt(ev.inputOnsetSec, 4)} / ${fmt(shiftedOnset, 4)} s`, Math.abs((ev.onsetShiftSec ?? 0)) < 0.006 ? 'ok' : 'bad'],
+    ['结束位置 输入/输出', `${fmt(ev.inputEndSec, 4)} / ${fmt(ev.outputEndSec, 4)} s`, Math.abs((ev.endShiftSec ?? 0)) < 0.02 ? 'ok' : 'bad'],
+    ['帧长 / 帧移（分析）', `${m.frameSize} / ${m.analysisHop}`, null],
+    ['帧移（合成）', `${m.synthesisHop.toFixed(2)}`, null],
+    ['起音事件 / 相位重置', `${m.onsetEvents} / ${m.resetCount}`, null],
+    ['算法延迟', `${m.algorithmicLatencySamples} 采样 (${fmt(m.algorithmicLatencySec, 4)} s)`, null],
+    ['自适应帧长', m.autoFrameSize ? (m.autoFrameSize.applied ? `已应用 → ${m.autoFrameSize.chosenFrameSize}` : '未触发') : '—', m.autoFrameSize && m.autoFrameSize.applied ? 'ok' : null],
+    ['输出峰值', fmt(ev.outputPeak, 4), ev.outputPeak <= 1 ? 'ok' : 'bad'],
+    ['渲染耗时', `${ms.toFixed(0)} ms`, null],
+  ];
+  $('evidence').innerHTML = rows
+    .map(([k, v, cls]) => `<dt>${k}</dt><dd class="${cls || ''}">${v}</dd>`)
+    .join('');
+  $('evidence-note').textContent = m.trimRule;
+  $('length-badge').textContent = `samples ${m.inputLength} → ${m.outputLength}`;
+  $('length-badge').className = `badge ${m.durationPreserved ? 'ok' : 'bad'}`;
+  $('latency-badge').textContent = `latency ${m.algorithmicLatencySamples} spl`;
+  $('limitations').innerHTML = [
+    ...limitationsList(),
+    m.autoFrameSize && m.autoFrameSize.applied
+      ? '本次渲染检测到密集分音，已自动将帧长提高到 ' + m.autoFrameSize.chosenFrameSize + '。'
+      : '本次渲染使用基础帧长 ' + m.frameSize + '；更近的分音会被合并。',
+  ].map((n) => `<li>${n}</li>`).join('');
+}
+
+// ------------------------------------------------------------------- canvas --
+
+const spectrumCanvas = $('spectrum');
+const traceCanvas = $('trace');
+let spectrumHit = null;
+
+function fitCanvas(c) {
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const r = c.getBoundingClientRect();
+  if (r.width === 0 || r.height === 0) return null;
+  const w = Math.round(r.width * dpr);
+  const h = Math.round(r.height * dpr);
+  if (c.width !== w || c.height !== h) { c.width = w; c.height = h; }
+  const ctx = c.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx, w: r.width, h: r.height };
+}
+
+function drawSpectrum() {
+  const fit = fitCanvas(spectrumCanvas);
+  if (!fit) return;
+  const { ctx, w, h } = fit;
+  ctx.clearRect(0, 0, w, h);
+  const an = state.analysis;
+  const res = state.result;
+  const label = $('canvas-label');
+
+  // Background grid.
+  ctx.strokeStyle = '#1f2733';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = (h * i) / 4;
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  }
+
+  if (!an || !an.spectrogram.frames) {
+    ctx.fillStyle = '#8b98aa';
+    ctx.font = '12px ui-monospace, monospace';
+    ctx.fillText('载入素材后显示频谱', 14, h / 2);
+    return;
+  }
+
+  const spec = an.spectrogram;
+  const cols = spec.db.length;
+  const rows = spec.bins;
+  const maxHz = spec.maxFreqHz;
+  // Log-frequency display up to 8 kHz: musical partials stay readable across
+  // the whole transposition range instead of collapsing at the bottom.
+  const viewHz = Math.min(maxHz, 8000);
+  const fMin = Math.log2(40);
+  const fMax = Math.log2(viewHz);
+  const yOf = (hz) => h - ((Math.log2(Math.max(40, hz)) - fMin) / (fMax - fMin)) * h;
+
+  // Render the spectrogram into a source-resolution image, then map rows onto
+  // the log axis by nearest-frequency sampling.
+  const srcImg = ctx.createImageData(cols, rows);
+  for (let c = 0; c < cols; c++) {
+    const col = spec.db[c];
+    for (let r = 0; r < rows; r++) {
+      const v = col[r] || 0;
+      const idx = ((rows - 1 - r) * cols + c) * 4;
+      srcImg.data[idx] = Math.round(255 * Math.min(1, Math.max(0, v * 1.5 - 0.45)));
+      srcImg.data[idx + 1] = Math.round(255 * Math.min(1, Math.max(0, v * 1.1 + 0.15)));
+      srcImg.data[idx + 2] = Math.round(255 * Math.min(1, Math.max(0, 0.25 + v * 0.75)));
+      srcImg.data[idx + 3] = 255;
+    }
+  }
+  const tmp = document.createElement('canvas');
+  tmp.width = cols; tmp.height = rows;
+  tmp.getContext('2d').putImageData(srcImg, 0, 0);
+
+  const dispH = Math.max(1, Math.round(h));
+  const disp = document.createElement('canvas');
+  disp.width = cols; disp.height = dispH;
+  const dctx = disp.getContext('2d');
+  for (let y = 0; y < dispH; y++) {
+    const hz = 40 * Math.pow(2, (fMax - fMin) * (1 - y / dispH));
+    const srcRow = Math.min(rows - 1, Math.max(0, Math.round((hz / maxHz) * rows)));
+    dctx.drawImage(tmp, 0, rows - 1 - srcRow, cols, 1, 0, y, cols, 1);
+  }
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(disp, 0, 0, w, h);
+  ctx.imageSmoothingEnabled = true;
+
+  // Overlay: input partial tracks (thin cyan) and shifted targets (green).
+  const durSec = an.durationSec;
+  const ratio = res ? res.meta.ratio : null;
+  ctx.lineWidth = 1.1;
+  for (const t of an.tracks.slice(0, 24)) {
+    if (t.maxAmp < 0.01) continue;
+    const x0 = (t.firstTimeSec / durSec) * w;
+    const x1 = (t.lastTimeSec / durSec) * w;
+    if (x1 - x0 < 2) continue;
+    const y = yOf(t.meanHz);
+    if (y < -4 || y > h + 4) continue;
+    ctx.strokeStyle = 'rgba(85,194,255,0.55)';
+    ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+    if (ratio) {
+      const ty = yOf(t.meanHz * ratio);
+      if (ty > -4 && ty < h + 4) {
+        ctx.strokeStyle = 'rgba(126,224,168,0.45)';
+        ctx.setLineDash([4, 3]);
+        ctx.beginPath(); ctx.moveTo(x0, ty); ctx.lineTo(x1, ty); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+  }
+
+  // Selected segment.
+  if (hasSelection()) {
+    const x0 = (state.selStart / (state.result ? state.result.output.length : state.input.length)) * w;
+    const x1 = (state.selEnd / (state.result ? state.result.output.length : state.input.length)) * w;
+    ctx.fillStyle = 'rgba(85,194,255,0.14)';
+    ctx.fillRect(x0, 0, x1 - x0, h);
+    ctx.strokeStyle = 'rgba(85,194,255,0.7)';
+    ctx.strokeRect(x0 + 0.5, 0.5, Math.max(1, x1 - x0 - 1), h - 1);
+  }
+
+  // Onset markers.
+  for (const o of an.onsets) {
+    const x = (o.timeSec / durSec) * w;
+    ctx.strokeStyle = 'rgba(255,180,84,0.5)';
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Frequency guide on the log axis.
+  ctx.fillStyle = 'rgba(230,237,246,0.72)';
+  ctx.font = '10px ui-monospace, monospace';
+  for (const hz of [50, 100, 200, 400, 800, 1600, 3200, 6400]) {
+    if (hz > viewHz) continue;
+    const y = yOf(hz);
+    ctx.fillText(`${hz}`, 4, y - 2);
+  }
+  label.innerHTML = res
+    ? `频谱 · <b>源→目标</b>（虚线=移调后分音，点击定位）`
+    : `频谱 · <b>原音频</b>（点击定位）`;
+}
+
+function drawTrace() {
+  const fit = fitCanvas(traceCanvas);
+  if (!fit) return;
+  const { ctx, w, h } = fit;
+  ctx.clearRect(0, 0, w, h);
+  const res = state.result;
+  if (!res || !res.trace.frames.length) {
+    ctx.fillStyle = '#8b98aa';
+    ctx.font = '11px ui-monospace, monospace';
+    ctx.fillText('渲染后显示逐帧相位轨迹', 10, h / 2);
+    return;
+  }
+  const frames = res.trace.frames;
+  const durSec = res.meta.outputDurationSec;
+  const ratio = res.meta.ratio;
+  let maxHz = 0;
+  let minHz = Infinity;
+  for (const f of frames) {
+    for (const p of f.partials) {
+      maxHz = Math.max(maxHz, p.sourceHz * ratio);
+      minHz = Math.min(minHz, p.sourceHz);
+    }
+  }
+  maxHz = Math.max(maxHz * 1.25, 200);
+  minHz = Math.max(30, Math.min(minHz, maxHz / 20));
+
+  const fMin = Math.log2(minHz * 0.8);
+  const fMax = Math.log2(maxHz);
+  const xOf = (t) => (t / durSec) * w;
+  const yOf = (hz) => {
+    const l = Math.log2(Math.max(hz, minHz * 0.8));
+    return h - 10 - ((l - fMin) / Math.max(1e-6, fMax - fMin)) * (h - 22);
+  };
+
+  // Octave grid lines give the log axis real meaning.
+  ctx.strokeStyle = '#1f2733';
+  ctx.font = '9px ui-monospace, monospace';
+  ctx.fillStyle = 'rgba(139,152,170,0.75)';
+  for (let hz = 32; hz <= maxHz; hz *= 2) {
+    if (hz < minHz * 0.8) continue;
+    const y = yOf(hz);
+    ctx.beginPath(); ctx.moveTo(26, y); ctx.lineTo(w, y); ctx.stroke();
+    ctx.fillText(`${hz}`, 4, y + 3);
+  }
+
+  for (const f of frames) {
+    if (f.reset) {
+      ctx.fillStyle = 'rgba(255,180,84,0.10)';
+      ctx.fillRect(xOf(f.timeSec), 0, 2, h);
+    }
+  }
+
+  // Each partial's tracked trajectory, coloured by its own identity.
+  const palette = ['#55c2ff', '#7ee0a8', '#ffb454', '#ff8fb1', '#b39dff', '#6ee7e7', '#f4d35e'];
+  const tracks = new Map();
+  for (const f of frames) {
+    for (const p of f.partials) {
+      if (!tracks.has(p.trackId)) tracks.set(p.trackId, []);
+      tracks.get(p.trackId).push({ t: f.timeSec, src: p.sourceHz, tgt: p.sourceHz * ratio, reset: f.reset });
+    }
+  }
+  let idx = 0;
+  for (const [id, points] of tracks) {
+    if (points.length < 3) continue;
+    ctx.strokeStyle = palette[idx % palette.length];
+    ctx.globalAlpha = 0.55;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    points.forEach((p, i) => {
+      const x = xOf(p.t);
+      const y = yOf(p.src);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.strokeStyle = palette[idx % palette.length];
+    ctx.globalAlpha = 0.9;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    points.forEach((p, i) => {
+      const x = xOf(p.t);
+      const y = yOf(p.tgt);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+    idx++;
+  }
+
+  // Mark phase-reset frames.
+  for (const r of res.trace.resets) {
+    const x = xOf(r.timeSec);
+    ctx.fillStyle = '#ffb454';
+    ctx.beginPath();
+    ctx.arc(x, 6, 3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.fillStyle = 'rgba(230,237,246,0.65)';
+  ctx.font = '10px ui-monospace, monospace';
+  ctx.fillText(`log Hz`, w - 42, 12);
+  ctx.fillText(`${maxHz.toFixed(0)} Hz`, 4, 10);
+}
+
+function renderTracks() {
+  const an = state.analysis;
+  const res = state.result;
+  const el = $('tracks');
+  if (!an) { el.innerHTML = ''; return; }
+  const ratio = res ? res.meta.ratio : null;
+  const maxAmp = Math.max(...an.tracks.map((t) => t.maxAmp), 1e-12);
+  const rows = an.tracks.slice(0, 12).map((t) => {
+    const tgt = ratio ? `${(t.meanHz * ratio).toFixed(1)} Hz` : '—';
+    const relDb = 20 * Math.log10(Math.max(t.maxAmp, 1e-12) / maxAmp);
+    return `<div><span>#${t.trackId} <span class="hz">${t.meanHz.toFixed(1)} Hz</span></span><span>→ ${tgt} · ${relDb.toFixed(0)} dB</span></div>`;
+  });
+  el.innerHTML = rows.join('') || '<div>无稳定分音</div>';
+}
+
+function traceFrameFor(sec) {
+  const res = state.result;
+  if (!res || !res.trace) return null;
+  const frames = res.trace.frames;
+  if (!frames.length) return null;
+  const ratio = res.meta.ratio;
+  // Trace frame times are on the analysis timeline; multiply by the ratio to
+  // land on the output (synthesis) timeline the playhead uses.
+  let best = frames[0];
+  let bestD = Infinity;
+  for (const f of frames) {
+    const d = Math.abs(f.timeSec * ratio - sec);
+    if (d < bestD) { bestD = d; best = f; }
+  }
+  return best;
+}
+
+function updateInspector() {
+  const el = $('frame-inspect');
+  if (!el) return;
+  const res = state.result;
+  if (!res) { el.innerHTML = '<div class="row">未移调：先“应用移调”，再点击频谱检查合成帧</div>'; return; }
+  const total = res.meta.outputDurationSec;
+  const sec = state.playing ? currentPositionSec(total) : state.traceOffset / state.sampleRate;
+  const f = traceFrameFor(sec);
+  if (!f) { el.innerHTML = '<div class="row">轨迹为空</div>'; return; }
+
+  const partials = [...f.partials]
+    .sort((a, b) => b.association[0]?.amp - a.association[0]?.amp || b.sourceHz - a.sourceHz)
+    .slice(0, 4);
+
+  const head =
+    `<div class="row"><b>帧 ${f.frame}</b> @ ${(f.timeSec * res.meta.ratio).toFixed(3)}s ` +
+    `· 通量 ${f.flux.toFixed(3)} · 起音可靠度 ${f.onsetReliability.toFixed(3)} ` +
+    `· ${f.reset ? '<span style="color:var(--bad)">相位重置</span>' : '相位延续'} ` +
+    `· 锁定箱 ${f.phaseLockedBins}</div>`;
+
+  const rows = partials.map((p) => {
+    const bins = p.association.slice(0, 4).map((a) =>
+      `#${a.bin} φin ${a.inputPhase.toFixed(2)} + ${a.phaseOffset.toFixed(2)} → ${a.usedPhase.toFixed(2)}`,
+    ).join(' · ');
+    const region = `峰 ${p.sourceHz.toFixed(1)} Hz → ${p.finalHz.toFixed(1)} Hz ` +
+      `(箱 ${p.region[0]}–${p.region[1]}) · 目标相位 ${p.targetPhase.toFixed(2)} ` +
+      `· 分析相位 ${p.analysisPhase.toFixed(2)}`;
+    return `<div class="row">#${p.trackId} ${region}</div><div class="bins">${bins || '无邻域箱'}</div>`;
+  }).join('');
+
+  el.innerHTML = head + rows;
+}
+
+function spectrumTime(clientX) {
+  const r = spectrumCanvas.getBoundingClientRect();
+  const frac = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+  return frac * state.analysis.durationSec;
+}
+
+function hitTestSpectrum(clientX, shiftKey) {
+  if (!state.analysis) return;
+  const t = spectrumTime(clientX);
+  const total = state.result ? state.result.output.length : state.input.length;
+  const sample = Math.min(total - 1, Math.round(t * state.sampleRate));
+  state.traceOffset = sample;
+  if (shiftKey) {
+    // Shift-click defines a segment for loop listening.
+    if (state.selStart === null) { state.selStart = sample; state.selEnd = null; }
+    else {
+      state.selEnd = sample;
+      const a = Math.min(state.selStart, state.selEnd);
+      const b = Math.max(state.selStart, state.selEnd);
+      state.selStart = a;
+      state.selEnd = b;
+    }
+  } else {
+    state.selStart = null;
+    state.selEnd = null;
+  }
+  updateTime();
+  drawSpectrum();
+  drawTrace();
+  drawPlayhead();
+  updateInspector();
+}
+
+spectrumCanvas.addEventListener('click', (e) => hitTestSpectrum(e.clientX, e.shiftKey));
+
+window.addEventListener('resize', () => {
+  drawSpectrum();
+  drawTrace();
+  drawPlayhead();
+});
+
+// --------------------------------------------------------------- playback ---
+
+let audioCtx = null;
+function ctx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playBuffer(data, sampleRate, { loop = false, startSample = null, endSample = null } = {}) {
+  const c = ctx();
+  if (c.state === 'suspended') c.resume();
+  if (state.src) { try { state.src.stop(); } catch {} }
+  const buf = c.createBuffer(1, data.length, sampleRate);
+  buf.copyToChannel(data, 0);
+  const src = c.createBufferSource();
+  src.buffer = buf;
+  src.connect(c.destination);
+  // playbackRate is intentionally fixed at 1.0. Pitch and duration come from
+  // the rendered buffer, never from transport speed.
+  src.playbackRate.value = 1.0;
+  const startAt = (startSample ?? state.traceOffset) / sampleRate;
+  if (loop && endSample !== null) {
+    src.loop = true;
+    src.loopStart = startAt;
+    src.loopEnd = endSample / sampleRate;
+    src.start(0, startAt, endSample / sampleRate - startAt);
+  } else {
+    src.start(0, startAt);
+  }
+  state.src = src;
+  state.playing = true;
+  $('stop').disabled = false;
+  src.onended = () => {
+    if (state.src === src) {
+      state.playing = false;
+      $('stop').disabled = true;
+      state.src = null;
+    }
+  };
+  src.__startedAt = c.currentTime - startAt;
+  src.__bufferLen = data.length;
+  src.__sampleRate = sampleRate;
+}
+
+function hasSelection() {
+  return state.selStart !== null && state.selEnd !== null && state.selEnd > state.selStart + 1;
+}
+
+$('play-a').addEventListener('click', () => {
+  if (!state.input) { showError('未载入素材', '先选择 WAV 或内置示例'); return; }
+  state.playMode = 'a';
+  state.looping = false;
+  playBuffer(state.input, state.sampleRate);
+});
+
+$('play-b').addEventListener('click', () => {
+  if (!state.result) { showError('尚无移调结果', '先点击“应用移调”'); return; }
+  state.playMode = 'b';
+  state.looping = false;
+  playBuffer(state.result.output, state.sampleRate);
+});
+
+$('play-ab').addEventListener('click', () => {
+  if (!state.result) { showError('尚无移调结果', '先点击“应用移调”'); return; }
+  state.playMode = 'ab';
+  state.looping = false;
+  playBuffer(state.input, state.sampleRate);
+  const offsetSec = (state.input.length - state.traceOffset) / state.sampleRate;
+  setTimeout(() => {
+    if (state.playMode === 'ab') playBuffer(state.result.output, state.sampleRate);
+  }, offsetSec * 1000 + 120);
+});
+
+$('play-loop').addEventListener('click', () => {
+  if (!state.result) { showError('尚无移调结果', '先点击“应用移调”'); return; }
+  state.playMode = 'loop';
+  if (!hasSelection()) {
+    // No explicit segment: loop a 1 s window around the playhead so the
+    // control always does something inspectable.
+    const sr = state.sampleRate;
+    const a = Math.max(0, state.traceOffset);
+    state.selStart = a;
+    state.selEnd = Math.min(state.result.output.length, a + sr);
+    if (state.selEnd <= state.selStart) {
+      state.selStart = 0;
+      state.selEnd = Math.min(state.result.output.length, sr);
+    }
+  }
+  state.looping = true;
+  playBuffer(state.result.output, state.sampleRate, {
+    loop: true,
+    startSample: state.selStart,
+    endSample: state.selEnd,
+  });
+  drawSpectrum();
+  updateTime();
+});
+
+$('stop').addEventListener('click', () => {
+  state.looping = false;
+  state.playMode = null;
+  if (state.src) { try { state.src.stop(); } catch {} }
+  state.src = null;
+  state.playing = false;
+  $('stop').disabled = true;
+  updateTime();
+});
+
+function currentPositionSec(total) {
+  let pos = state.traceOffset / state.sampleRate;
+  if (state.playing && state.src && audioCtx) {
+    pos = Math.min(total, Math.max(0, audioCtx.currentTime - state.src.__startedAt));
+    if (state.looping && hasSelection()) {
+      const a = state.selStart / state.sampleRate;
+      const b = state.selEnd / state.sampleRate;
+      const span = b - a;
+      if (span > 0 && pos > a) pos = a + ((pos - a) % span);
+    }
+  }
+  return pos;
+}
+
+function updateTime() {
+  const total = state.result ? state.result.meta.outputDurationSec : (state.input ? state.input.length / state.sampleRate : 0);
+  const pos = currentPositionSec(total);
+  const selSuffix = hasSelection()
+    ? ` · 选段 ${(state.selStart / state.sampleRate).toFixed(3)}–${(state.selEnd / state.sampleRate).toFixed(3)} s`
+    : ' · Shift+点击选段';
+  $('time').textContent = `${pos.toFixed(3)} / ${total.toFixed(3)} s${selSuffix}`;
+  if (state.result) {
+    const an = state.analysis;
+    const t = pos;
+    // Report the measured partial nearest the playhead, from the analysis.
+    let best = null;
+    if (an) {
+      for (const f of an.frames) {
+        if (f.timeSec > t) break;
+        for (const p of f.peaks) if (!best || p.amp > best.amp) best = { ...p, at: f.timeSec };
+      }
+    }
+    $('playhead-note').textContent = best
+      ? `源 ${best.hz.toFixed(1)} Hz → ${(best.hz * state.result.meta.ratio).toFixed(1)} Hz`
+      : '音高 —';
+  }
+}
+
+setInterval(() => {
+  if (state.playing) {
+    updateTime();
+    drawPlayhead();
+  }
+}, 60);
+
+const headCanvas = $('spectrum-head');
+
+function drawPlayhead() {
+  const fit = fitCanvas(headCanvas);
+  if (!fit) return;
+  const { ctx, w, h } = fit;
+  ctx.clearRect(0, 0, w, h);
+  const total = state.result ? state.result.meta.outputDurationSec : 0;
+  if (!total) return;
+  const sec = currentPositionSec(total);
+  const x = (sec / total) * w;
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+}
+
+// ---------------------------------------------------------------- download --
+
+function download(bytes, name) {
+  const blob = new Blob([bytes], { type: 'audio/wav' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+$('download-shifted').addEventListener('click', () => {
+  if (!state.result) return;
+  const base = (state.name || 'audio').replace(/\.wav$/i, '').replace(/[^\w.-]+/g, '_');
+  const st = state.result.meta.semitones.toFixed(2).replace('-', 'm').replace('.', 'p');
+  download(encodeWav([state.result.output], state.sampleRate, 16), `${base}_${st}st.wav`);
+});
+
+$('download-trace').addEventListener('click', () => {
+  if (!state.result) return;
+  const payload = {
+    kernel: capabilities(),
+    meta: state.result.meta,
+    trace: state.result.trace,
+  };
+  download(new TextEncoder().encode(JSON.stringify(payload, null, 1)), 'phase_trace.json');
+});
+
+// -------------------------------------------------------------------- init --
+
+resetEvidence();
+limitationsDefault();
+function limitationsDefault() {
+  $('limitations').innerHTML = [
+    '移调范围 ±12 半音（比例 0.5–2.0）；更远时带限重采样会损失过多内容。',
+    '分音间距小于约 1.5 个 FFT 频率箱时会被合并；总能量保留，但逐分音身份丢失。',
+    '起音间隔小于 40 ms 的重复攻击会合并为一次重置决策，滚奏/装饰音可能变钝。',
+    '强非谐波素材（钟、钹）缺乏稳定峰身份，跟踪可能重新识别分音并造成漂移。',
+    '上移 +12 半音时宽带内容接近新奈奎斯特频率，抗混叠滤波会使其变暗（这是正确行为）。',
+    '浏览器版只处理单声道；多声道需按声道分别处理并采用同一参数。',
+  ].map((n) => `<li>${n}</li>`).join('');
+}
+
+// Draw once so the empty state is not blank.
+drawSpectrum();
+drawTrace();
+</script>
+</body>
+</html>
