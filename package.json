@@ -7,7 +7,12 @@
   "scripts": {
     "start": "node scripts/serve.mjs",
     "test": "node tests/run-tests.mjs",
-    "render": "node scripts/render-cases.mjs"
+    "test:ui-dom": "node tests/ui-dom-check.mjs",
+    "render": "node scripts/render-cases.mjs",
+    "compat:build": "node scripts/build-compat-library.mjs",
+    "compat:legacy": "node scripts/check-legacy-projects.mjs",
+    "compat:audit": "node scripts/audit-compat.mjs",
+    "compat": "npm run compat:build && npm run compat:legacy && npm run compat:audit"
   },
   "dependencies": {
     "playwright-core": "^1.65.1"

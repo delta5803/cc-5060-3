@@ -1,0 +1,42 @@
+{
+  "schema": "spectral-transposer/legacy-presets@0",
+  "note": "A snapshot of window presets as an old build wrote them. Key spellings are deliberately mixed (fftSize / windowSize / N, osamp, lockPhase, attackMode) to prove the reader resolves historical aliases rather than only the current schema. One preset is intentionally malformed so the compatibility report can show what a preset-read failure looks like.",
+  "presets": [
+    {
+      "id": "old-default",
+      "name": "Old default",
+      "fftSize": 2048,
+      "osamp": 4,
+      "lockPhase": true,
+      "adaptive": true,
+      "attackMode": "auto",
+      "threshold": 0.5
+    },
+    {
+      "id": "old-narrow",
+      "name": "Old narrow (fast attack)",
+      "windowSize": 1024,
+      "overlap": 4,
+      "identityPhaseLock": true,
+      "auto_frame": false,
+      "transient": "reset",
+      "resetThreshold": 0.35
+    },
+    {
+      "id": "old-wide",
+      "name": "Old wide (dense chords)",
+      "N": 4096,
+      "hopDiv": 4,
+      "phase_locked": false,
+      "adaptive": false,
+      "mode": "continue"
+    },
+    {
+      "id": "old-broken",
+      "name": "Old preset with a lost window key",
+      "osamp": 4,
+      "lockPhase": true,
+      "attackMode": "auto"
+    }
+  ]
+}

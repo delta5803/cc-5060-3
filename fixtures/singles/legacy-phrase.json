@@ -1,0 +1,21 @@
+{
+  "schema": "spectral-transposer/source@1",
+  "id": "legacy-phrase@44100",
+  "setId": "legacy-phrase",
+  "scenario": "attack-window-edge",
+  "sampleRate": 44100,
+  "durationSec": 1.5,
+  "onsetSample": 4410,
+  "onsetSec": 0.1,
+  "note": "Two-note phrase used by the legacy projects. The first note starts at 0.10 s and decays; the second re-attacks hard at sample 37485 (0.85 s) - that is the project time marker. Old projects seek to sample 36603 (0.83 s), 20 ms before the marker, i.e. inside the still-sounding tail of the first note. The first analysis window of that cold slice is zero-padded on the left, so the re-attack is reconstructed slightly early; the same window rendered with real pre-roll lands on the marker.",
+  "partials": [
+    { "hz": 220.0, "amp": 0.50 },
+    { "hz": 440.0, "amp": 0.20 },
+    { "hz": 660.0, "amp": 0.075 }
+  ],
+  "envelope": { "attackSec": 0.003, "releaseSec": 0.02 },
+  "events": [
+    { "startSec": 0.10, "durSec": 0.75, "attackSec": 0.003, "decayPerSec": 2.4, "releaseSec": 0.02 },
+    { "startSec": 0.85, "durSec": 0.45, "attackSec": 0.002, "decayPerSec": 0.6, "releaseSec": 0.02 }
+  ]
+}

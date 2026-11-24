@@ -1,0 +1,5980 @@
+{
+  "generatedAt": "2026-11-24T04:02:30.588Z",
+  "schema": "spectral-transposer/compat-library@1",
+  "note": "Derived entirely from fixtures/sources/*.json. Regenerate with scripts/build-compat-library.mjs.",
+  "sampleRateVariants": [
+    44100,
+    48000,
+    96000
+  ],
+  "windows": [
+    1024,
+    2048,
+    4096
+  ],
+  "transposeSemitones": [
+    7,
+    -5
+  ],
+  "tolerances": {
+    "onsetSamples": 64,
+    "delayMs": 3,
+    "driftCentsPerSec": 5,
+    "driftCents": 25
+  },
+  "backends": [
+    {
+      "id": "peak-locked",
+      "label": "峰锁定相位声码器"
+    },
+    {
+      "id": "plain-vocoder",
+      "label": "逐箱相位声码器（旧）"
+    }
+  ],
+  "onsetCompensation": [
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@44100",
+      "semitones": 7,
+      "windowSize": 1024,
+      "sampleRate": 44100,
+      "onsetShiftSamples": 2,
+      "onsetShiftMs": 0.045351473922902494,
+      "refOnsetSample": 9732,
+      "outOnsetSample": 9734
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@44100",
+      "semitones": 7,
+      "windowSize": 2048,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -196,
+      "onsetShiftMs": -4.444444444444445,
+      "refOnsetSample": 9732,
+      "outOnsetSample": 9536
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@44100",
+      "semitones": 7,
+      "windowSize": 4096,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -182,
+      "onsetShiftMs": -4.126984126984127,
+      "refOnsetSample": 9732,
+      "outOnsetSample": 9550
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@44100",
+      "semitones": -5,
+      "windowSize": 1024,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -51,
+      "onsetShiftMs": -1.1564625850340136,
+      "refOnsetSample": 9741,
+      "outOnsetSample": 9690
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@44100",
+      "semitones": -5,
+      "windowSize": 2048,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -146,
+      "onsetShiftMs": -3.310657596371882,
+      "refOnsetSample": 9741,
+      "outOnsetSample": 9595
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@44100",
+      "semitones": -5,
+      "windowSize": 4096,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -325,
+      "onsetShiftMs": -7.369614512471656,
+      "refOnsetSample": 9741,
+      "outOnsetSample": 9416
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@48000",
+      "semitones": 7,
+      "windowSize": 1024,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -28,
+      "onsetShiftMs": -0.5833333333333334,
+      "refOnsetSample": 10596,
+      "outOnsetSample": 10568
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@48000",
+      "semitones": 7,
+      "windowSize": 2048,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -100,
+      "onsetShiftMs": -2.0833333333333335,
+      "refOnsetSample": 10596,
+      "outOnsetSample": 10496
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@48000",
+      "semitones": 7,
+      "windowSize": 4096,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -99,
+      "onsetShiftMs": -2.0625,
+      "refOnsetSample": 10596,
+      "outOnsetSample": 10497
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@48000",
+      "semitones": -5,
+      "windowSize": 1024,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -40,
+      "onsetShiftMs": -0.8333333333333334,
+      "refOnsetSample": 10617,
+      "outOnsetSample": 10577
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@48000",
+      "semitones": -5,
+      "windowSize": 2048,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -140,
+      "onsetShiftMs": -2.916666666666667,
+      "refOnsetSample": 10617,
+      "outOnsetSample": 10477
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@48000",
+      "semitones": -5,
+      "windowSize": 4096,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -327,
+      "onsetShiftMs": -6.8125,
+      "refOnsetSample": 10617,
+      "outOnsetSample": 10290
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@96000",
+      "semitones": 7,
+      "windowSize": 1024,
+      "sampleRate": 96000,
+      "onsetShiftSamples": 50,
+      "onsetShiftMs": 0.5208333333333334,
+      "refOnsetSample": 21192,
+      "outOnsetSample": 21242
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@96000",
+      "semitones": 7,
+      "windowSize": 2048,
+      "sampleRate": 96000,
+      "onsetShiftSamples": -57,
+      "onsetShiftMs": -0.59375,
+      "refOnsetSample": 21192,
+      "outOnsetSample": 21135
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@96000",
+      "semitones": 7,
+      "windowSize": 4096,
+      "sampleRate": 96000,
+      "onsetShiftSamples": -200,
+      "onsetShiftMs": -2.0833333333333335,
+      "refOnsetSample": 21192,
+      "outOnsetSample": 20992
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@96000",
+      "semitones": -5,
+      "windowSize": 1024,
+      "sampleRate": 96000,
+      "onsetShiftSamples": -104,
+      "onsetShiftMs": -1.0833333333333333,
+      "refOnsetSample": 21233,
+      "outOnsetSample": 21129
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@96000",
+      "semitones": -5,
+      "windowSize": 2048,
+      "sampleRate": 96000,
+      "onsetShiftSamples": -80,
+      "onsetShiftMs": -0.8333333333333334,
+      "refOnsetSample": 21233,
+      "outOnsetSample": 21153
+    },
+    {
+      "scenario": "attack-window-edge",
+      "sourceId": "attack-window-edge@96000",
+      "semitones": -5,
+      "windowSize": 4096,
+      "sampleRate": 96000,
+      "onsetShiftSamples": -278,
+      "onsetShiftMs": -2.895833333333333,
+      "refOnsetSample": 21233,
+      "outOnsetSample": 20955
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@44100",
+      "semitones": 7,
+      "windowSize": 1024,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -34,
+      "onsetShiftMs": -0.7709750566893424,
+      "refOnsetSample": 4436,
+      "outOnsetSample": 4402
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@44100",
+      "semitones": 7,
+      "windowSize": 2048,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -118,
+      "onsetShiftMs": -2.675736961451247,
+      "refOnsetSample": 4436,
+      "outOnsetSample": 4318
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@44100",
+      "semitones": 7,
+      "windowSize": 4096,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -112,
+      "onsetShiftMs": -2.5396825396825395,
+      "refOnsetSample": 4436,
+      "outOnsetSample": 4324
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@44100",
+      "semitones": -5,
+      "windowSize": 1024,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -67,
+      "onsetShiftMs": -1.5192743764172334,
+      "refOnsetSample": 4427,
+      "outOnsetSample": 4360
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@44100",
+      "semitones": -5,
+      "windowSize": 2048,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -159,
+      "onsetShiftMs": -3.6054421768707483,
+      "refOnsetSample": 4427,
+      "outOnsetSample": 4268
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@44100",
+      "semitones": -5,
+      "windowSize": 4096,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -337,
+      "onsetShiftMs": -7.64172335600907,
+      "refOnsetSample": 4427,
+      "outOnsetSample": 4090
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@48000",
+      "semitones": 7,
+      "windowSize": 1024,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -92,
+      "onsetShiftMs": -1.9166666666666665,
+      "refOnsetSample": 4829,
+      "outOnsetSample": 4737
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@48000",
+      "semitones": 7,
+      "windowSize": 2048,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -86,
+      "onsetShiftMs": -1.7916666666666667,
+      "refOnsetSample": 4829,
+      "outOnsetSample": 4743
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@48000",
+      "semitones": 7,
+      "windowSize": 4096,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -302,
+      "onsetShiftMs": -6.291666666666667,
+      "refOnsetSample": 4829,
+      "outOnsetSample": 4527
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@48000",
+      "semitones": -5,
+      "windowSize": 1024,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -119,
+      "onsetShiftMs": -2.479166666666667,
+      "refOnsetSample": 4823,
+      "outOnsetSample": 4704
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@48000",
+      "semitones": -5,
+      "windowSize": 2048,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -119,
+      "onsetShiftMs": -2.479166666666667,
+      "refOnsetSample": 4823,
+      "outOnsetSample": 4704
+    },
+    {
+      "scenario": "short-attack",
+      "sourceId": "short-attack@48000",
+      "semitones": -5,
+      "windowSize": 4096,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -311,
+      "onsetShiftMs": -6.479166666666667,
+      "refOnsetSample": 4823,
+      "outOnsetSample": 4512
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@44100",
+      "semitones": 7,
+      "windowSize": 1024,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -2,
+      "onsetShiftMs": -0.045351473922902494,
+      "refOnsetSample": 6638,
+      "outOnsetSample": 6636
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@44100",
+      "semitones": 7,
+      "windowSize": 2048,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -214,
+      "onsetShiftMs": -4.852607709750567,
+      "refOnsetSample": 6638,
+      "outOnsetSample": 6424
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@44100",
+      "semitones": 7,
+      "windowSize": 4096,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -126,
+      "onsetShiftMs": -2.857142857142857,
+      "refOnsetSample": 6638,
+      "outOnsetSample": 6512
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@44100",
+      "semitones": -5,
+      "windowSize": 1024,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -37,
+      "onsetShiftMs": -0.8390022675736961,
+      "refOnsetSample": 6641,
+      "outOnsetSample": 6604
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@44100",
+      "semitones": -5,
+      "windowSize": 2048,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -41,
+      "onsetShiftMs": -0.9297052154195011,
+      "refOnsetSample": 6641,
+      "outOnsetSample": 6600
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@44100",
+      "semitones": -5,
+      "windowSize": 4096,
+      "sampleRate": 44100,
+      "onsetShiftSamples": -108,
+      "onsetShiftMs": -2.4489795918367347,
+      "refOnsetSample": 6641,
+      "outOnsetSample": 6533
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@48000",
+      "semitones": 7,
+      "windowSize": 1024,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -27,
+      "onsetShiftMs": -0.5625,
+      "refOnsetSample": 7227,
+      "outOnsetSample": 7200
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@48000",
+      "semitones": 7,
+      "windowSize": 2048,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -27,
+      "onsetShiftMs": -0.5625,
+      "refOnsetSample": 7227,
+      "outOnsetSample": 7200
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@48000",
+      "semitones": 7,
+      "windowSize": 4096,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -27,
+      "onsetShiftMs": -0.5625,
+      "refOnsetSample": 7227,
+      "outOnsetSample": 7200
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@48000",
+      "semitones": -5,
+      "windowSize": 1024,
+      "sampleRate": 48000,
+      "onsetShiftSamples": 67,
+      "onsetShiftMs": 1.3958333333333333,
+      "refOnsetSample": 7229,
+      "outOnsetSample": 7296
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@48000",
+      "semitones": -5,
+      "windowSize": 2048,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -125,
+      "onsetShiftMs": -2.6041666666666665,
+      "refOnsetSample": 7229,
+      "outOnsetSample": 7104
+    },
+    {
+      "scenario": "stable-dual",
+      "sourceId": "stable-dual@48000",
+      "semitones": -5,
+      "windowSize": 4096,
+      "sampleRate": 48000,
+      "onsetShiftSamples": -212,
+      "onsetShiftMs": -4.416666666666667,
+      "refOnsetSample": 7229,
+      "outOnsetSample": 7017
+    }
+  ],
+  "cases": [
+    {
+      "sourceId": "attack-window-edge@44100",
+      "scenario": "attack-window-edge",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 1024,
+      "inputFile": "inputs/attack-window-edge@44100.wav",
+      "referenceFile": "references/attack-window-edge@44100_plus7st.wav",
+      "referenceOnsetSample": 9732,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@44100_plus7st_w1024.wav",
+          "referenceOnsetSample": 9732,
+          "outputOnsetSample": 9734,
+          "onsetShiftSamples": 2,
+          "onsetShiftMs": 0.045351473922902494,
+          "fixedDelay": {
+            "measuredSamples": 40,
+            "measuredMs": 0.9070294784580499,
+            "correlation": 0.4893513856270328
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 7.667562226391899e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": -7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365386,
+                "slopeCentsPerSec": 7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@44100_plus7st_w1024.wav",
+          "referenceOnsetSample": 9732,
+          "outputOnsetSample": 9441,
+          "onsetShiftSamples": -291,
+          "onsetShiftMs": -6.598639455782313,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.6121667426260337
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 0.06321985440210282,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.03516880316962162,
+                "slopeCentsPerSec": 0.00972582410425615,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.0047740744299483995,
+                "slopeCentsPerSec": 0.06321985440210282,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.005357757960568081,
+                "slopeCentsPerSec": 0.009726097297327487,
+                "rangeCents": 0.2188323655871388
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 9084,
+            "endSample": 39690,
+            "startSec": 0.20598639455782314,
+            "endSec": 0.9,
+            "peakSample": 10164,
+            "peakSec": 0.23047619047619047,
+            "peakAbsDiff": 0.810394287109375,
+            "rmsDiff": 0.4815681397355818,
+            "inputSample": 10164,
+            "inputValue": 0.285491943359375,
+            "inputWindow": [
+              10160,
+              10169
+            ]
+          }
+        ],
+        "totalDifferingSamples": 30606
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@44100",
+      "scenario": "attack-window-edge",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 2048,
+      "inputFile": "inputs/attack-window-edge@44100.wav",
+      "referenceFile": "references/attack-window-edge@44100_plus7st.wav",
+      "referenceOnsetSample": 9732,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@44100_plus7st_w2048.wav",
+          "referenceOnsetSample": 9732,
+          "outputOnsetSample": 9536,
+          "onsetShiftSamples": -196,
+          "onsetShiftMs": -4.444444444444445,
+          "fixedDelay": {
+            "measuredSamples": 49,
+            "measuredMs": 1.1111111111111112,
+            "correlation": 0.5421022494296559
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 7.667562226391899e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": -7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365386,
+                "slopeCentsPerSec": 7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@44100_plus7st_w2048.wav",
+          "referenceOnsetSample": 9732,
+          "outputOnsetSample": 9165,
+          "onsetShiftSamples": -567,
+          "onsetShiftMs": -12.857142857142858,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.5941975370537294
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.26909015309354867,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.013446780728416605,
+                "slopeCentsPerSec": 0.20424845443197648,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.004786753149321745,
+                "slopeCentsPerSec": 0.21883519340800955,
+                "rangeCents": 0.5470982064419154
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": -0.0027625126979246573,
+                "slopeCentsPerSec": 0.26909015309354867,
+                "rangeCents": 0.6565247658859538
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 8909,
+            "endSample": 39690,
+            "startSec": 0.20201814058956916,
+            "endSec": 0.9,
+            "peakSample": 38125,
+            "peakSec": 0.8645124716553289,
+            "peakAbsDiff": 0.145721435546875,
+            "rmsDiff": 0.4740941853904187,
+            "inputSample": 38125,
+            "inputValue": 0.2774658203125,
+            "inputWindow": [
+              38121,
+              38130
+            ]
+          }
+        ],
+        "totalDifferingSamples": 30781
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@44100",
+      "scenario": "attack-window-edge",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 4096,
+      "inputFile": "inputs/attack-window-edge@44100.wav",
+      "referenceFile": "references/attack-window-edge@44100_plus7st.wav",
+      "referenceOnsetSample": 9732,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@44100_plus7st_w4096.wav",
+          "referenceOnsetSample": 9732,
+          "outputOnsetSample": 9550,
+          "onsetShiftSamples": -182,
+          "onsetShiftMs": -4.126984126984127,
+          "fixedDelay": {
+            "measuredSamples": 113,
+            "measuredMs": 2.562358276643991,
+            "correlation": 0.7605348264544746
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 7.667562226391899e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": -7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365386,
+                "slopeCentsPerSec": 7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@44100_plus7st_w4096.wav",
+          "referenceOnsetSample": 9732,
+          "outputOnsetSample": 8449,
+          "onsetShiftSamples": -1283,
+          "onsetShiftMs": -29.09297052154195,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.6957490393063227
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.17503901915200554,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.023022207539191264,
+                "slopeCentsPerSec": 0.17503901915200554,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.010867543058759286,
+                "slopeCentsPerSec": 0.009745187051252302,
+                "rangeCents": 0.5470982064419154
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": -0.00681206086127226,
+                "slopeCentsPerSec": 0.16858655284343527,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 8195,
+            "endSample": 39690,
+            "startSec": 0.18582766439909298,
+            "endSec": 0.9,
+            "peakSample": 10652,
+            "peakSec": 0.24154195011337867,
+            "peakAbsDiff": 0.196624755859375,
+            "rmsDiff": 0.3117230355745168,
+            "inputSample": 10652,
+            "inputValue": -0.274658203125,
+            "inputWindow": [
+              10648,
+              10657
+            ]
+          }
+        ],
+        "totalDifferingSamples": 31495
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@44100",
+      "scenario": "attack-window-edge",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 1024,
+      "inputFile": "inputs/attack-window-edge@44100.wav",
+      "referenceFile": "references/attack-window-edge@44100_minus5st.wav",
+      "referenceOnsetSample": 9741,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@44100_minus5st_w1024.wav",
+          "referenceOnsetSample": 9741,
+          "outputOnsetSample": 9690,
+          "onsetShiftSamples": -51,
+          "onsetShiftMs": -1.1564625850340136,
+          "fixedDelay": {
+            "measuredSamples": 66,
+            "measuredMs": 1.4965986394557824,
+            "correlation": 0.6347708191241513
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 1.5335124452783798e-31,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 1.5335124452783798e-31,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": -7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@44100_minus5st_w1024.wav",
+          "referenceOnsetSample": 9741,
+          "outputOnsetSample": 9504,
+          "onsetShiftSamples": -237,
+          "onsetShiftMs": -5.374149659863946,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.3051182412857025
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.290500894149724,
+            "maxAbsSlope": 0.0972643886635601,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.025610280476313096,
+                "slopeCentsPerSec": -0.0972643886635601,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.013460611405298103,
+                "slopeCentsPerSec": -0.029177472312768585,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.006801815512530764,
+                "slopeCentsPerSec": -0.09725892411151411,
+                "rangeCents": 0.2917826347622249
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 9157,
+            "endSample": 39690,
+            "startSec": 0.20764172335600908,
+            "endSec": 0.9,
+            "peakSample": 18784,
+            "peakSec": 0.42594104308390024,
+            "peakAbsDiff": 0.574432373046875,
+            "rmsDiff": 0.5316937934964009,
+            "inputSample": 18784,
+            "inputValue": -0.106536865234375,
+            "inputWindow": [
+              18780,
+              18789
+            ]
+          }
+        ],
+        "totalDifferingSamples": 30533
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@44100",
+      "scenario": "attack-window-edge",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 2048,
+      "inputFile": "inputs/attack-window-edge@44100.wav",
+      "referenceFile": "references/attack-window-edge@44100_minus5st.wav",
+      "referenceOnsetSample": 9741,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@44100_minus5st_w2048.wav",
+          "referenceOnsetSample": 9741,
+          "outputOnsetSample": 9595,
+          "onsetShiftSamples": -146,
+          "onsetShiftMs": -3.310657596371882,
+          "fixedDelay": {
+            "measuredSamples": 65,
+            "measuredMs": 1.4739229024943312,
+            "correlation": 0.6586227574539202
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 1.5335124452783798e-31,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 1.5335124452783798e-31,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": -7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@44100_minus5st_w2048.wav",
+          "referenceOnsetSample": 9741,
+          "outputOnsetSample": 8902,
+          "onsetShiftSamples": -839,
+          "onsetShiftMs": -19.024943310657594,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.5598602458380371
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.45712603093922954,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.023022207927692617,
+                "slopeCentsPerSec": -0.17507589959440806,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.01086639081000432,
+                "slopeCentsPerSec": -0.45712603093922954,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.01750281765499369,
+                "slopeCentsPerSec": -0.3501326751447561,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 8835,
+            "endSample": 39690,
+            "startSec": 0.20034013605442177,
+            "endSec": 0.9,
+            "peakSample": 9993,
+            "peakSec": 0.22659863945578232,
+            "peakAbsDiff": 0.44415283203125,
+            "rmsDiff": 0.20827975561299242,
+            "inputSample": 9993,
+            "inputValue": -0.389434814453125,
+            "inputWindow": [
+              9989,
+              9998
+            ]
+          }
+        ],
+        "totalDifferingSamples": 30855
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@44100",
+      "scenario": "attack-window-edge",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 4096,
+      "inputFile": "inputs/attack-window-edge@44100.wav",
+      "referenceFile": "references/attack-window-edge@44100_minus5st.wav",
+      "referenceOnsetSample": 9741,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@44100_minus5st_w4096.wav",
+          "referenceOnsetSample": 9741,
+          "outputOnsetSample": 9416,
+          "onsetShiftSamples": -325,
+          "onsetShiftMs": -7.369614512471656,
+          "fixedDelay": {
+            "measuredSamples": 113,
+            "measuredMs": 2.562358276643991,
+            "correlation": 0.8846152653082038
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 1.5335124452783798e-31,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 1.5335124452783798e-31,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": -7.667562226391899e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@44100_minus5st_w4096.wav",
+          "referenceOnsetSample": 9741,
+          "outputOnsetSample": 7304,
+          "onsetShiftSamples": -2437,
+          "onsetShiftMs": -55.26077097505669,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.7447297053520981
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.7283039756176545,
+            "maxAbsSlope": 0.11676030689558765,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.09600168038101808,
+                "slopeCentsPerSec": -0.1167123520293578,
+                "rangeCents": 1.3130772428619997
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.047367656227636154,
+                "slopeCentsPerSec": -0.11676030689558765,
+                "rangeCents": 1.0943001852223713
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.02303382011357851,
+                "slopeCentsPerSec": -0.006490302955482478,
+                "rangeCents": 0.7294873329682166
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 7660,
+            "endSample": 39690,
+            "startSec": 0.17369614512471657,
+            "endSec": 0.9,
+            "peakSample": 37752,
+            "peakSec": 0.8560544217687075,
+            "peakAbsDiff": 0.0623779296875,
+            "rmsDiff": 0.20522665436846332,
+            "inputSample": 37752,
+            "inputValue": 0.00384521484375,
+            "inputWindow": [
+              37748,
+              37757
+            ]
+          }
+        ],
+        "totalDifferingSamples": 32030
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@48000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 1024,
+      "inputFile": "inputs/attack-window-edge@48000.wav",
+      "referenceFile": "references/attack-window-edge@48000_plus7st.wav",
+      "referenceOnsetSample": 10596,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@48000_plus7st_w1024.wav",
+          "referenceOnsetSample": 10596,
+          "outputOnsetSample": 10568,
+          "onsetShiftSamples": -28,
+          "onsetShiftMs": -0.5833333333333334,
+          "fixedDelay": {
+            "measuredSamples": 34,
+            "measuredMs": 0.7083333333333334,
+            "correlation": 0.7441485868588011
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 2.545431376216683e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": 2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365386,
+                "slopeCentsPerSec": -2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@48000_plus7st_w1024.wav",
+          "referenceOnsetSample": 10596,
+          "outputOnsetSample": 10375,
+          "onsetShiftSamples": -221,
+          "onsetShiftMs": -4.604166666666667,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.3833193833750842
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 0.10026388930801705,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.038816009262740606,
+                "slopeCentsPerSec": -0.10026388930801705,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.011460753397034704,
+                "slopeCentsPerSec": -0.019280176696592814,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.019542054358294373,
+                "slopeCentsPerSec": -0.05398738148991961,
+                "rangeCents": 0.14588517024092468
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 10019,
+            "endSample": 43200,
+            "startSec": 0.20872916666666666,
+            "endSec": 0.9,
+            "peakSample": 11017,
+            "peakSec": 0.22952083333333334,
+            "peakAbsDiff": 0.351593017578125,
+            "rmsDiff": 0.46844928276399167,
+            "inputSample": 11017,
+            "inputValue": -0.325897216796875,
+            "inputWindow": [
+              11013,
+              11022
+            ]
+          }
+        ],
+        "totalDifferingSamples": 33181
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@48000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 2048,
+      "inputFile": "inputs/attack-window-edge@48000.wav",
+      "referenceFile": "references/attack-window-edge@48000_plus7st.wav",
+      "referenceOnsetSample": 10596,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@48000_plus7st_w2048.wav",
+          "referenceOnsetSample": 10596,
+          "outputOnsetSample": 10496,
+          "onsetShiftSamples": -100,
+          "onsetShiftMs": -2.0833333333333335,
+          "fixedDelay": {
+            "measuredSamples": 51,
+            "measuredMs": 1.0625,
+            "correlation": 0.8373125593600437
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 2.545431376216683e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": 2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365386,
+                "slopeCentsPerSec": -2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@48000_plus7st_w2048.wav",
+          "referenceOnsetSample": 10596,
+          "outputOnsetSample": 9888,
+          "onsetShiftSamples": -708,
+          "onsetShiftMs": -14.75,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.717861062976102
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.16196961984110073,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.026821252804207683,
+                "slopeCentsPerSec": -0.16196961984110073,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.004941473341702615,
+                "slopeCentsPerSec": -0.15425823140271783,
+                "rangeCents": 0.5470982064419154
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.02317573671286656,
+                "slopeCentsPerSec": -0.1593962594623833,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 9590,
+            "endSample": 43200,
+            "startSec": 0.19979166666666667,
+            "endSec": 0.9,
+            "peakSample": 11171,
+            "peakSec": 0.23272916666666665,
+            "peakAbsDiff": 0.15960693359375,
+            "rmsDiff": 0.1462685083440077,
+            "inputSample": 11171,
+            "inputValue": -0.42840576171875,
+            "inputWindow": [
+              11167,
+              11176
+            ]
+          }
+        ],
+        "totalDifferingSamples": 33610
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@48000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 4096,
+      "inputFile": "inputs/attack-window-edge@48000.wav",
+      "referenceFile": "references/attack-window-edge@48000_plus7st.wav",
+      "referenceOnsetSample": 10596,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@48000_plus7st_w4096.wav",
+          "referenceOnsetSample": 10596,
+          "outputOnsetSample": 10497,
+          "onsetShiftSamples": -99,
+          "onsetShiftMs": -2.0625,
+          "fixedDelay": {
+            "measuredSamples": 100,
+            "measuredMs": 2.0833333333333335,
+            "correlation": 0.7668867693770609
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 2.545431376216683e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": 2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365386,
+                "slopeCentsPerSec": -2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@48000_plus7st_w4096.wav",
+          "referenceOnsetSample": 10596,
+          "outputOnsetSample": 9216,
+          "onsetShiftSamples": -1380,
+          "onsetShiftMs": -28.75,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.49218404399632515
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.31623053263091233,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.03776148821012715,
+                "slopeCentsPerSec": -0.12339976062440361,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.006001182311245671,
+                "slopeCentsPerSec": -0.31623053263091233,
+                "rangeCents": 0.5470982064419154
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.019528530688766095,
+                "slopeCentsPerSec": -0.11568845340202348,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 8940,
+            "endSample": 43200,
+            "startSec": 0.18625,
+            "endSec": 0.9,
+            "peakSample": 11078,
+            "peakSec": 0.23079166666666667,
+            "peakAbsDiff": 0.0030517578125,
+            "rmsDiff": 0.48103859261441567,
+            "inputSample": 11078,
+            "inputValue": 0.471221923828125,
+            "inputWindow": [
+              11074,
+              11083
+            ]
+          }
+        ],
+        "totalDifferingSamples": 34260
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@48000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 1024,
+      "inputFile": "inputs/attack-window-edge@48000.wav",
+      "referenceFile": "references/attack-window-edge@48000_minus5st.wav",
+      "referenceOnsetSample": 10617,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@48000_minus5st_w1024.wav",
+          "referenceOnsetSample": 10617,
+          "outputOnsetSample": 10577,
+          "onsetShiftSamples": -40,
+          "onsetShiftMs": -0.8333333333333334,
+          "fixedDelay": {
+            "measuredSamples": 55,
+            "measuredMs": 1.1458333333333333,
+            "correlation": 0.5587077796912913
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 5.090862752433366e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": -5.090862752433366e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": 2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@48000_minus5st_w1024.wav",
+          "referenceOnsetSample": 10617,
+          "outputOnsetSample": 10176,
+          "onsetShiftSamples": -441,
+          "onsetShiftMs": -9.1875,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.5303403272509375
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.290500894149724,
+            "maxAbsSlope": 0.3856547188992463,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.03776840257731452,
+                "slopeCentsPerSec": 0.3856547188992463,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.026833700413401024,
+                "slopeCentsPerSec": 0.06941346182862723,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.015892389413420062,
+                "slopeCentsPerSec": 0.17482233893365062,
+                "rangeCents": 0.2917826347622249
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 9908,
+            "endSample": 43200,
+            "startSec": 0.20641666666666666,
+            "endSec": 0.9,
+            "peakSample": 11092,
+            "peakSec": 0.23108333333333334,
+            "peakAbsDiff": 0.1749267578125,
+            "rmsDiff": 0.16458355487456963,
+            "inputSample": 11092,
+            "inputValue": 0.32696533203125,
+            "inputWindow": [
+              11088,
+              11097
+            ]
+          }
+        ],
+        "totalDifferingSamples": 33292
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@48000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 2048,
+      "inputFile": "inputs/attack-window-edge@48000.wav",
+      "referenceFile": "references/attack-window-edge@48000_minus5st.wav",
+      "referenceOnsetSample": 10617,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@48000_minus5st_w2048.wav",
+          "referenceOnsetSample": 10617,
+          "outputOnsetSample": 10477,
+          "onsetShiftSamples": -140,
+          "onsetShiftMs": -2.916666666666667,
+          "fixedDelay": {
+            "measuredSamples": 71,
+            "measuredMs": 1.4791666666666665,
+            "correlation": 0.5636847196331826
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 5.090862752433366e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": -5.090862752433366e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": 2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@48000_minus5st_w2048.wav",
+          "referenceOnsetSample": 10617,
+          "outputOnsetSample": 9792,
+          "onsetShiftSamples": -825,
+          "onsetShiftMs": -17.1875,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.44869039272588224
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.287934725531943,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.006000836986290617,
+                "slopeCentsPerSec": 0.13883569880372865,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.004940781992368753,
+                "slopeCentsPerSec": 0.25452090277219963,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.01588009534034543,
+                "slopeCentsPerSec": 0.287934725531943,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 9597,
+            "endSample": 43200,
+            "startSec": 0.1999375,
+            "endSec": 0.9,
+            "peakSample": 11647,
+            "peakSec": 0.24264583333333334,
+            "peakAbsDiff": 0.334869384765625,
+            "rmsDiff": 0.4231446654693318,
+            "inputSample": 11647,
+            "inputValue": 0.347564697265625,
+            "inputWindow": [
+              11643,
+              11652
+            ]
+          }
+        ],
+        "totalDifferingSamples": 33603
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@48000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 4096,
+      "inputFile": "inputs/attack-window-edge@48000.wav",
+      "referenceFile": "references/attack-window-edge@48000_minus5st.wav",
+      "referenceOnsetSample": 10617,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@48000_minus5st_w4096.wav",
+          "referenceOnsetSample": 10617,
+          "outputOnsetSample": 10290,
+          "onsetShiftSamples": -327,
+          "onsetShiftMs": -6.8125,
+          "fixedDelay": {
+            "measuredSamples": 120,
+            "measuredMs": 2.5,
+            "correlation": 0.3902325682410674
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 5.090862752433366e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": -5.090862752433366e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081144,
+                "slopeCentsPerSec": 2.545431376216683e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@48000_minus5st_w4096.wav",
+          "referenceOnsetSample": 10617,
+          "outputOnsetSample": 8640,
+          "onsetShiftSamples": -1977,
+          "onsetShiftMs": -41.1875,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.7196529261647433
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.7283039756176545,
+            "maxAbsSlope": 0.40109217933110425,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.11544053877008528,
+                "slopeCentsPerSec": 0.30854328037642426,
+                "rangeCents": 0.8754954771039818
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.027935258397511452,
+                "slopeCentsPerSec": 0.18511817105367814,
+                "rangeCents": 1.0943001852223713
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.027907589063463235,
+                "slopeCentsPerSec": 0.40109217933110425,
+                "rangeCents": 0.8754216927662215
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 9319,
+            "endSample": 43200,
+            "startSec": 0.19414583333333332,
+            "endSec": 0.9,
+            "peakSample": 40990,
+            "peakSec": 0.8539583333333334,
+            "peakAbsDiff": 0.212921142578125,
+            "rmsDiff": 0.2394976170493548,
+            "inputSample": 40990,
+            "inputValue": -0.4368896484375,
+            "inputWindow": [
+              40986,
+              40995
+            ]
+          }
+        ],
+        "totalDifferingSamples": 33881
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@96000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 96000,
+      "semitones": 7,
+      "windowSize": 1024,
+      "inputFile": "inputs/attack-window-edge@96000.wav",
+      "referenceFile": "references/attack-window-edge@96000_plus7st.wav",
+      "referenceOnsetSample": 21192,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@96000_plus7st_w1024.wav",
+          "referenceOnsetSample": 21192,
+          "outputOnsetSample": 21242,
+          "onsetShiftSamples": 50,
+          "onsetShiftMs": 0.5208333333333334,
+          "fixedDelay": {
+            "measuredSamples": 159,
+            "measuredMs": 1.65625,
+            "correlation": 0.9098131068573576
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.1810674206302943,
+            "maxAbsSlope": 0.0185849993535698,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081139,
+                "slopeCentsPerSec": -6.952848494866711e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.0003935997460390359,
+                "slopeCentsPerSec": -0.0185849993535698,
+                "rangeCents": 0.32825892211662167
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026834,
+                "slopeCentsPerSec": -1.214192292302091e-33,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@96000_plus7st_w1024.wav",
+          "referenceOnsetSample": 21192,
+          "outputOnsetSample": 20939,
+          "onsetShiftSamples": -253,
+          "onsetShiftMs": -2.6354166666666665,
+          "fixedDelay": {
+            "measuredSamples": 5760,
+            "measuredMs": 60,
+            "correlation": 0.7529613357433173
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.47538819429759327,
+            "maxAbsSlope": 0.055773893574497135,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.04110611541423393,
+                "slopeCentsPerSec": 0.05266748454462434,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.0004125771257339251,
+                "slopeCentsPerSec": -0.055773893574497135,
+                "rangeCents": 0.87532947983102
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013053305662012924,
+                "slopeCentsPerSec": 0.02685104737652963,
+                "rangeCents": 0.2188323655871388
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 20092,
+            "endSample": 86400,
+            "startSec": 0.20929166666666665,
+            "endSec": 0.9,
+            "peakSample": 21724,
+            "peakSec": 0.22629166666666667,
+            "peakAbsDiff": 0.033050537109375,
+            "rmsDiff": 0.16799338104464293,
+            "inputSample": 21724,
+            "inputValue": -0.235076904296875,
+            "inputWindow": [
+              21720,
+              21729
+            ]
+          }
+        ],
+        "totalDifferingSamples": 66308
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@96000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 96000,
+      "semitones": 7,
+      "windowSize": 2048,
+      "inputFile": "inputs/attack-window-edge@96000.wav",
+      "referenceFile": "references/attack-window-edge@96000_plus7st.wav",
+      "referenceOnsetSample": 21192,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@96000_plus7st_w2048.wav",
+          "referenceOnsetSample": 21192,
+          "outputOnsetSample": 21135,
+          "onsetShiftSamples": -57,
+          "onsetShiftMs": -0.59375,
+          "fixedDelay": {
+            "measuredSamples": 68,
+            "measuredMs": 0.7083333333333334,
+            "correlation": 0.6311529859864555
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 6.952848494866711e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081139,
+                "slopeCentsPerSec": -6.952848494866711e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": -6.748352950900042e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026834,
+                "slopeCentsPerSec": -1.214192292302091e-33,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@96000_plus7st_w2048.wav",
+          "referenceOnsetSample": 21192,
+          "outputOnsetSample": 20750,
+          "onsetShiftSamples": -442,
+          "onsetShiftMs": -4.604166666666667,
+          "fixedDelay": {
+            "measuredSamples": 5760,
+            "measuredMs": 60,
+            "correlation": 0.3211410606345928
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.04750779234174746,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.01995051623105465,
+                "slopeCentsPerSec": -0.0030953457370515637,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.00294692739249717,
+                "slopeCentsPerSec": -0.0030953457370515728,
+                "rangeCents": 0.5470982064419154
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": -0.00040569756399694615,
+                "slopeCentsPerSec": -0.04750779234174746,
+                "rangeCents": 0.6565247658859538
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 20039,
+            "endSample": 86400,
+            "startSec": 0.20873958333333334,
+            "endSec": 0.9,
+            "peakSample": 22034,
+            "peakSec": 0.22952083333333334,
+            "peakAbsDiff": 0.3515625,
+            "rmsDiff": 0.46855801668384617,
+            "inputSample": 22034,
+            "inputValue": -0.325897216796875,
+            "inputWindow": [
+              22030,
+              22039
+            ]
+          }
+        ],
+        "totalDifferingSamples": 66361
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@96000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 96000,
+      "semitones": 7,
+      "windowSize": 4096,
+      "inputFile": "inputs/attack-window-edge@96000.wav",
+      "referenceFile": "references/attack-window-edge@96000_plus7st.wav",
+      "referenceOnsetSample": 21192,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@96000_plus7st_w4096.wav",
+          "referenceOnsetSample": 21192,
+          "outputOnsetSample": 20992,
+          "onsetShiftSamples": -200,
+          "onsetShiftMs": -2.0833333333333335,
+          "fixedDelay": {
+            "measuredSamples": 101,
+            "measuredMs": 1.0520833333333333,
+            "correlation": 0.7799976460512288
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 6.952848494866711e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081139,
+                "slopeCentsPerSec": -6.952848494866711e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": -6.748352950900042e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026834,
+                "slopeCentsPerSec": -1.214192292302091e-33,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@96000_plus7st_w4096.wav",
+          "referenceOnsetSample": 21192,
+          "outputOnsetSample": 19776,
+          "onsetShiftSamples": -1416,
+          "onsetShiftMs": -14.75,
+          "fixedDelay": {
+            "measuredSamples": 5760,
+            "measuredMs": 60,
+            "correlation": 0.6706602361825801
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.09500074499844524,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.04620682034244365,
+                "slopeCentsPerSec": -0.06506296709393083,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.014864607882080619,
+                "slopeCentsPerSec": -0.07280284976406082,
+                "rangeCents": 0.43766473292248564
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": -0.0037945159227596088,
+                "slopeCentsPerSec": -0.09500074499844524,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 19179,
+            "endSample": 86400,
+            "startSec": 0.19978125,
+            "endSec": 0.9,
+            "peakSample": 22340,
+            "peakSec": 0.23270833333333332,
+            "peakAbsDiff": 0.16680908203125,
+            "rmsDiff": 0.14860137715026794,
+            "inputSample": 22340,
+            "inputValue": -0.417388916015625,
+            "inputWindow": [
+              22336,
+              22345
+            ]
+          }
+        ],
+        "totalDifferingSamples": 67221
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@96000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 96000,
+      "semitones": -5,
+      "windowSize": 1024,
+      "inputFile": "inputs/attack-window-edge@96000.wav",
+      "referenceFile": "references/attack-window-edge@96000_minus5st.wav",
+      "referenceOnsetSample": 21233,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@96000_minus5st_w1024.wav",
+          "referenceOnsetSample": 21233,
+          "outputOnsetSample": 21129,
+          "onsetShiftSamples": -104,
+          "onsetShiftMs": -1.0833333333333333,
+          "fixedDelay": {
+            "measuredSamples": 287,
+            "measuredMs": 2.989583333333333,
+            "correlation": 0.660785395535459
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.290500894149724,
+            "maxAbsSlope": 0.04647248485907399,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": -3.271928703466687e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.025051863380441203,
+                "slopeCentsPerSec": 0.04647248485907399,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026834,
+                "slopeCentsPerSec": -1.214192292302091e-33,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@96000_minus5st_w1024.wav",
+          "referenceOnsetSample": 21233,
+          "outputOnsetSample": 21032,
+          "onsetShiftSamples": -201,
+          "onsetShiftMs": -2.09375,
+          "fixedDelay": {
+            "measuredSamples": 5760,
+            "measuredMs": 60,
+            "correlation": 0.367525969785311
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.290500894149724,
+            "maxAbsSlope": 0.04337491962301397,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.045402572268641035,
+                "slopeCentsPerSec": -0.03098283153947438,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.005485458744440838,
+                "slopeCentsPerSec": -0.027887485802422833,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.014874185621215336,
+                "slopeCentsPerSec": 0.04337491962301397,
+                "rangeCents": 0.2917826347622249
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 20236,
+            "endSample": 86400,
+            "startSec": 0.21079166666666665,
+            "endSec": 0.9,
+            "peakSample": 65426,
+            "peakSec": 0.6815208333333334,
+            "peakAbsDiff": 0.542144775390625,
+            "rmsDiff": 0.3990715183717824,
+            "inputSample": 65426,
+            "inputValue": -0.421051025390625,
+            "inputWindow": [
+              65422,
+              65431
+            ]
+          }
+        ],
+        "totalDifferingSamples": 66164
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@96000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 96000,
+      "semitones": -5,
+      "windowSize": 2048,
+      "inputFile": "inputs/attack-window-edge@96000.wav",
+      "referenceFile": "references/attack-window-edge@96000_minus5st.wav",
+      "referenceOnsetSample": 21233,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@96000_minus5st_w2048.wav",
+          "referenceOnsetSample": 21233,
+          "outputOnsetSample": 21153,
+          "onsetShiftSamples": -80,
+          "onsetShiftMs": -0.8333333333333334,
+          "fixedDelay": {
+            "measuredSamples": 111,
+            "measuredMs": 1.15625,
+            "correlation": 0.5240503360842262
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 0.0030980873261543776,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": -3.271928703466687e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.06655173931971516,
+                "slopeCentsPerSec": 0.0030980873261543776,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026834,
+                "slopeCentsPerSec": -1.214192292302091e-33,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@96000_minus5st_w2048.wav",
+          "referenceOnsetSample": 21233,
+          "outputOnsetSample": 20352,
+          "onsetShiftSamples": -881,
+          "onsetShiftMs": -9.177083333333334,
+          "fixedDelay": {
+            "measuredSamples": 5760,
+            "measuredMs": 60,
+            "correlation": 0.5054260614993091
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.19208454905030375,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.02584967818373944,
+                "slopeCentsPerSec": -0.006196566307894862,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.0004053398590111678,
+                "slopeCentsPerSec": -0.19208454905030375,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.008886285668750032,
+                "slopeCentsPerSec": -0.09294066202006054,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 19815,
+            "endSample": 86400,
+            "startSec": 0.20640625,
+            "endSec": 0.9,
+            "peakSample": 22183,
+            "peakSec": 0.23107291666666666,
+            "peakAbsDiff": 0.1771240234375,
+            "rmsDiff": 0.1645843207999074,
+            "inputSample": 22183,
+            "inputValue": 0.3328857421875,
+            "inputWindow": [
+              22179,
+              22188
+            ]
+          }
+        ],
+        "totalDifferingSamples": 66585
+      }
+    },
+    {
+      "sourceId": "attack-window-edge@96000",
+      "scenario": "attack-window-edge",
+      "sampleRate": 96000,
+      "semitones": -5,
+      "windowSize": 4096,
+      "inputFile": "inputs/attack-window-edge@96000.wav",
+      "referenceFile": "references/attack-window-edge@96000_minus5st.wav",
+      "referenceOnsetSample": 21233,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/attack-window-edge@96000_minus5st_w4096.wav",
+          "referenceOnsetSample": 21233,
+          "outputOnsetSample": 20955,
+          "onsetShiftSamples": -278,
+          "onsetShiftMs": -2.895833333333333,
+          "fixedDelay": {
+            "measuredSamples": 142,
+            "measuredMs": 1.4791666666666665,
+            "correlation": 0.5398313741050974
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 0.030980873261543695,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": -3.271928703466687e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.03601699063313768,
+                "slopeCentsPerSec": 0.030980873261543695,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026834,
+                "slopeCentsPerSec": -1.214192292302091e-33,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 86400,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/attack-window-edge@96000_minus5st_w4096.wav",
+          "referenceOnsetSample": 21233,
+          "outputOnsetSample": 19584,
+          "onsetShiftSamples": -1649,
+          "onsetShiftMs": -17.177083333333332,
+          "fixedDelay": {
+            "measuredSamples": 5760,
+            "measuredMs": 60,
+            "correlation": 0.42667023683944055
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.7283039756176545,
+            "maxAbsSlope": 0.23751171749338823,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.08693848024903203,
+                "slopeCentsPerSec": 0.16112952822768647,
+                "rangeCents": 0.8754954771039818
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.00975811243256014,
+                "slopeCentsPerSec": 0.10844989829907596,
+                "rangeCents": 0.8753848052608038
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.0021306694119805087,
+                "slopeCentsPerSec": 0.23751171749338823,
+                "rangeCents": 1.1672289430324194
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 19194,
+            "endSample": 86400,
+            "startSec": 0.1999375,
+            "endSec": 0.9,
+            "peakSample": 23299,
+            "peakSec": 0.24269791666666668,
+            "peakAbsDiff": 0.38336181640625,
+            "rmsDiff": 0.42445017767226945,
+            "inputSample": 23299,
+            "inputValue": 0.4013671875,
+            "inputWindow": [
+              23295,
+              23304
+            ]
+          }
+        ],
+        "totalDifferingSamples": 67206
+      }
+    },
+    {
+      "sourceId": "short-attack@44100",
+      "scenario": "short-attack",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 1024,
+      "inputFile": "inputs/short-attack@44100.wav",
+      "referenceFile": "references/short-attack@44100_plus7st.wav",
+      "referenceOnsetSample": 4436,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@44100_plus7st_w1024.wav",
+          "referenceOnsetSample": 4436,
+          "outputOnsetSample": 4402,
+          "onsetShiftSamples": -34,
+          "onsetShiftMs": -0.7709750566893424,
+          "fixedDelay": {
+            "measuredSamples": 22,
+            "measuredMs": 0.4988662131519275,
+            "correlation": 0.7667563580849901
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 5.082761491058359e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365387,
+                "slopeCentsPerSec": 1.835441649548852e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@44100_plus7st_w1024.wav",
+          "referenceOnsetSample": 4436,
+          "outputOnsetSample": 4136,
+          "onsetShiftSamples": -300,
+          "onsetShiftMs": -6.802721088435374,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.9059585901587813
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 0.13037778328657443,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.043097512067706345,
+                "slopeCentsPerSec": 0.07450058147845252,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.004476244634235055,
+                "slopeCentsPerSec": 0.13037778328657443,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.004477280266927243,
+                "slopeCentsPerSec": 0.027936933233044615,
+                "rangeCents": 0.14589131712219838
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3797,
+            "endSample": 39690,
+            "startSec": 0.08609977324263038,
+            "endSec": 0.9,
+            "peakSample": 9674,
+            "peakSec": 0.21936507936507937,
+            "peakAbsDiff": 0.056732177734375,
+            "rmsDiff": 0.21783936564953071,
+            "inputSample": 9674,
+            "inputValue": 0.169525146484375,
+            "inputWindow": [
+              9670,
+              9679
+            ]
+          }
+        ],
+        "totalDifferingSamples": 35893
+      }
+    },
+    {
+      "sourceId": "short-attack@44100",
+      "scenario": "short-attack",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 2048,
+      "inputFile": "inputs/short-attack@44100.wav",
+      "referenceFile": "references/short-attack@44100_plus7st.wav",
+      "referenceOnsetSample": 4436,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@44100_plus7st_w2048.wav",
+          "referenceOnsetSample": 4436,
+          "outputOnsetSample": 4318,
+          "onsetShiftSamples": -118,
+          "onsetShiftMs": -2.675736961451247,
+          "fixedDelay": {
+            "measuredSamples": 45,
+            "measuredMs": 1.0204081632653061,
+            "correlation": 0.6025398622366199
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 5.082761491058359e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365387,
+                "slopeCentsPerSec": 1.835441649548852e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@44100_plus7st_w2048.wav",
+          "referenceOnsetSample": 4436,
+          "outputOnsetSample": 3784,
+          "onsetShiftSamples": -652,
+          "onsetShiftMs": -14.784580498866212,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.7017406826924177
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.051220768547225834,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.023490413366884125,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.009220089762338353,
+                "slopeCentsPerSec": -0.051220768547225834,
+                "rangeCents": 0.5470982064419154
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.010804612057839552,
+                "slopeCentsPerSec": 0.00930904046522843,
+                "rangeCents": 0.6565247658859538
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3521,
+            "endSample": 39690,
+            "startSec": 0.07984126984126984,
+            "endSec": 0.9,
+            "peakSample": 38252,
+            "peakSec": 0.8673922902494331,
+            "peakAbsDiff": 0.24127197265625,
+            "rmsDiff": 0.23741468711868155,
+            "inputSample": 38252,
+            "inputValue": 0.358795166015625,
+            "inputWindow": [
+              38248,
+              38257
+            ]
+          }
+        ],
+        "totalDifferingSamples": 36169
+      }
+    },
+    {
+      "sourceId": "short-attack@44100",
+      "scenario": "short-attack",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 4096,
+      "inputFile": "inputs/short-attack@44100.wav",
+      "referenceFile": "references/short-attack@44100_plus7st.wav",
+      "referenceOnsetSample": 4436,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@44100_plus7st_w4096.wav",
+          "referenceOnsetSample": 4436,
+          "outputOnsetSample": 4324,
+          "onsetShiftSamples": -112,
+          "onsetShiftMs": -2.5396825396825395,
+          "fixedDelay": {
+            "measuredSamples": 94,
+            "measuredMs": 2.131519274376417,
+            "correlation": 0.6150840686292723
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 5.082761491058359e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365387,
+                "slopeCentsPerSec": 1.835441649548852e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@44100_plus7st_w4096.wav",
+          "referenceOnsetSample": 4436,
+          "outputOnsetSample": 2904,
+          "onsetShiftSamples": -1532,
+          "onsetShiftMs": -34.739229024943306,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.7390260367144057
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.39994128553342684,
+            "maxAbsSlope": 0.12106079687455974,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.005049331170297088,
+                "slopeCentsPerSec": -0.05587543610883949,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.024082442487120215,
+                "slopeCentsPerSec": 0.12106079687455974,
+                "rangeCents": 0.6565385978256182
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": -0.001880119316347312,
+                "slopeCentsPerSec": 0.09933253938488322,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 2814,
+            "endSample": 39690,
+            "startSec": 0.06380952380952382,
+            "endSec": 0.9,
+            "peakSample": 18060,
+            "peakSec": 0.4095238095238095,
+            "peakAbsDiff": 0.1639404296875,
+            "rmsDiff": 0.2614768558278658,
+            "inputSample": 18060,
+            "inputValue": 0.475250244140625,
+            "inputWindow": [
+              18056,
+              18065
+            ]
+          }
+        ],
+        "totalDifferingSamples": 36876
+      }
+    },
+    {
+      "sourceId": "short-attack@44100",
+      "scenario": "short-attack",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 1024,
+      "inputFile": "inputs/short-attack@44100.wav",
+      "referenceFile": "references/short-attack@44100_minus5st.wav",
+      "referenceOnsetSample": 4427,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@44100_minus5st_w1024.wav",
+          "referenceOnsetSample": 4427,
+          "outputOnsetSample": 4360,
+          "onsetShiftSamples": -67,
+          "onsetShiftMs": -1.5192743764172334,
+          "fixedDelay": {
+            "measuredSamples": 18,
+            "measuredMs": 0.40816326530612246,
+            "correlation": 0.5879980540738198
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 5.082761491058359e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@44100_minus5st_w1024.wav",
+          "referenceOnsetSample": 4427,
+          "outputOnsetSample": 4136,
+          "onsetShiftSamples": -291,
+          "onsetShiftMs": -6.598639455782313,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.8671854408459813
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.290500894149724,
+            "maxAbsSlope": 0.14901058120946964,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.013980772379703034,
+                "slopeCentsPerSec": -0.14901058120946964,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.023503642676205444,
+                "slopeCentsPerSec": -0.01862514536961304,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.011384146537433346,
+                "slopeCentsPerSec": -0.012417025183167306,
+                "rangeCents": 0.2917826347622249
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3825,
+            "endSample": 39690,
+            "startSec": 0.08673469387755102,
+            "endSec": 0.9,
+            "peakSample": 19305,
+            "peakSec": 0.4377551020408163,
+            "peakAbsDiff": 0.100921630859375,
+            "rmsDiff": 0.16477137575786685,
+            "inputSample": 19305,
+            "inputValue": 0.074493408203125,
+            "inputWindow": [
+              19301,
+              19310
+            ]
+          }
+        ],
+        "totalDifferingSamples": 35865
+      }
+    },
+    {
+      "sourceId": "short-attack@44100",
+      "scenario": "short-attack",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 2048,
+      "inputFile": "inputs/short-attack@44100.wav",
+      "referenceFile": "references/short-attack@44100_minus5st.wav",
+      "referenceOnsetSample": 4427,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@44100_minus5st_w2048.wav",
+          "referenceOnsetSample": 4427,
+          "outputOnsetSample": 4268,
+          "onsetShiftSamples": -159,
+          "onsetShiftMs": -3.6054421768707483,
+          "fixedDelay": {
+            "measuredSamples": 48,
+            "measuredMs": 1.0884353741496597,
+            "correlation": 0.8906555294361893
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 5.082761491058359e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@44100_minus5st_w2048.wav",
+          "referenceOnsetSample": 4427,
+          "outputOnsetSample": 3618,
+          "onsetShiftSamples": -809,
+          "onsetShiftMs": -18.34467120181406,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.715635962425922
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.5093885956560871,
+            "maxAbsSlope": 0.10243594556469207,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.043109540094564525,
+                "slopeCentsPerSec": -0.01862632265118365,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.033609522137305003,
+                "slopeCentsPerSec": 0.10243594556469207,
+                "rangeCents": 0.8753848052608038
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.03041852705702969,
+                "slopeCentsPerSec": 0.03103707005750917,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3389,
+            "endSample": 39690,
+            "startSec": 0.07684807256235827,
+            "endSec": 0.9,
+            "peakSample": 4861,
+            "peakSec": 0.11022675736961451,
+            "peakAbsDiff": 0.001861572265625,
+            "rmsDiff": 0.12682960102337842,
+            "inputSample": 4861,
+            "inputValue": 0.1854248046875,
+            "inputWindow": [
+              4857,
+              4866
+            ]
+          }
+        ],
+        "totalDifferingSamples": 36301
+      }
+    },
+    {
+      "sourceId": "short-attack@44100",
+      "scenario": "short-attack",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 4096,
+      "inputFile": "inputs/short-attack@44100.wav",
+      "referenceFile": "references/short-attack@44100_minus5st.wav",
+      "referenceOnsetSample": 4427,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@44100_minus5st_w4096.wav",
+          "referenceOnsetSample": 4427,
+          "outputOnsetSample": 4090,
+          "onsetShiftSamples": -337,
+          "onsetShiftMs": -7.64172335600907,
+          "fixedDelay": {
+            "measuredSamples": 86,
+            "measuredMs": 1.9501133786848073,
+            "correlation": 0.526835373528928
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 5.082761491058359e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -5.082761491058359e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0013063312454026819,
+                "slopeCentsPerSec": 0,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 39690,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@44100_minus5st_w4096.wav",
+          "referenceOnsetSample": 4427,
+          "outputOnsetSample": 2904,
+          "onsetShiftSamples": -1523,
+          "onsetShiftMs": -34.53514739229025,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.7950124136163828
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.7283039756176545,
+            "maxAbsSlope": 0.5215417612184398,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.013937475129101368,
+                "slopeCentsPerSec": 0.5215417612184398,
+                "rangeCents": 1.3130772428619997
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.01458783851061142,
+                "slopeCentsPerSec": 0.1490294200962489,
+                "rangeCents": 0.8753848052608038
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": -0.017758521312505982,
+                "slopeCentsPerSec": 0.1924782813867184,
+                "rangeCents": 0.8754216927662215
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 2564,
+            "endSample": 39690,
+            "startSec": 0.058140589569160996,
+            "endSec": 0.9,
+            "peakSample": 4870,
+            "peakSec": 0.11043083900226758,
+            "peakAbsDiff": 0.08270263671875,
+            "rmsDiff": 0.25986855400963055,
+            "inputSample": 4870,
+            "inputValue": 0.102325439453125,
+            "inputWindow": [
+              4866,
+              4875
+            ]
+          }
+        ],
+        "totalDifferingSamples": 37126
+      }
+    },
+    {
+      "sourceId": "short-attack@48000",
+      "scenario": "short-attack",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 1024,
+      "inputFile": "inputs/short-attack@48000.wav",
+      "referenceFile": "references/short-attack@48000_plus7st.wav",
+      "referenceOnsetSample": 4829,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@48000_plus7st_w1024.wav",
+          "referenceOnsetSample": 4829,
+          "outputOnsetSample": 4737,
+          "onsetShiftSamples": -92,
+          "onsetShiftMs": -1.9166666666666665,
+          "fixedDelay": {
+            "measuredSamples": 15,
+            "measuredMs": 0.3125,
+            "correlation": 0.5078604000628951
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 2.3148196446961975e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365387,
+                "slopeCentsPerSec": -2.3148196446961974e-33,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.001306331245402682,
+                "slopeCentsPerSec": 1.8084528474189043e-34,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@48000_plus7st_w1024.wav",
+          "referenceOnsetSample": 4829,
+          "outputOnsetSample": 4416,
+          "onsetShiftSamples": -413,
+          "onsetShiftMs": -8.604166666666666,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.43951040768334504
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 0.045591627660543074,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.04639097576383387,
+                "slopeCentsPerSec": 0.017534644678456647,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.021139757572665605,
+                "slopeCentsPerSec": -0.045591627660543074,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.018139471912512754,
+                "slopeCentsPerSec": 0.007013808611295876,
+                "rangeCents": 0.14588517024092468
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 4118,
+            "endSample": 43200,
+            "startSec": 0.08579166666666667,
+            "endSec": 0.9,
+            "peakSample": 5577,
+            "peakSec": 0.1161875,
+            "peakAbsDiff": 0.2423095703125,
+            "rmsDiff": 0.4750379929942049,
+            "inputSample": 5577,
+            "inputValue": 0.21673583984375,
+            "inputWindow": [
+              5573,
+              5582
+            ]
+          }
+        ],
+        "totalDifferingSamples": 39082
+      }
+    },
+    {
+      "sourceId": "short-attack@48000",
+      "scenario": "short-attack",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 2048,
+      "inputFile": "inputs/short-attack@48000.wav",
+      "referenceFile": "references/short-attack@48000_plus7st.wav",
+      "referenceOnsetSample": 4829,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@48000_plus7st_w2048.wav",
+          "referenceOnsetSample": 4829,
+          "outputOnsetSample": 4743,
+          "onsetShiftSamples": -86,
+          "onsetShiftMs": -1.7916666666666667,
+          "fixedDelay": {
+            "measuredSamples": 39,
+            "measuredMs": 0.8125,
+            "correlation": 0.6124235133160827
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 2.3148196446961975e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365387,
+                "slopeCentsPerSec": -2.3148196446961974e-33,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.001306331245402682,
+                "slopeCentsPerSec": 1.8084528474189043e-34,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@48000_plus7st_w2048.wav",
+          "referenceOnsetSample": 4829,
+          "outputOnsetSample": 4128,
+          "onsetShiftSamples": -701,
+          "onsetShiftMs": -14.604166666666666,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.7748734860451372
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.18235232754857292,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.012512663487466415,
+                "slopeCentsPerSec": 0.18235232754857292,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": -0.008525585995711533,
+                "slopeCentsPerSec": 0.1350162662114225,
+                "rangeCents": 0.5470982064419154
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": -0.012735806786670705,
+                "slopeCentsPerSec": 0.13209008846029768,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3890,
+            "endSample": 43200,
+            "startSec": 0.08104166666666666,
+            "endSec": 0.9,
+            "peakSample": 5945,
+            "peakSec": 0.12385416666666667,
+            "peakAbsDiff": 0.023651123046875,
+            "rmsDiff": 0.34647388795867257,
+            "inputSample": 5945,
+            "inputValue": -0.46807861328125,
+            "inputWindow": [
+              5941,
+              5950
+            ]
+          }
+        ],
+        "totalDifferingSamples": 39310
+      }
+    },
+    {
+      "sourceId": "short-attack@48000",
+      "scenario": "short-attack",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 4096,
+      "inputFile": "inputs/short-attack@48000.wav",
+      "referenceFile": "references/short-attack@48000_plus7st.wav",
+      "referenceOnsetSample": 4829,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 494.4413353693049,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 988.8826707386098,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 1483.3240061079148,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@48000_plus7st_w4096.wav",
+          "referenceOnsetSample": 4829,
+          "outputOnsetSample": 4527,
+          "onsetShiftSamples": -302,
+          "onsetShiftMs": -6.291666666666667,
+          "fixedDelay": {
+            "measuredSamples": 78,
+            "measuredMs": 1.625,
+            "correlation": 0.5202387561231937
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.07164086410081143,
+            "maxAbsSlope": 2.3148196446961975e-32,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.03777877631365387,
+                "slopeCentsPerSec": -2.3148196446961974e-33,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": 0.001306331245402682,
+                "slopeCentsPerSec": 1.8084528474189043e-34,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@48000_plus7st_w4096.wav",
+          "referenceOnsetSample": 4829,
+          "outputOnsetSample": 3375,
+          "onsetShiftSamples": -1454,
+          "onsetShiftMs": -30.291666666666668,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.7569336803284655
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.21566244577737215,
+            "partials": [
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.004097097790605284,
+                "slopeCentsPerSec": 0.17885293350020118,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 988.8826707386098,
+                "meanCents": 0.016723504630554303,
+                "slopeCentsPerSec": 0.21566244577737215,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 1483.3240061079148,
+                "meanCents": -0.0043197684521039115,
+                "slopeCentsPerSec": 0.16365338373964883,
+                "rangeCents": 0.7294565959713979
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3067,
+            "endSample": 43200,
+            "startSec": 0.06389583333333333,
+            "endSec": 0.9,
+            "peakSample": 5349,
+            "peakSec": 0.1114375,
+            "peakAbsDiff": 0.06585693359375,
+            "rmsDiff": 0.4565028483803353,
+            "inputSample": 5349,
+            "inputValue": -0.383758544921875,
+            "inputWindow": [
+              5345,
+              5354
+            ]
+          }
+        ],
+        "totalDifferingSamples": 40133
+      }
+    },
+    {
+      "sourceId": "short-attack@48000",
+      "scenario": "short-attack",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 1024,
+      "inputFile": "inputs/short-attack@48000.wav",
+      "referenceFile": "references/short-attack@48000_minus5st.wav",
+      "referenceOnsetSample": 4823,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@48000_minus5st_w1024.wav",
+          "referenceOnsetSample": 4823,
+          "outputOnsetSample": 4704,
+          "onsetShiftSamples": -119,
+          "onsetShiftMs": -2.479166666666667,
+          "fixedDelay": {
+            "measuredSamples": 22,
+            "measuredMs": 0.4583333333333333,
+            "correlation": 0.9323785885105794
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 2.3148196446961975e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.001306331245402682,
+                "slopeCentsPerSec": 1.8084528474189043e-34,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@48000_minus5st_w1024.wav",
+          "referenceOnsetSample": 4823,
+          "outputOnsetSample": 4324,
+          "onsetShiftSamples": -499,
+          "onsetShiftMs": -10.395833333333334,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.8897551691980198
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.290500894149724,
+            "maxAbsSlope": 0.14028602424232411,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.012516918213696172,
+                "slopeCentsPerSec": 0.14028602424232411,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.03777531869275797,
+                "slopeCentsPerSec": 0.04559007616398725,
+                "rangeCents": 0.2188323655871388
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.0069144621899669845,
+                "slopeCentsPerSec": 0.058451524705619026,
+                "rangeCents": 0.2917826347622249
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 4060,
+            "endSample": 43200,
+            "startSec": 0.08458333333333333,
+            "endSec": 0.9,
+            "peakSample": 5328,
+            "peakSec": 0.111,
+            "peakAbsDiff": 0.3060302734375,
+            "rmsDiff": 0.3515889194525399,
+            "inputSample": 5328,
+            "inputValue": -0.190093994140625,
+            "inputWindow": [
+              5324,
+              5333
+            ]
+          }
+        ],
+        "totalDifferingSamples": 39140
+      }
+    },
+    {
+      "sourceId": "short-attack@48000",
+      "scenario": "short-attack",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 2048,
+      "inputFile": "inputs/short-attack@48000.wav",
+      "referenceFile": "references/short-attack@48000_minus5st.wav",
+      "referenceOnsetSample": 4823,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@48000_minus5st_w2048.wav",
+          "referenceOnsetSample": 4823,
+          "outputOnsetSample": 4704,
+          "onsetShiftSamples": -119,
+          "onsetShiftMs": -2.479166666666667,
+          "fixedDelay": {
+            "measuredSamples": 32,
+            "measuredMs": 0.6666666666666666,
+            "correlation": 0.694550819256236
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 2.3148196446961975e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.001306331245402682,
+                "slopeCentsPerSec": 1.8084528474189043e-34,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@48000_minus5st_w2048.wav",
+          "referenceOnsetSample": 4823,
+          "outputOnsetSample": 3648,
+          "onsetShiftSamples": -1175,
+          "onsetShiftMs": -24.479166666666668,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.8919212952857831
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.1402665203879433,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.021151727604461622,
+                "slopeCentsPerSec": -0.028057204848464794,
+                "rangeCents": 0.4376923956360514
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.012514791254025005,
+                "slopeCentsPerSec": 0.1402665203879433,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.018124576938973812,
+                "slopeCentsPerSec": -0.07715573757522003,
+                "rangeCents": 0.5835652736689965
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3622,
+            "endSample": 43200,
+            "startSec": 0.07545833333333334,
+            "endSec": 0.9,
+            "peakSample": 19411,
+            "peakSec": 0.40439583333333334,
+            "peakAbsDiff": 0.11907958984375,
+            "rmsDiff": 0.3482179535883713,
+            "inputSample": 19411,
+            "inputValue": 0.088836669921875,
+            "inputWindow": [
+              19407,
+              19416
+            ]
+          }
+        ],
+        "totalDifferingSamples": 39578
+      }
+    },
+    {
+      "sourceId": "short-attack@48000",
+      "scenario": "short-attack",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 4096,
+      "inputFile": "inputs/short-attack@48000.wav",
+      "referenceFile": "references/short-attack@48000_minus5st.wav",
+      "referenceOnsetSample": 4823,
+      "targets": [
+        {
+          "sourceHz": 330,
+          "targetHz": 247.22066768465245,
+          "amp": 0.4
+        },
+        {
+          "sourceHz": 660,
+          "targetHz": 494.4413353693049,
+          "amp": 0.14
+        },
+        {
+          "sourceHz": 990,
+          "targetHz": 741.6620030539574,
+          "amp": 0.06
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/short-attack@48000_minus5st_w4096.wav",
+          "referenceOnsetSample": 4823,
+          "outputOnsetSample": 4512,
+          "onsetShiftSamples": -311,
+          "onsetShiftMs": -6.479166666666667,
+          "fixedDelay": {
+            "measuredSamples": 94,
+            "measuredMs": 1.9583333333333333,
+            "correlation": 0.5622194646997428
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.14719150148632737,
+            "maxAbsSlope": 2.3148196446961975e-32,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": 0.1471915014863274,
+                "slopeCentsPerSec": 2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": -0.07164086410081145,
+                "slopeCentsPerSec": -2.3148196446961975e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.001306331245402682,
+                "slopeCentsPerSec": 1.8084528474189043e-34,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 43200,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/short-attack@48000_minus5st_w4096.wav",
+          "referenceOnsetSample": 4823,
+          "outputOnsetSample": 3456,
+          "onsetShiftSamples": -1367,
+          "onsetShiftMs": -28.479166666666668,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.4459264162920046
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.7283039756176545,
+            "maxAbsSlope": 0.14378719120557193,
+            "partials": [
+              {
+                "targetHz": 247.22066768465245,
+                "meanCents": -0.054841659159519225,
+                "slopeCentsPerSec": 0.014023280990007521,
+                "rangeCents": 0.8754954771039818
+              },
+              {
+                "targetHz": 494.4413353693049,
+                "meanCents": 0.020906948559440367,
+                "slopeCentsPerSec": 0.14378719120557193,
+                "rangeCents": 0.8753848052608038
+              },
+              {
+                "targetHz": 741.6620030539574,
+                "meanCents": 0.018113699954095404,
+                "slopeCentsPerSec": 0.0724793398984406,
+                "rangeCents": 0.7294873329682166
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 3795,
+            "endSample": 43200,
+            "startSec": 0.0790625,
+            "endSec": 0.9,
+            "peakSample": 6448,
+            "peakSec": 0.13433333333333333,
+            "peakAbsDiff": 0.5599365234375,
+            "rmsDiff": 0.4357520253586296,
+            "inputSample": 6448,
+            "inputValue": 0.228546142578125,
+            "inputWindow": [
+              6444,
+              6453
+            ]
+          }
+        ],
+        "totalDifferingSamples": 39405
+      }
+    },
+    {
+      "sourceId": "stable-dual@44100",
+      "scenario": "stable-dual",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 1024,
+      "inputFile": "inputs/stable-dual@44100.wav",
+      "referenceFile": "references/stable-dual@44100_plus7st.wav",
+      "referenceOnsetSample": 6638,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 659.2551138257398,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 830.6090026727416,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@44100_plus7st_w1024.wav",
+          "referenceOnsetSample": 6638,
+          "outputOnsetSample": 6636,
+          "onsetShiftSamples": -2,
+          "onsetShiftMs": -0.045351473922902494,
+          "fixedDelay": {
+            "measuredSamples": 155,
+            "measuredMs": 3.5147392290249435,
+            "correlation": 0.8601557038610794
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.037778776313653846,
+            "maxAbsSlope": 3.1550430604928565e-32,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": 3.1550430604928565e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.03005460205925485,
+                "slopeCentsPerSec": 1.5775215302464283e-32,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@44100_plus7st_w1024.wav",
+          "referenceOnsetSample": 6638,
+          "outputOnsetSample": 6432,
+          "onsetShiftSamples": -206,
+          "onsetShiftMs": -4.671201814058957,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.9528879400306676
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.20189527113053876,
+            "maxAbsSlope": 0.12665752553625625,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": -0.0008411407041797041,
+                "slopeCentsPerSec": -0.12665752553625625,
+                "rangeCents": 0.3282485489271193
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.0019561522782685814,
+                "slopeCentsPerSec": -0.01675502942080056,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 6142,
+            "endSample": 70560,
+            "startSec": 0.13927437641723356,
+            "endSec": 1.6,
+            "peakSample": 11032,
+            "peakSec": 0.25015873015873014,
+            "peakAbsDiff": 0.013946533203125,
+            "rmsDiff": 0.41609996085284984,
+            "inputSample": 11032,
+            "inputValue": -0.080718994140625,
+            "inputWindow": [
+              11028,
+              11037
+            ]
+          }
+        ],
+        "totalDifferingSamples": 64418
+      }
+    },
+    {
+      "sourceId": "stable-dual@44100",
+      "scenario": "stable-dual",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 2048,
+      "inputFile": "inputs/stable-dual@44100.wav",
+      "referenceFile": "references/stable-dual@44100_plus7st.wav",
+      "referenceOnsetSample": 6638,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 659.2551138257398,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 830.6090026727416,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@44100_plus7st_w2048.wav",
+          "referenceOnsetSample": 6638,
+          "outputOnsetSample": 6424,
+          "onsetShiftSamples": -214,
+          "onsetShiftMs": -4.852607709750567,
+          "fixedDelay": {
+            "measuredSamples": 107,
+            "measuredMs": 2.4263038548752833,
+            "correlation": 0.762274778358424
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.037778776313653846,
+            "maxAbsSlope": 3.1550430604928565e-32,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": 3.1550430604928565e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.03005460205925485,
+                "slopeCentsPerSec": 1.5775215302464283e-32,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@44100_plus7st_w2048.wav",
+          "referenceOnsetSample": 6638,
+          "outputOnsetSample": 6269,
+          "onsetShiftSamples": -369,
+          "onsetShiftMs": -8.36734693877551,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.8891008166279086
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.021830740383398533,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": -0.0008521242552049377,
+                "slopeCentsPerSec": 0.014710390481525835,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": -0.0031680853139551724,
+                "slopeCentsPerSec": 0.021830740383398533,
+                "rangeCents": 0.6513553398693491
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 5943,
+            "endSample": 70560,
+            "startSec": 0.13476190476190475,
+            "endSec": 1.6,
+            "peakSample": 31866,
+            "peakSec": 0.7225850340136054,
+            "peakAbsDiff": 0.024810791015625,
+            "rmsDiff": 0.3774006714159106,
+            "inputSample": 31866,
+            "inputValue": -0.23272705078125,
+            "inputWindow": [
+              31862,
+              31871
+            ]
+          }
+        ],
+        "totalDifferingSamples": 64617
+      }
+    },
+    {
+      "sourceId": "stable-dual@44100",
+      "scenario": "stable-dual",
+      "sampleRate": 44100,
+      "semitones": 7,
+      "windowSize": 4096,
+      "inputFile": "inputs/stable-dual@44100.wav",
+      "referenceFile": "references/stable-dual@44100_plus7st.wav",
+      "referenceOnsetSample": 6638,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 659.2551138257398,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 830.6090026727416,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@44100_plus7st_w4096.wav",
+          "referenceOnsetSample": 6638,
+          "outputOnsetSample": 6512,
+          "onsetShiftSamples": -126,
+          "onsetShiftMs": -2.857142857142857,
+          "fixedDelay": {
+            "measuredSamples": 72,
+            "measuredMs": 1.6326530612244898,
+            "correlation": 0.8638406616152442
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.037778776313653846,
+            "maxAbsSlope": 3.1550430604928565e-32,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": 3.1550430604928565e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.03005460205925485,
+                "slopeCentsPerSec": 1.5775215302464283e-32,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@44100_plus7st_w4096.wav",
+          "referenceOnsetSample": 6638,
+          "outputOnsetSample": 5368,
+          "onsetShiftSamples": -1270,
+          "onsetShiftMs": -28.798185941043084,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.29007105525133875
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.03147734508428512,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": 0.028107475055600004,
+                "slopeCentsPerSec": 0.015349292290809077,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.032594714538944865,
+                "slopeCentsPerSec": 0.03147734508428512,
+                "rangeCents": 0.5210646652707213
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 5128,
+            "endSample": 70560,
+            "startSec": 0.11628117913832199,
+            "endSec": 1.6,
+            "peakSample": 7881,
+            "peakSec": 0.17870748299319728,
+            "peakAbsDiff": 0.25341796875,
+            "rmsDiff": 0.2803902373570267,
+            "inputSample": 7881,
+            "inputValue": -0.13397216796875,
+            "inputWindow": [
+              7877,
+              7886
+            ]
+          }
+        ],
+        "totalDifferingSamples": 65432
+      }
+    },
+    {
+      "sourceId": "stable-dual@44100",
+      "scenario": "stable-dual",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 1024,
+      "inputFile": "inputs/stable-dual@44100.wav",
+      "referenceFile": "references/stable-dual@44100_minus5st.wav",
+      "referenceOnsetSample": 6641,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 329.6275569128699,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 415.3045013363708,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@44100_minus5st_w1024.wav",
+          "referenceOnsetSample": 6641,
+          "outputOnsetSample": 6604,
+          "onsetShiftSamples": -37,
+          "onsetShiftMs": -0.8390022675736961,
+          "fixedDelay": {
+            "measuredSamples": 146,
+            "measuredMs": 3.310657596371882,
+            "correlation": 0.7679687950960942
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.1603158667209698,
+            "maxAbsSlope": 0.3300056239707168,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": 3.1550430604928565e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": 0.027495462600087565,
+                "slopeCentsPerSec": 0.3300056239707168,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@44100_minus5st_w1024.wav",
+          "referenceOnsetSample": 6641,
+          "outputOnsetSample": 6251,
+          "onsetShiftSamples": -390,
+          "onsetShiftMs": -8.843537414965986,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.33682507440896425
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3607880088487129,
+            "maxAbsSlope": 0.10763749407689163,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.012031351179271291,
+                "slopeCentsPerSec": -0.046059884476426276,
+                "rangeCents": 0.32827967046337786
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.05424247736679419,
+                "slopeCentsPerSec": 0.10763749407689163,
+                "rangeCents": 0.5211038755696827
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 6084,
+            "endSample": 70560,
+            "startSec": 0.13795918367346938,
+            "endSec": 1.6,
+            "peakSample": 69110,
+            "peakSec": 1.5671201814058957,
+            "peakAbsDiff": 0.072784423828125,
+            "rmsDiff": 0.1773832617786458,
+            "inputSample": 69110,
+            "inputValue": -0.305419921875,
+            "inputWindow": [
+              69106,
+              69115
+            ]
+          }
+        ],
+        "totalDifferingSamples": 64476
+      }
+    },
+    {
+      "sourceId": "stable-dual@44100",
+      "scenario": "stable-dual",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 2048,
+      "inputFile": "inputs/stable-dual@44100.wav",
+      "referenceFile": "references/stable-dual@44100_minus5st.wav",
+      "referenceOnsetSample": 6641,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 329.6275569128699,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 415.3045013363708,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@44100_minus5st_w2048.wav",
+          "referenceOnsetSample": 6641,
+          "outputOnsetSample": 6600,
+          "onsetShiftSamples": -41,
+          "onsetShiftMs": -0.9297052154195011,
+          "fixedDelay": {
+            "measuredSamples": 281,
+            "measuredMs": 6.3718820861678,
+            "correlation": 0.43903030594464865
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.1603158667209698,
+            "maxAbsSlope": 0.27415851837567234,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": 3.1550430604928565e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.0235893082156364,
+                "slopeCentsPerSec": -0.27415851837567234,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@44100_minus5st_w2048.wav",
+          "referenceOnsetSample": 6641,
+          "outputOnsetSample": 6613,
+          "onsetShiftSamples": -28,
+          "onsetShiftMs": -0.6349206349206349,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.47853361358710644
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.42080899643282693,
+            "maxAbsSlope": 0.06498862719997729,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.01844746173876191,
+                "slopeCentsPerSec": -0.03709894454977659,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.07979562696464075,
+                "slopeCentsPerSec": 0.06498862719997729,
+                "rangeCents": 0.7815970052815399
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 5947,
+            "endSample": 70560,
+            "startSec": 0.13485260770975058,
+            "endSec": 1.6,
+            "peakSample": 65777,
+            "peakSec": 1.4915419501133786,
+            "peakAbsDiff": 0.123748779296875,
+            "rmsDiff": 0.35047292430963206,
+            "inputSample": 65777,
+            "inputValue": 0.128692626953125,
+            "inputWindow": [
+              65773,
+              65782
+            ]
+          }
+        ],
+        "totalDifferingSamples": 64613
+      }
+    },
+    {
+      "sourceId": "stable-dual@44100",
+      "scenario": "stable-dual",
+      "sampleRate": 44100,
+      "semitones": -5,
+      "windowSize": 4096,
+      "inputFile": "inputs/stable-dual@44100.wav",
+      "referenceFile": "references/stable-dual@44100_minus5st.wav",
+      "referenceOnsetSample": 6641,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 329.6275569128699,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 415.3045013363708,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@44100_minus5st_w4096.wav",
+          "referenceOnsetSample": 6641,
+          "outputOnsetSample": 6533,
+          "onsetShiftSamples": -108,
+          "onsetShiftMs": -2.4489795918367347,
+          "fixedDelay": {
+            "measuredSamples": 64,
+            "measuredMs": 1.4512471655328798,
+            "correlation": 0.7620121348775465
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.1603158667209698,
+            "maxAbsSlope": 0.3015743702132396,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.03777877631365388,
+                "slopeCentsPerSec": 3.1550430604928565e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.008263876970919192,
+                "slopeCentsPerSec": 0.3015743702132396,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 70560,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@44100_minus5st_w4096.wav",
+          "referenceOnsetSample": 6641,
+          "outputOnsetSample": 5984,
+          "onsetShiftSamples": -657,
+          "onsetShiftMs": -14.89795918367347,
+          "fixedDelay": {
+            "measuredSamples": 2646,
+            "measuredMs": 60,
+            "correlation": 0.19319046408303184
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.6213987783132179,
+            "maxAbsSlope": 0.2741518016660132,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.02486967074161742,
+                "slopeCentsPerSec": 0.03069615765414286,
+                "rangeCents": 0.9848390349972717
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": 0.0019207850844023227,
+                "slopeCentsPerSec": -0.2741518016660132,
+                "rangeCents": 1.0422077747460448
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 5643,
+            "endSample": 70560,
+            "startSec": 0.1279591836734694,
+            "endSec": 1.6,
+            "peakSample": 8146,
+            "peakSec": 0.18471655328798187,
+            "peakAbsDiff": 0.73583984375,
+            "rmsDiff": 0.39325881775710586,
+            "inputSample": 8146,
+            "inputValue": 0.45654296875,
+            "inputWindow": [
+              8142,
+              8151
+            ]
+          }
+        ],
+        "totalDifferingSamples": 64917
+      }
+    },
+    {
+      "sourceId": "stable-dual@48000",
+      "scenario": "stable-dual",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 1024,
+      "inputFile": "inputs/stable-dual@48000.wav",
+      "referenceFile": "references/stable-dual@48000_plus7st.wav",
+      "referenceOnsetSample": 7227,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 659.2551138257398,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 830.6090026727416,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@48000_plus7st_w1024.wav",
+          "referenceOnsetSample": 7227,
+          "outputOnsetSample": 7200,
+          "onsetShiftSamples": -27,
+          "onsetShiftMs": -0.5625,
+          "fixedDelay": {
+            "measuredSamples": 421,
+            "measuredMs": 8.770833333333334,
+            "correlation": 0.9837057539505555
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.42080899643282693,
+            "maxAbsSlope": 0.013147982687924487,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": -0.014979066742732179,
+                "slopeCentsPerSec": -0.010518138400904068,
+                "rangeCents": 0.3282485489271193
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.009097351227054408,
+                "slopeCentsPerSec": -0.013147982687924487,
+                "rangeCents": 0.7815970052815399
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@48000_plus7st_w1024.wav",
+          "referenceOnsetSample": 7227,
+          "outputOnsetSample": 7040,
+          "onsetShiftSamples": -187,
+          "onsetShiftMs": -3.895833333333333,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.3483405836127172
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.5510408644317822,
+            "maxAbsSlope": 0.01735291735716457,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": -0.00912915556118396,
+                "slopeCentsPerSec": -0.01735291735716457,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.00909227530188699,
+                "slopeCentsPerSec": 0.015236656633169265,
+                "rangeCents": 1.0421293541427934
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 6786,
+            "endSample": 76800,
+            "startSec": 0.141375,
+            "endSec": 1.6,
+            "peakSample": 17387,
+            "peakSec": 0.36222916666666666,
+            "peakAbsDiff": 0.0238037109375,
+            "rmsDiff": 0.3593240508939684,
+            "inputSample": 17387,
+            "inputValue": -0.0068359375,
+            "inputWindow": [
+              17383,
+              17392
+            ]
+          }
+        ],
+        "totalDifferingSamples": 70014
+      }
+    },
+    {
+      "sourceId": "stable-dual@48000",
+      "scenario": "stable-dual",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 2048,
+      "inputFile": "inputs/stable-dual@48000.wav",
+      "referenceFile": "references/stable-dual@48000_plus7st.wav",
+      "referenceOnsetSample": 7227,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 659.2551138257398,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 830.6090026727416,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@48000_plus7st_w2048.wav",
+          "referenceOnsetSample": 7227,
+          "outputOnsetSample": 7200,
+          "onsetShiftSamples": -27,
+          "onsetShiftMs": -0.5625,
+          "fixedDelay": {
+            "measuredSamples": 40,
+            "measuredMs": 0.8333333333333334,
+            "correlation": 0.28884084955032374
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.037778776313653846,
+            "maxAbsSlope": 2.5917119466933494e-32,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": 0.037778776313653874,
+                "slopeCentsPerSec": -2.5917119466933494e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.030054602059254858,
+                "slopeCentsPerSec": -2.2677479533566806e-32,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@48000_plus7st_w2048.wav",
+          "referenceOnsetSample": 7227,
+          "outputOnsetSample": 6721,
+          "onsetShiftSamples": -506,
+          "onsetShiftMs": -10.541666666666666,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.8617907463658967
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.45466407569771305,
+            "maxAbsSlope": 0.04319638321844897,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": -0.003267852438305065,
+                "slopeCentsPerSec": -0.021556801436951323,
+                "rangeCents": 0.8206602853024297
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": -0.00020194897414897616,
+                "slopeCentsPerSec": -0.04319638321844897,
+                "rangeCents": 0.7815970052815399
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 6444,
+            "endSample": 76800,
+            "startSec": 0.13425,
+            "endSec": 1.6,
+            "peakSample": 8117,
+            "peakSec": 0.16910416666666667,
+            "peakAbsDiff": 0.081817626953125,
+            "rmsDiff": 0.34727153656497795,
+            "inputSample": 8117,
+            "inputValue": -0.061431884765625,
+            "inputWindow": [
+              8113,
+              8122
+            ]
+          }
+        ],
+        "totalDifferingSamples": 70356
+      }
+    },
+    {
+      "sourceId": "stable-dual@48000",
+      "scenario": "stable-dual",
+      "sampleRate": 48000,
+      "semitones": 7,
+      "windowSize": 4096,
+      "inputFile": "inputs/stable-dual@48000.wav",
+      "referenceFile": "references/stable-dual@48000_plus7st.wav",
+      "referenceOnsetSample": 7227,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 659.2551138257398,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 830.6090026727416,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@48000_plus7st_w4096.wav",
+          "referenceOnsetSample": 7227,
+          "outputOnsetSample": 7200,
+          "onsetShiftSamples": -27,
+          "onsetShiftMs": -0.5625,
+          "fixedDelay": {
+            "measuredSamples": 84,
+            "measuredMs": 1.75,
+            "correlation": 0.2936595515522847
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.037778776313653846,
+            "maxAbsSlope": 2.5917119466933494e-32,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": 0.037778776313653874,
+                "slopeCentsPerSec": -2.5917119466933494e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": 0.030054602059254858,
+                "slopeCentsPerSec": -2.2677479533566806e-32,
+                "rangeCents": 0
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@48000_plus7st_w4096.wav",
+          "referenceOnsetSample": 7227,
+          "outputOnsetSample": 6144,
+          "onsetShiftSamples": -1083,
+          "onsetShiftMs": -22.5625,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.478891321100856
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.3659962096047167,
+            "maxAbsSlope": 0.015237003401825721,
+            "partials": [
+              {
+                "targetHz": 659.2551138257398,
+                "meanCents": 0.014318003264564989,
+                "slopeCentsPerSec": -0.010519484512518659,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 830.6090026727416,
+                "meanCents": -0.023463239816536623,
+                "slopeCentsPerSec": -0.015237003401825721,
+                "rangeCents": 0.6513553398693491
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 5980,
+            "endSample": 76800,
+            "startSec": 0.12458333333333334,
+            "endSec": 1.6,
+            "peakSample": 74601,
+            "peakSec": 1.5541875,
+            "peakAbsDiff": 0.182647705078125,
+            "rmsDiff": 0.4515293794035875,
+            "inputSample": 74601,
+            "inputValue": -0.392425537109375,
+            "inputWindow": [
+              74597,
+              74606
+            ]
+          }
+        ],
+        "totalDifferingSamples": 70820
+      }
+    },
+    {
+      "sourceId": "stable-dual@48000",
+      "scenario": "stable-dual",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 1024,
+      "inputFile": "inputs/stable-dual@48000.wav",
+      "referenceFile": "references/stable-dual@48000_minus5st.wav",
+      "referenceOnsetSample": 7229,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 329.6275569128699,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 415.3045013363708,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@48000_minus5st_w1024.wav",
+          "referenceOnsetSample": 7229,
+          "outputOnsetSample": 7296,
+          "onsetShiftSamples": 67,
+          "onsetShiftMs": 1.3958333333333333,
+          "fixedDelay": {
+            "measuredSamples": 717,
+            "measuredMs": 14.9375,
+            "correlation": 0.19796816686537483
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.1603158667209698,
+            "maxAbsSlope": 0.005425901889977507,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.037778776313653874,
+                "slopeCentsPerSec": -2.5917119466933494e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.011821566367014319,
+                "slopeCentsPerSec": 0.005425901889977507,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@48000_minus5st_w1024.wav",
+          "referenceOnsetSample": 7229,
+          "outputOnsetSample": 6912,
+          "onsetShiftSamples": -317,
+          "onsetShiftMs": -6.604166666666667,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.4163055915570454
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.618842825392555,
+            "maxAbsSlope": 0.07467604705887822,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.014313557330700721,
+                "slopeCentsPerSec": 0.07467604705887822,
+                "rangeCents": 0.9848390349972717
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": 0.01609261197157771,
+                "slopeCentsPerSec": -0.019616722217611023,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 6667,
+            "endSample": 76800,
+            "startSec": 0.13889583333333333,
+            "endSec": 1.6,
+            "peakSample": 9330,
+            "peakSec": 0.194375,
+            "peakAbsDiff": 0.123931884765625,
+            "rmsDiff": 0.41235748756356677,
+            "inputSample": 9330,
+            "inputValue": -0.289947509765625,
+            "inputWindow": [
+              9326,
+              9335
+            ]
+          }
+        ],
+        "totalDifferingSamples": 70133
+      }
+    },
+    {
+      "sourceId": "stable-dual@48000",
+      "scenario": "stable-dual",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 2048,
+      "inputFile": "inputs/stable-dual@48000.wav",
+      "referenceFile": "references/stable-dual@48000_minus5st.wav",
+      "referenceOnsetSample": 7229,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 329.6275569128699,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 415.3045013363708,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@48000_minus5st_w2048.wav",
+          "referenceOnsetSample": 7229,
+          "outputOnsetSample": 7104,
+          "onsetShiftSamples": -125,
+          "onsetShiftMs": -2.6041666666666665,
+          "fixedDelay": {
+            "measuredSamples": -13,
+            "measuredMs": -0.2708333333333333,
+            "correlation": 0.7289324079458381
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.1603158667209698,
+            "maxAbsSlope": 0.013773443259173691,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.037778776313653874,
+                "slopeCentsPerSec": -2.5917119466933494e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.0304310185927423,
+                "slopeCentsPerSec": -0.013773443259173691,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@48000_minus5st_w2048.wav",
+          "referenceOnsetSample": 7229,
+          "outputOnsetSample": 7008,
+          "onsetShiftSamples": -221,
+          "onsetShiftMs": -4.604166666666667,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.5096932789789193
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.42080899643282693,
+            "maxAbsSlope": 0.10601647798371722,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.002587061050982018,
+                "slopeCentsPerSec": 0.06940957407415113,
+                "rangeCents": 0.6564971037544407
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.007179706016575552,
+                "slopeCentsPerSec": 0.10601647798371722,
+                "rangeCents": 0.7815970052815399
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 6625,
+            "endSample": 76800,
+            "startSec": 0.13802083333333334,
+            "endSec": 1.6,
+            "peakSample": 16143,
+            "peakSec": 0.3363125,
+            "peakAbsDiff": 0.2099609375,
+            "rmsDiff": 0.4585326917500559,
+            "inputSample": 16143,
+            "inputValue": 0.043426513671875,
+            "inputWindow": [
+              16139,
+              16148
+            ]
+          }
+        ],
+        "totalDifferingSamples": 70175
+      }
+    },
+    {
+      "sourceId": "stable-dual@48000",
+      "scenario": "stable-dual",
+      "sampleRate": 48000,
+      "semitones": -5,
+      "windowSize": 4096,
+      "inputFile": "inputs/stable-dual@48000.wav",
+      "referenceFile": "references/stable-dual@48000_minus5st.wav",
+      "referenceOnsetSample": 7229,
+      "targets": [
+        {
+          "sourceHz": 440,
+          "targetHz": 329.6275569128699,
+          "amp": 0.32
+        },
+        {
+          "sourceHz": 554.365,
+          "targetHz": 415.3045013363708,
+          "amp": 0.24
+        }
+      ],
+      "backends": {
+        "peak-locked": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/peak-locked/stable-dual@48000_minus5st_w4096.wav",
+          "referenceOnsetSample": 7229,
+          "outputOnsetSample": 7017,
+          "onsetShiftSamples": -212,
+          "onsetShiftMs": -4.416666666666667,
+          "fixedDelay": {
+            "measuredSamples": 53,
+            "measuredMs": 1.1041666666666667,
+            "correlation": 0.5475623344583916
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 0.1603158667209698,
+            "maxAbsSlope": 0.0237904929022091,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.037778776313653874,
+                "slopeCentsPerSec": -2.5917119466933494e-32,
+                "rangeCents": 0
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": -0.011821566367014315,
+                "slopeCentsPerSec": -0.0237904929022091,
+                "rangeCents": 0.2605323311601922
+              }
+            ]
+          }
+        },
+        "plain-vocoder": {
+          "outputSamples": 76800,
+          "durationPreserved": true,
+          "outputFile": "outputs/plain-vocoder/stable-dual@48000_minus5st_w4096.wav",
+          "referenceOnsetSample": 7229,
+          "outputOnsetSample": 5568,
+          "onsetShiftSamples": -1661,
+          "onsetShiftMs": -34.604166666666664,
+          "fixedDelay": {
+            "measuredSamples": 2880,
+            "measuredMs": 60,
+            "correlation": 0.5227348135978988
+          },
+          "frequencyDrift": {
+            "maxAbsCents": 1.2757135647134648,
+            "maxAbsSlope": 0.04261003995765855,
+            "partials": [
+              {
+                "targetHz": 329.6275569128699,
+                "meanCents": 0.06698942491908562,
+                "slopeCentsPerSec": 0.04261003995765855,
+                "rangeCents": 1.9698649940317958
+              },
+              {
+                "targetHz": 415.3045013363708,
+                "meanCents": 0.02068545343906001,
+                "slopeCentsPerSec": 0.012524391287189433,
+                "rangeCents": 1.3028577810766122
+              }
+            ]
+          }
+        }
+      },
+      "divergence": {
+        "between": [
+          "peak-locked",
+          "plain-vocoder"
+        ],
+        "segmentCount": 1,
+        "segments": [
+          {
+            "startSample": 5773,
+            "endSample": 76800,
+            "startSec": 0.12027083333333333,
+            "endSec": 1.6,
+            "peakSample": 7728,
+            "peakSec": 0.161,
+            "peakAbsDiff": 0.389984130859375,
+            "rmsDiff": 0.23274641419275563,
+            "inputSample": 7728,
+            "inputValue": -0.03021240234375,
+            "inputWindow": [
+              7724,
+              7733
+            ]
+          }
+        ],
+        "totalDifferingSamples": 71027
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "attack-window-edge@44100",
+      "setId": "attack-window-edge",
+      "scenario": "attack-window-edge",
+      "sampleRate": 44100,
+      "durationSec": 0.9,
+      "onsetSample": 9728,
+      "inputFile": "inputs/attack-window-edge@44100.wav",
+      "partials": [
+        {
+          "hz": 330,
+          "amp": 0.4,
+          "phase": 0
+        },
+        {
+          "hz": 660,
+          "amp": 0.14,
+          "phase": 0
+        },
+        {
+          "hz": 990,
+          "amp": 0.06,
+          "phase": 0
+        }
+      ],
+      "nearWindowEdge": true
+    },
+    {
+      "id": "attack-window-edge@48000",
+      "setId": "attack-window-edge",
+      "scenario": "attack-window-edge",
+      "sampleRate": 48000,
+      "durationSec": 0.9,
+      "onsetSample": 10588,
+      "inputFile": "inputs/attack-window-edge@48000.wav",
+      "partials": [
+        {
+          "hz": 330,
+          "amp": 0.4,
+          "phase": 0
+        },
+        {
+          "hz": 660,
+          "amp": 0.14,
+          "phase": 0
+        },
+        {
+          "hz": 990,
+          "amp": 0.06,
+          "phase": 0
+        }
+      ],
+      "nearWindowEdge": true
+    },
+    {
+      "id": "attack-window-edge@96000",
+      "setId": "attack-window-edge",
+      "scenario": "attack-window-edge",
+      "sampleRate": 96000,
+      "durationSec": 0.9,
+      "onsetSample": 21176,
+      "inputFile": "inputs/attack-window-edge@96000.wav",
+      "partials": [
+        {
+          "hz": 330,
+          "amp": 0.4,
+          "phase": 0
+        },
+        {
+          "hz": 660,
+          "amp": 0.14,
+          "phase": 0
+        },
+        {
+          "hz": 990,
+          "amp": 0.06,
+          "phase": 0
+        }
+      ],
+      "nearWindowEdge": true
+    },
+    {
+      "id": "short-attack@44100",
+      "setId": "short-attack",
+      "scenario": "short-attack",
+      "sampleRate": 44100,
+      "durationSec": 0.9,
+      "onsetSample": 4410,
+      "inputFile": "inputs/short-attack@44100.wav",
+      "partials": [
+        {
+          "hz": 330,
+          "amp": 0.4,
+          "phase": 0
+        },
+        {
+          "hz": 660,
+          "amp": 0.14,
+          "phase": 0
+        },
+        {
+          "hz": 990,
+          "amp": 0.06,
+          "phase": 0
+        }
+      ],
+      "nearWindowEdge": false
+    },
+    {
+      "id": "short-attack@48000",
+      "setId": "short-attack",
+      "scenario": "short-attack",
+      "sampleRate": 48000,
+      "durationSec": 0.9,
+      "onsetSample": 4800,
+      "inputFile": "inputs/short-attack@48000.wav",
+      "partials": [
+        {
+          "hz": 330,
+          "amp": 0.4,
+          "phase": 0
+        },
+        {
+          "hz": 660,
+          "amp": 0.14,
+          "phase": 0
+        },
+        {
+          "hz": 990,
+          "amp": 0.06,
+          "phase": 0
+        }
+      ],
+      "nearWindowEdge": false
+    },
+    {
+      "id": "stable-dual@44100",
+      "setId": "stable-dual",
+      "scenario": "stable-dual",
+      "sampleRate": 44100,
+      "durationSec": 1.6,
+      "onsetSample": 6615,
+      "inputFile": "inputs/stable-dual@44100.wav",
+      "partials": [
+        {
+          "hz": 440,
+          "amp": 0.32,
+          "phase": 0
+        },
+        {
+          "hz": 554.365,
+          "amp": 0.24,
+          "phase": 0
+        }
+      ],
+      "nearWindowEdge": false
+    },
+    {
+      "id": "stable-dual@48000",
+      "setId": "stable-dual",
+      "scenario": "stable-dual",
+      "sampleRate": 48000,
+      "durationSec": 1.6,
+      "onsetSample": 7200,
+      "inputFile": "inputs/stable-dual@48000.wav",
+      "partials": [
+        {
+          "hz": 440,
+          "amp": 0.32,
+          "phase": 0
+        },
+        {
+          "hz": 554.365,
+          "amp": 0.24,
+          "phase": 0
+        }
+      ],
+      "nearWindowEdge": false
+    }
+  ]
+}

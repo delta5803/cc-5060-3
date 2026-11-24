@@ -561,6 +561,7 @@ function renderTransposition(signal, sampleRate, ratio, mode, threshold, opt) {
   const output = Float32Array.from(shifted);
 
   const meta = {
+    backend: 'peak-locked',
     ratio,
     semitones: 12 * Math.log2(ratio),
     cents: 1200 * Math.log2(ratio),
@@ -608,6 +609,7 @@ function renderTransposition(signal, sampleRate, ratio, mode, threshold, opt) {
 
 function emptyMeta(ratio, sampleRate, N, Ha, Hs) {
   return {
+    backend: 'peak-locked',
     ratio,
     semitones: 12 * Math.log2(ratio),
     cents: 1200 * Math.log2(ratio),

@@ -1,0 +1,18 @@
+{
+  "schema": "spectral-transposer/source-set@1",
+  "id": "attack-window-edge",
+  "scenario": "attack-window-edge",
+  "note": "Same 2 ms attack, but the onset is deliberately placed so that for the 2048-sample / 44.1 kHz window it falls within a few samples of an analysis-window boundary (onset at sample 9728 = 19 hops of 512). This is the case that exposes onset compensation: a window that must straddle the attack can pull the perceived attack either side of the true position. Add variants to probe other windows and rates.",
+  "nearWindowEdge": true,
+  "partials": [
+    { "hz": 330.0, "amp": 0.40, "phase": 0.0 },
+    { "hz": 660.0, "amp": 0.14, "phase": 0.0 },
+    { "hz": 990.0, "amp": 0.06, "phase": 0.0 }
+  ],
+  "envelope": { "attackSec": 0.002, "releaseSec": 0.03 },
+  "variants": [
+    { "sampleRate": 44100, "durationSec": 0.9, "onsetSample": 9728 },
+    { "sampleRate": 48000, "durationSec": 0.9, "onsetSample": 10588 },
+    { "sampleRate": 96000, "durationSec": 0.9, "onsetSample": 21176 }
+  ]
+}

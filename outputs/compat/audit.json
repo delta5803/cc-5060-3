@@ -1,0 +1,72 @@
+{
+  "auditedAt": "2026-11-24T04:03:39.885Z",
+  "source": "all figures re-derived from WAVs in outputs/compat",
+  "libraryGeneratedAt": "2026-11-24T04:02:30.588Z",
+  "caseCount": 42,
+  "checks": [
+    {
+      "name": "every referenced audio file exists",
+      "ok": true,
+      "detail": "0 missing, 42 complete cases"
+    },
+    {
+      "name": "output sample counts match their inputs (disk)",
+      "ok": true,
+      "detail": "84 files"
+    },
+    {
+      "name": "onset shifts re-derive from disk",
+      "ok": true,
+      "detail": "84/84"
+    },
+    {
+      "name": "fixed delays re-derive from disk",
+      "ok": true,
+      "detail": "84/84"
+    },
+    {
+      "name": "all partials land on target from disk (<= 60 cents)",
+      "ok": true,
+      "detail": "228/228"
+    },
+    {
+      "name": "injected uniform delay moves the delay reading by the injected amount",
+      "ok": true,
+      "detail": "base 107 -> 235 (moved 128)"
+    },
+    {
+      "name": "injected uniform delay leaves the drift reading essentially unchanged",
+      "ok": true,
+      "detail": "slope 0.00 -> 0.00 c/s"
+    },
+    {
+      "name": "injected pitch glide moves the drift reading",
+      "ok": true,
+      "detail": "steady 0.00 -> gliding 45.02 c/s"
+    },
+    {
+      "name": "identical envelopes: pitch glide leaves the delay reading essentially unchanged",
+      "ok": true,
+      "detail": "delay(steady, gliding) = -11 spl"
+    },
+    {
+      "name": "every case records a measurable cross-backend divergence region",
+      "ok": true,
+      "detail": "42/42"
+    }
+  ],
+  "mismatches": [],
+  "mismatchCount": 0,
+  "independence": {
+    "baseDelaySamples": 107,
+    "injectedDelaySamples": 128,
+    "delayedReadingSamples": 235,
+    "baseDriftCentsPerSec": 6.723862260066744e-33,
+    "delayedDriftCentsPerSec": 6.723862260066744e-33,
+    "steadyReferenceDriftCentsPerSec": 6.723862260066744e-33,
+    "glidingReferenceDriftCentsPerSec": 45.01959515178243,
+    "glideDelayReadingSamples": -11
+  },
+  "passed": 10,
+  "failed": 0
+}

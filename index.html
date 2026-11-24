@@ -168,6 +168,26 @@
   <main>
     <aside class="sidebar">
       <div class="group">
+        <h2>后端</h2>
+        <div class="field">
+          <label for="backend">移调后端</label>
+          <select id="backend"></select>
+        </div>
+        <div class="field">
+          <label for="frame-size">分析帧长（改窗）</label>
+          <select id="frame-size">
+            <option value="1024">1024</option>
+            <option value="2048" selected>2048</option>
+            <option value="4096">4096</option>
+          </select>
+        </div>
+        <button id="compare-backends" style="width:100%">对比两个后端</button>
+        <div class="hint" style="margin-top:8px">
+          切换后端会重新渲染同一素材。差异段按局部 RMS 差异圈出，并回指到输入采样。
+        </div>
+      </div>
+
+      <div class="group">
         <h2>素材</h2>
         <label class="file-drop" id="drop">
           拖入或点击选择 WAV
@@ -290,6 +310,26 @@
         </div>
 
         <div class="card" style="grid-column:1/-1">
+          <h3>后端差异 · 试听窗定位</h3>
+          <div class="hint" id="compat-note" style="margin-bottom:8px">
+            点“对比两个后端”后，这里列出两个后端在不同位置的分歧。每段可点击：播放头跳到该位置，
+            并显示差异峰值对应的输入采样，便于回到原始素材核对。
+          </div>
+          <dl class="kv" id="compat-summary"></dl>
+          <div class="tracks-list" id="compat-segments" style="max-height:220px"></div>
+        </div>
+
+        <div class="card" style="grid-column:1/-1">
+          <h3>旧工程与预设 · 改窗后是否仍可用</h3>
+          <div class="hint" style="margin-bottom:8px">
+            读取历史预设快照（容忍旧键名）与旧工程起播位置，区分“预设读不出来”与
+            “首窗缺少历史样本”两种失败。数据由 scripts/check-legacy-projects.mjs 生成。
+          </div>
+          <dl class="kv" id="legacy-presets"></dl>
+          <div class="tracks-list" id="legacy-projects" style="max-height:220px;margin-top:10px"></div>
+        </div>
+
+        <div class="card" style="grid-column:1/-1">
           <h3>实际限制</h3>
           <ul class="lim" id="limitations"></ul>
         </div>
@@ -301,14 +341,17 @@
 
 <script type="module">
 import {
-  processAudio, analyzeAudio, capabilities, semitonesToRatio, LIMITS,
+  analyzeAudio, capabilities, semitonesToRatio, LIMITS,
 } from './src/dsp/transpose.js';
+import { listBackends, processWithBackend } from './src/dsp/backends.js';
+import { differenceSegments } from './src/dsp/compat.js';
 import { encodeWav, parseWav } from './src/dsp/wav.js';
 import {
   rms, peak, amplitudeAt, estimateFreq, sampleEvidence, onsetTimeSec,
 } from './src/dsp/measure.js';
 
 const $ = (id) => document.getElementById(id);
+const BACKENDS = listBackends();
 const state = {
   input: null,
   sampleRate: 44100,
@@ -323,7 +366,21 @@ const state = {
   looping: false,
   src: null,
   reqId: 0,
+  backendId: BACKENDS[0]?.id ?? 'peak-locked',
+  frameSize: 2048,
+  // Cross-backend comparison. Holds both renders and the divergence segments;
+  // `segments` is null until the user asks for a comparison.
+  compare: null,
+  activeSegment: null,
 };
+
+for (const b of BACKENDS) {
+  const opt = document.createElement('option');
+  opt.value = b.id;
+  opt.textContent = b.label;
+  $('backend').appendChild(opt);
+}
+$('backend').value = state.backendId;
 
 const cap = capabilities();
 $('engine-badge').textContent = `kernel ${cap.version}`;
@@ -405,9 +462,12 @@ function loadSignal(name, data, sr) {
   state.name = name;
   state.result = null;
   state.analysis = null;
+  state.compare = null;
+  state.activeSegment = null;
   state.selStart = null;
   state.selEnd = null;
   state.looping = false;
+  renderCompat();
   $('track-name').textContent = `${name} · ${(data.length / sr).toFixed(3)} s · ${sr} Hz`;
   clearError();
   $('download-shifted').disabled = true;
@@ -539,6 +599,7 @@ async function render() {
     transientThreshold: Number($('threshold').value),
     phaseLock: $('phaselock').checked,
     autoFrameSize: $('adaptive').checked,
+    frameSize: state.frameSize,
   };
   const token = ++renderToken;
   $('render').disabled = true;
@@ -547,12 +608,16 @@ async function render() {
   try {
     await nextFrame();
     const t0 = performance.now();
-    // Run the kernel; it is synchronous but chunked rendering keeps the UI
-    // responsive enough for the sizes this window is designed for.
-    const res = processAudio(state.input, state.sampleRate, opts);
+    // Run the selected backend; the kernel is synchronous but chunked
+    // rendering keeps the UI responsive enough for the sizes this window is
+    // designed for.
+    const res = processWithBackend(state.backendId, state.input, state.sampleRate, opts);
     if (token !== renderToken) return;
     $('progress').style.width = '85%';
     state.result = res;
+    // The comparison described the previous render; it is stale now.
+    state.compare = null;
+    state.activeSegment = null;
     $('progress').style.width = '100%';
     const ms = performance.now() - t0;
     updateEvidence(res, ms);
@@ -560,6 +625,7 @@ async function render() {
     drawTrace();
     drawPlayhead();
     renderTracks();
+    renderCompat();
     $('download-shifted').disabled = false;
     $('download-trace').disabled = false;
     $('engine-badge').textContent = `kernel ${cap.version}`;
@@ -585,6 +651,166 @@ function nextFrame() {
 }
 
 $('render').addEventListener('click', render);
+
+$('backend').addEventListener('change', (e) => {
+  state.backendId = e.target.value;
+  // If a comparison is already on screen, switch the audible result in place so
+  // the highlighted segments stay aligned with what the transport plays.
+  if (state.compare && state.compare.renders[state.backendId]) {
+    state.result = state.compare.renders[state.backendId];
+    state.activeSegment = null;
+    updateEvidence(state.result, state.compare.elapsedMs);
+    renderCompat();
+    drawSpectrum();
+    drawTrace();
+    drawPlayhead();
+    renderTracks();
+    return;
+  }
+  scheduleAutoRender();
+});
+
+$('frame-size').addEventListener('change', (e) => {
+  state.frameSize = Number(e.target.value);
+  scheduleAutoRender();
+});
+
+// ------------------------------------------------------- backend comparison --
+
+// Render the same input through both registered backends, then locate the
+// regions where they diverge. Each segment is kept with its peak sample and the
+// matching input sample, so a click in the list returns to the source audio.
+$('compare-backends').addEventListener('click', () => compareBackends());
+
+function compareBackends() {
+  if (!state.input) { showError('未载入素材', '先选择 WAV 或使用内置示例'); return; }
+  if (BACKENDS.length < 2) { showError('只有一个后端', '注册表中没有可用于对比的第二个后端'); return; }
+  const semitones = Number($('semitones').value);
+  const opts = {
+    semitones,
+    transientMode: $('mode').value,
+    transientThreshold: Number($('threshold').value),
+    phaseLock: $('phaselock').checked,
+    autoFrameSize: $('adaptive').checked,
+    frameSize: state.frameSize,
+  };
+  const btn = $('compare-backends');
+  btn.disabled = true;
+  try {
+    const renders = {};
+    const t0 = performance.now();
+    for (const b of BACKENDS) renders[b.id] = processWithBackend(b.id, state.input, state.sampleRate, opts);
+    const ids = BACKENDS.map((b) => b.id);
+    const segs = differenceSegments(
+      renders[ids[0]].output, renders[ids[1]].output, state.input,
+      { sampleRate: state.sampleRate, threshold: 0.02, envMs: 10, minMs: 20 },
+    );
+    state.compare = {
+      backendIds: ids,
+      renders,
+      segments: segs,
+      semitones,
+      frameSize: state.frameSize,
+      elapsedMs: performance.now() - t0,
+    };
+    state.activeSegment = null;
+    // Show whichever backend is currently selected so the highlight lines up
+    // with the audio the transport plays.
+    if (state.backendId !== ids[0] && state.backendId !== ids[1]) {
+      state.backendId = ids[0];
+      $('backend').value = state.backendId;
+    }
+    state.result = renders[state.backendId];
+    updateEvidence(state.result, state.compare.elapsedMs);
+    renderCompat();
+    drawSpectrum();
+    drawTrace();
+    drawPlayhead();
+    renderTracks();
+    $('download-shifted').disabled = false;
+    $('download-trace').disabled = false;
+  } catch (err) {
+    showError('后端对比失败', `${err.code ? '[' + err.code + '] ' : ''}${err.message}`);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderCompat() {
+  const summary = $('compat-summary');
+  const list = $('compat-segments');
+  const note = $('compat-note');
+  const cmp = state.compare;
+  if (!cmp) {
+    summary.innerHTML = '';
+    list.innerHTML = '';
+    note.textContent = '点“对比两个后端”后，这里列出两个后端在不同位置的分歧。每段可点击：'
+      + '播放头跳到该位置，并显示差异峰值对应的输入采样，便于回到原始素材核对。';
+    return;
+  }
+  const [aId, bId] = cmp.backendIds;
+  const labelOf = (id) => BACKENDS.find((b) => b.id === id)?.label ?? id;
+  const segs = cmp.segments.segments;
+  const total = cmp.segments.totalDifferingSamples ?? 0;
+  const durSamples = state.input.length;
+  const pct = durSamples ? (100 * total / durSamples) : 0;
+  const flaggedPreset = cmp.frameSize
+    ? `${cmp.frameSize} 帧 · ${cmp.semitones >= 0 ? '+' : ''}${cmp.semitones.toFixed(2)} st`
+    : '—';
+  const rows = [
+    ['对比后端', `${labelOf(aId)} ↔ ${labelOf(bId)}`],
+    ['当前试听后端', labelOf(state.backendId)],
+    ['受影响的预设/参数', flaggedPreset],
+    ['差异段数', `${segs.length}`],
+    ['差异样本占比', `${pct.toFixed(2)}%（${total} / ${durSamples}）`],
+    ['阈值 / 最短段', `${cmp.segments.threshold} RMS · ${cmp.segments.minMs} ms`],
+    ['对比耗时', `${cmp.elapsedMs.toFixed(0)} ms`],
+  ];
+  summary.innerHTML = rows
+    .map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`)
+    .join('');
+  note.textContent = segs.length
+    ? `在 ${labelOf(state.backendId)} 上高亮 ${segs.length} 段超差区域。点任一段可把播放头移到差异峰值，`
+      + '并回指到对应的输入采样。'
+    : '两个后端在当前素材上未发现超过阈值的分歧。';
+
+  if (!segs.length) { list.innerHTML = '<div>无超差段</div>'; return; }
+  list.innerHTML = segs.map((s, i) => {
+    const active = state.activeSegment === i ? ' style="color:var(--accent)"' : '';
+    const peakSec = s.peakSec.toFixed(3);
+    const inSample = s.inputSample !== null ? `${s.inputSample}` : '—';
+    return `<div data-seg="${i}"${active}><span>#${i + 1} `
+      + `<span class="hz">${s.startSec.toFixed(3)}–${s.endSec.toFixed(3)} s</span></span>`
+      + `<span>峰 ${peakSec} s · 输入#${inSample} · ${(s.rmsDiff * 100).toFixed(1)}%</span></div>`;
+  }).join('');
+  for (const row of list.querySelectorAll('[data-seg]')) {
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', () => focusSegment(Number(row.dataset.seg)));
+  }
+}
+
+// Jump the playhead to a divergence segment, select the region, and show the
+// input sample the difference peak came from. This is the "return to input
+// samples" step: the peak in the output maps to a concrete input index.
+function focusSegment(index) {
+  const cmp = state.compare;
+  if (!cmp) return;
+  const s = cmp.segments.segments[index];
+  if (!s) return;
+  state.activeSegment = index;
+  const outLen = state.result ? state.result.output.length : state.input.length;
+  state.traceOffset = Math.min(outLen - 1, Math.max(0, s.peakSample));
+  state.selStart = Math.min(outLen - 1, Math.max(0, s.startSample));
+  state.selEnd = Math.min(outLen, Math.max(state.selStart + 1, s.endSample));
+  updateTime();
+  renderCompat();
+  drawSpectrum();
+  drawTrace();
+  drawPlayhead();
+  updateInspector();
+  const inSample = s.inputSample !== null ? ` · 输入采样 #${s.inputSample}` : '';
+  toast(`差异段 #${index + 1} @ ${s.peakSec.toFixed(3)} s${inSample}`);
+}
 
 // ---------------------------------------------------------------- evidence --
 
@@ -618,6 +844,7 @@ function updateEvidence(res, ms) {
     : null;
   const shiftedOnset = ev.outputOnsetSec;
   const rows = [
+    ['移调后端', BACKENDS.find((b) => b.id === (m.backend ?? state.backendId))?.label ?? (m.backend ?? state.backendId), null],
     ['输入样本数', `${m.inputLength}`, null],
     ['输出样本数', `${m.outputLength}`, m.outputLength === m.inputLength ? 'ok' : 'bad'],
     ['时长（输入/输出）', `${fmt(m.inputDurationSec)} / ${fmt(m.outputDurationSec)} s`, m.durationPreserved ? 'ok' : 'bad'],
@@ -767,6 +994,33 @@ function drawSpectrum() {
     ctx.strokeRect(x0 + 0.5, 0.5, Math.max(1, x1 - x0 - 1), h - 1);
   }
 
+  // Cross-backend divergence regions. Drawn from the comparison's segment
+  // samples and mapped onto the same time axis as the spectrogram, so the
+  // shaded band literally covers the audio the transport would play.
+  if (state.compare) {
+    const segs = state.compare.segments.segments;
+    const outLen = state.result ? state.result.output.length : state.input.length;
+    for (let i = 0; i < segs.length; i++) {
+      const s = segs[i];
+      const x0 = (s.startSample / outLen) * w;
+      const x1 = (s.endSample / outLen) * w;
+      const active = state.activeSegment === i;
+      ctx.fillStyle = active ? 'rgba(255,107,122,0.26)' : 'rgba(255,107,122,0.13)';
+      ctx.fillRect(x0, 0, Math.max(1, x1 - x0), h);
+      ctx.strokeStyle = active ? 'rgba(255,107,122,0.95)' : 'rgba(255,107,122,0.5)';
+      ctx.strokeRect(x0 + 0.5, 0.5, Math.max(1, x1 - x0 - 1), h - 1);
+      // The peak is the sample whose input counterpart the list reports.
+      const px = (s.peakSample / outLen) * w;
+      ctx.fillStyle = active ? '#ff6b7a' : 'rgba(255,107,122,0.75)';
+      ctx.beginPath();
+      ctx.moveTo(px, 0);
+      ctx.lineTo(px - 4, 7);
+      ctx.lineTo(px + 4, 7);
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+
   // Onset markers.
   for (const o of an.onsets) {
     const x = (o.timeSec / durSec) * w;
@@ -798,7 +1052,10 @@ function drawTrace() {
   if (!res || !res.trace.frames.length) {
     ctx.fillStyle = '#8b98aa';
     ctx.font = '11px ui-monospace, monospace';
-    ctx.fillText('渲染后显示逐帧相位轨迹', 10, h / 2);
+    ctx.fillText(
+      res ? `${res.meta.backend ?? '后端'} 不提供逐帧相位轨迹` : '渲染后显示逐帧相位轨迹',
+      10, h / 2,
+    );
     return;
   }
   const frames = res.trace.frames;
@@ -933,7 +1190,12 @@ function updateInspector() {
   const total = res.meta.outputDurationSec;
   const sec = state.playing ? currentPositionSec(total) : state.traceOffset / state.sampleRate;
   const f = traceFrameFor(sec);
-  if (!f) { el.innerHTML = '<div class="row">轨迹为空</div>'; return; }
+  if (!f) {
+    el.innerHTML = res.trace && res.trace.frames && res.trace.frames.length === 0
+      ? `<div class="row">${res.meta.backend ?? '当前后端'} 不输出逐帧相位轨迹（逐箱声码器无峰身份可查）</div>`
+      : '<div class="row">轨迹为空</div>';
+    return;
+  }
 
   const partials = [...f.partials]
     .sort((a, b) => b.association[0]?.amp - a.association[0]?.amp || b.sourceHz - a.sourceHz)
@@ -968,8 +1230,15 @@ function hitTestSpectrum(clientX, shiftKey) {
   if (!state.analysis) return;
   const t = spectrumTime(clientX);
   const total = state.result ? state.result.output.length : state.input.length;
-  const sample = Math.min(total - 1, Math.round(t * state.sampleRate));
+  const sample = Math.min(total - 1, Math.max(0, Math.round(t * state.sampleRate)));
   state.traceOffset = sample;
+  // A plain click dismisses the previous selection, and also clears the
+  // cross-backend divergence highlight so the two overlays cannot be confused.
+  if (!shiftKey) {
+    state.selStart = null;
+    state.selEnd = null;
+    state.activeSegment = null;
+  }
   if (shiftKey) {
     // Shift-click defines a segment for loop listening.
     if (state.selStart === null) { state.selStart = sample; state.selEnd = null; }
@@ -980,9 +1249,6 @@ function hitTestSpectrum(clientX, shiftKey) {
       state.selStart = a;
       state.selEnd = b;
     }
-  } else {
-    state.selStart = null;
-    state.selEnd = null;
   }
   updateTime();
   drawSpectrum();
@@ -1196,6 +1462,80 @@ $('download-trace').addEventListener('click', () => {
   };
   download(new TextEncoder().encode(JSON.stringify(payload, null, 1)), 'phase_trace.json');
 });
+
+// ------------------------------------------------------------- legacy panel --
+
+// The legacy report is generated offline (scripts/check-legacy-projects.mjs) so
+// the browser never has to reproduce old-project rendering to answer the
+// question it exists for: after a window change, which old presets still work?
+// Two failure kinds must stay distinct in the UI — an unreadable preset is a
+// config problem, while a mid-stream cold start is missing history.
+const STATUS_TEXT = {
+  ok: '可用',
+  'preset-read-failed': '预设读取失败',
+  'first-window-missing-history': '首窗缺少历史样本',
+  'delay-drift-regression': '延迟/漂移超差',
+  'onset-misaligned': '起音未对齐',
+};
+const STATUS_CLASS = {
+  ok: 'ok',
+  'preset-read-failed': 'bad',
+  'first-window-missing-history': 'warn',
+  'delay-drift-regression': 'bad',
+  'onset-misaligned': 'bad',
+};
+
+async function loadLegacyPanel() {
+  const presetsEl = $('legacy-presets');
+  const projectsEl = $('legacy-projects');
+  if (!presetsEl || !projectsEl) return;
+  presetsEl.innerHTML = '<dt>状态</dt><dd>载入中…</dd>';
+  let report;
+  try {
+    const r = await fetch('./outputs/compat/legacy-projects.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    report = await r.json();
+  } catch (err) {
+    presetsEl.innerHTML = '<dt>状态</dt><dd>报告未生成</dd>';
+    projectsEl.innerHTML = `<div>先运行 node scripts/check-legacy-projects.mjs（${err.message}）</div>`;
+    return;
+  }
+  const readable = report.presets.filter((p) => p.readable).length;
+  const unreadable = report.presets.length - readable;
+  const statusRow = (k, v, cls) => `<dt>${k}</dt><dd class="${cls || ''}">${v}</dd>`;
+  presetsEl.innerHTML = [
+    statusRow('历史预设', `${readable} / ${report.presets.length} 可读`, unreadable ? 'bad' : 'ok'),
+    statusRow('不可读预设', unreadable ? `${unreadable}` : '0', unreadable ? 'bad' : 'ok'),
+    statusRow('报告时间', new Date(report.generatedAt).toLocaleString()),
+    ...report.presets.map((p) => statusRow(
+      `预设 ${p.id}`,
+      p.readable ? `可读 · 帧长 ${p.frameSize}` : '读取失败',
+      p.readable ? 'ok' : 'bad',
+    )),
+  ].join('');
+
+  const rows = report.results || [];
+  if (!rows.length) { projectsEl.innerHTML = '<div>无旧工程记录</div>'; return; }
+  projectsEl.innerHTML = rows.map((r) => {
+    const cls = STATUS_CLASS[r.classification.status] || '';
+    const label = STATUS_TEXT[r.classification.status] || r.classification.status;
+    const cold = r.cold && r.cold.errorToMarkerSamples !== null
+      ? `${r.cold.errorToMarkerSamples} spl`
+      : '—';
+    const warm = r.warm && r.warm.errorToMarkerSamples !== null
+      ? `${r.warm.errorToMarkerSamples} spl`
+      : '—';
+    const drift = r.measurements && r.measurements.driftUsable
+      ? `${r.measurements.driftCentsPerSec?.toFixed(2)} c/s`
+      : 'n/a';
+    const delay = r.measurements ? `${r.measurements.fixedDelayMs?.toFixed(2)} ms` : '—';
+    return `<div><span><span class="hz" style="color:${cls === 'bad' ? 'var(--bad)' : cls === 'warn' ? 'var(--warn)' : 'var(--accent-2)'}">${r.id}</span> `
+      + `<span style="color:var(--muted)">· 预设 ${r.presetId}</span></span>`
+      + `<span>${label} · 冷 ${cold} / 暖 ${warm} · 延迟 ${delay} · 漂移 ${drift}</span></div>`;
+  }).join('');
+}
+
+loadLegacyPanel();
 
 // -------------------------------------------------------------------- init --
 

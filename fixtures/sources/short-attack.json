@@ -1,0 +1,16 @@
+{
+  "schema": "spectral-transposer/source-set@1",
+  "id": "short-attack",
+  "scenario": "short-attack",
+  "note": "A harmonically rich note with a 2 ms attack. Short attacks are where phase policy shows up: a delay in the attack region that a sustain-only measurement would miss. Pitch should still land on all three partials.",
+  "partials": [
+    { "hz": 330.0, "amp": 0.40, "phase": 0.0 },
+    { "hz": 660.0, "amp": 0.14, "phase": 0.0 },
+    { "hz": 990.0, "amp": 0.06, "phase": 0.0 }
+  ],
+  "envelope": { "attackSec": 0.002, "releaseSec": 0.03 },
+  "variants": [
+    { "sampleRate": 44100, "durationSec": 0.9, "onsetSample": 4410 },
+    { "sampleRate": 48000, "durationSec": 0.9, "onsetSample": 4800 }
+  ]
+}

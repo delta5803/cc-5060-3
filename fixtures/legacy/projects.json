@@ -1,0 +1,26 @@
+{
+  "schema": "spectral-transposer/legacy-projects@0",
+  "note": "Old projects that reference the presets above. `playFromSample` is where the old transport started - mid-way through the first note, 20 ms before the re-attack, so the first analysis window has no history to its left. `markerSample` is the project time marker: the re-attack, which the sound's first effective onset must line up with. Project `old-midstream` uses the readable 2048-sample preset; `old-broken` references the unreadable preset, which must be reported as a preset-read failure and never as an onset/delay fault.",
+  "projects": [
+    {
+      "id": "old-midstream",
+      "name": "Old song - starts mid-note",
+      "sourceId": "legacy-phrase",
+      "presetId": "old-default",
+      "sampleRate": 44100,
+      "playFromSample": 36603,
+      "markerSample": 37485,
+      "transposeSemitones": 7
+    },
+    {
+      "id": "old-broken",
+      "name": "Old song - preset lost its window key",
+      "sourceId": "legacy-phrase",
+      "presetId": "old-broken",
+      "sampleRate": 44100,
+      "playFromSample": 36603,
+      "markerSample": 37485,
+      "transposeSemitones": 7
+    }
+  ]
+}

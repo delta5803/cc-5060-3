@@ -187,6 +187,43 @@ const adaptiveRow = await page.evaluate(() => {
 check('dense material triggers adaptive frame size', adaptiveRow.includes('已应用'), adaptiveRow);
 await page.screenshot({ path: `${outDir}/window_dense.png`, fullPage: false });
 
+// Backend switching and the cross-backend comparison. The selector must be
+// populated from the registry, and a comparison must locate divergence
+// segments that map back to input samples.
+const backendOptions = await page.evaluate(() => [...document.querySelectorAll('#backend option')].map((o) => o.value));
+check('backend selector populated from registry', backendOptions.includes('peak-locked') && backendOptions.includes('plain-vocoder'), JSON.stringify(backendOptions));
+
+await page.click('#demo-phrase');
+await page.waitForTimeout(400);
+await page.selectOption('#backend', 'peak-locked');
+await page.click('#compare-backends');
+await page.waitForTimeout(1200);
+const compat = await page.evaluate(() => {
+  const summary = document.getElementById('compat-summary').textContent;
+  const rows = [...document.querySelectorAll('#compat-segments [data-seg]')];
+  return {
+    summary,
+    rows: rows.length,
+    first: rows[0] ? rows[0].textContent : '',
+  };
+});
+check('compare summary names both backends', compat.summary.includes('峰锁定') && compat.summary.includes('逐箱'), compat.summary.slice(0, 60));
+check('compare lists divergence segments', compat.rows > 0, `${compat.rows} rows`);
+const segClick = await page.evaluate(() => {
+  const row = document.querySelector('#compat-segments [data-seg]');
+  if (!row) return null;
+  row.click();
+  return { toast: document.getElementById('toast').textContent, time: document.getElementById('time').textContent };
+});
+check('segment click returns to the input sample', !!segClick && /输入采样 #\d+/.test(segClick.toast), segClick ? segClick.toast : 'no segment');
+
+// Legacy panel must distinguish the two failure kinds.
+const legacy = await page.evaluate(() => document.getElementById('legacy-projects').textContent);
+check('legacy panel distinguishes preset-read-failed', legacy.includes('预设读取失败'), legacy.slice(0, 60));
+check('legacy panel distinguishes first-window-missing-history', legacy.includes('首窗缺少历史样本'), legacy.slice(0, 60));
+
+await page.screenshot({ path: `${outDir}/window_compat.png`, fullPage: false });
+
 check('no console errors', consoleErrors.length === 0, consoleErrors.slice(0, 3).join(' | '));
 
 await browser.close();

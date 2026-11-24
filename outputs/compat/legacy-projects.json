@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-11-24T04:03:33.337Z",
+  "schema": "spectral-transposer/legacy-project-report@1",
+  "tolerances": {
+    "onsetSamples": 64,
+    "delayMs": 3,
+    "driftCentsPerSec": 5,
+    "driftCents": 25
+  },
+  "presetReadIssues": [
+    {
+      "id": "old-broken",
+      "reason": "frameSize missing or invalid (looked for frameSize/fftSize/windowSize/window/N)"
+    }
+  ],
+  "presets": [
+    {
+      "id": "old-default",
+      "readable": true,
+      "frameSize": 2048,
+      "issues": []
+    },
+    {
+      "id": "old-narrow",
+      "readable": true,
+      "frameSize": 1024,
+      "issues": []
+    },
+    {
+      "id": "old-wide",
+      "readable": true,
+      "frameSize": 4096,
+      "issues": []
+    },
+    {
+      "id": "old-broken",
+      "readable": false,
+      "issues": [
+        "frameSize missing or invalid (looked for frameSize/fftSize/windowSize/window/N)"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "old-midstream",
+      "name": "Old song - starts mid-note",
+      "sourceId": "legacy-phrase",
+      "presetId": "old-default",
+      "preset": {
+        "id": "old-default",
+        "readable": true,
+        "frameSize": 2048,
+        "overlap": 4,
+        "phaseLock": true,
+        "transientMode": "auto",
+        "sourceKeys": {
+          "frameSize": "fftSize",
+          "overlap": "osamp",
+          "phaseLock": "lockPhase",
+          "autoFrameSize": "adaptive",
+          "transientMode": "attackMode",
+          "transientThreshold": "threshold"
+        },
+        "issues": []
+      },
+      "sampleRate": 44100,
+      "playFromSample": 36603,
+      "markerSample": 37485,
+      "markerSec": 0.85,
+      "transposeSemitones": 7,
+      "cold": {
+        "playFromSample": 36603,
+        "onsetSample": 37307,
+        "onsetLocalSample": 704,
+        "errorToMarkerSamples": -178,
+        "firstWindowRmsDiffVsWarm": 0.1743373088323541,
+        "firstWindowSamples": 2048
+      },
+      "warm": {
+        "preRollSamples": 2048,
+        "onsetSample": 37489,
+        "onsetLocalSample": 886,
+        "errorToMarkerSamples": 4
+      },
+      "measurements": {
+        "fixedDelayMs": 1.746031746031746,
+        "fixedDelaySamples": 77,
+        "fixedDelayCorrelation": 0.5324843577892714,
+        "driftCentsPerSec": null,
+        "driftCents": null,
+        "driftWindows": 0,
+        "driftUsable": false,
+        "driftNote": "Too few steady windows for a trustworthy drift figure on this short decaying phrase; not reported.",
+        "driftPartials": []
+      },
+      "classification": {
+        "status": "first-window-missing-history",
+        "detail": "The project starts mid-stream with no pre-roll, so the first analysis window is zero-padded on the left. With real pre-roll the onset lands within 4 samples of the marker, so the displacement is missing history, not a kernel delay.",
+        "onsetAligned": false,
+        "coldErrorSamples": -178,
+        "warmErrorSamples": 4,
+        "coldFirstWindowRmsDiff": 0.1743373088323541,
+        "firstWindowSamples": 2048
+      }
+    },
+    {
+      "id": "old-broken",
+      "name": "Old song - preset lost its window key",
+      "sourceId": "legacy-phrase",
+      "presetId": "old-broken",
+      "preset": {
+        "id": "old-broken",
+        "readable": false,
+        "overlap": 4,
+        "phaseLock": true,
+        "transientMode": "auto",
+        "sourceKeys": {
+          "frameSize": null,
+          "overlap": "osamp",
+          "phaseLock": "lockPhase",
+          "autoFrameSize": null,
+          "transientMode": "attackMode",
+          "transientThreshold": null
+        },
+        "issues": [
+          "frameSize missing or invalid (looked for frameSize/fftSize/windowSize/window/N)"
+        ]
+      },
+      "sampleRate": 44100,
+      "playFromSample": 36603,
+      "markerSample": 37485,
+      "markerSec": 0.85,
+      "transposeSemitones": 7,
+      "classification": {
+        "status": "preset-read-failed",
+        "detail": "The legacy preset could not be read, so the window used by the old project is unknown. Onset alignment is not evidence about this preset; fix the config keys first.",
+        "presetIssues": [
+          "frameSize missing or invalid (looked for frameSize/fftSize/windowSize/window/N)"
+        ],
+        "onsetAligned": null
+      }
+    }
+  ]
+}

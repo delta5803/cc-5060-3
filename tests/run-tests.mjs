@@ -29,6 +29,24 @@ import {
   silence,
   concat,
 } from './signals.js';
+import {
+  expandSourceSet,
+  validateSourceSet,
+  renderSource,
+  renderReference,
+  targetPartials,
+} from '../src/dsp/sources.js';
+import { listBackends, getBackend, processWithBackend } from '../src/dsp/backends.js';
+import {
+  measureFixedDelaySamples,
+  measureFrequencyDrift,
+  firstEffectiveOnsetSample,
+  differenceSegments,
+  readLegacyPresets,
+  readLegacyProjects,
+  classifyProjectCompatibility,
+} from '../src/dsp/compat.js';
+import { readFileSync } from 'node:fs';
 
 let passed = 0;
 let failed = 0;
@@ -368,6 +386,227 @@ test('unresolvable close partials merge but total energy is retained (documented
   assertClose(outRms, inRms, inRms * 0.25, 'total energy retained');
   assert(Math.max(a1, a2) < 0.25, 'the two partials are not reproduced separately');
   assert(Math.abs(a1 - a2) > 0.05, 'one merged component carries most of the energy');
+});
+
+console.log('\n== editable sources ==');
+
+const SOURCE_SETS = ['stable-dual', 'short-attack', 'attack-window-edge'].map(
+  (id) => JSON.parse(readFileSync(new URL(`../fixtures/sources/${id}.json`, import.meta.url), 'utf8')),
+);
+
+test('every built-in source-set validates and expands per rate variant', () => {
+  for (const set of SOURCE_SETS) {
+    const issues = validateSourceSet(set);
+    assert(issues.length === 0, `${set.id}: ${issues.join('; ')}`);
+    const defs = expandSourceSet(set);
+    assert(defs.length === set.variants.length, `${set.id} expansions`);
+    for (const def of defs) {
+      assert(def.id === `${set.id}@${def.sampleRate}`, 'derived id');
+      assert(def.onsetSample > 0 && def.onsetSample < def.durationSec * def.sampleRate, 'onset inside');
+    }
+  }
+});
+
+test('rendering a source lands its first effective onset on onsetSample', () => {
+  for (const set of SOURCE_SETS) {
+    for (const def of expandSourceSet(set)) {
+      const signal = renderSource(def);
+      assert(signal.length === Math.round(def.durationSec * def.sampleRate), 'length');
+      const onset = firstEffectiveOnsetSample(signal, def.sampleRate);
+      const tol = Math.round(0.004 * def.sampleRate);
+      assert(onset !== null, 'onset found');
+      assertClose(onset, def.onsetSample, tol, `${def.id} onset`);
+    }
+  }
+});
+
+test('reference is rebuilt from the original harmonics at hz * ratio', () => {
+  const def = expandSourceSet(SOURCE_SETS[0])[0];
+  const ratio = semitonesToRatio(7);
+  const reference = renderReference(def, ratio);
+  const targets = targetPartials(def, ratio);
+  assert(reference.length === renderSource(def).length, 'same length as input');
+  for (const t of targets) {
+    assertClose(t.targetHz, t.sourceHz * ratio, 1e-9, 'target = source * ratio');
+    const measured = estimateFreq(reference, def.sampleRate, t.targetHz * 0.9, t.targetHz * 1.1, 4000, 30000);
+    assert(Math.abs(cents(measured, t.targetHz)) < 5, `${t.targetHz} Hz lands on target`);
+  }
+});
+
+test('the three required scenarios are all present', () => {
+  const scenarios = new Set(SOURCE_SETS.map((s) => s.scenario));
+  for (const s of ['stable-dual', 'short-attack', 'attack-window-edge']) {
+    assert(scenarios.has(s), `scenario ${s} present`);
+  }
+  const edge = SOURCE_SETS.find((s) => s.scenario === 'attack-window-edge');
+  assert(edge.nearWindowEdge === true, 'edge scenario marks nearWindowEdge');
+});
+
+console.log('\n== backend registry ==');
+
+test('registry exposes both backends and rejects unknown ids', () => {
+  const ids = listBackends().map((b) => b.id);
+  assert(ids.includes('peak-locked') && ids.includes('plain-vocoder'), `ids ${ids.join(',')}`);
+  let err = null;
+  try { getBackend('nope'); } catch (e) { err = e; }
+  assert(err && err.code === 'UNKNOWN_BACKEND', 'unknown backend throws');
+});
+
+test('both backends preserve sample count and match pitch', () => {
+  const sig = dualTone({ freqs: [440, 554.365], seconds: 0.9, amps: [0.3, 0.24] });
+  for (const b of listBackends()) {
+    const res = processWithBackend(b.id, sig, SR, { semitones: 5, frameSize: 2048, autoFrameSize: false });
+    assert(res.output.length === sig.length, `${b.id} length`);
+    assert(res.meta.durationPreserved === true, `${b.id} duration flag`);
+    assert(res.meta.backend === b.id || b.id === 'peak-locked', `${b.id} meta backend`);
+    for (const f of [440, 554.365]) {
+      const target = f * semitonesToRatio(5);
+      const measured = estimateFreq(res.output, SR, target * 0.9, target * 1.1, 6000, 30000);
+      assert(Math.abs(cents(measured, target)) < 8, `${b.id} ${f} Hz lands on target`);
+    }
+  }
+});
+
+test('backends genuinely differ (not the same kernel behind a flag)', () => {
+  const sig = dualTone({ freqs: [440, 554.365], seconds: 0.9, amps: [0.3, 0.24] });
+  const opts = { semitones: 5, frameSize: 2048, autoFrameSize: false };
+  const a = processWithBackend('peak-locked', sig, SR, opts).output;
+  const b = processWithBackend('plain-vocoder', sig, SR, opts).output;
+  let maxDiff = 0;
+  for (let i = 0; i < a.length; i++) maxDiff = Math.max(maxDiff, Math.abs(a[i] - b[i]));
+  assert(maxDiff > 0.05, `max sample difference ${maxDiff.toFixed(4)}`);
+});
+
+console.log('\n== compatibility measurements ==');
+
+test('fixed delay recovers an injected uniform shift', () => {
+  const def = expandSourceSet(SOURCE_SETS[0])[0];
+  const reference = renderReference(def, semitonesToRatio(7));
+  const delayed = new Float32Array(reference.length);
+  const d = 96;
+  for (let i = 0; i < reference.length; i++) {
+    if (i - d >= 0) delayed[i] = reference[i - d];
+  }
+  const measured = measureFixedDelaySamples(delayed, reference, def.sampleRate);
+  assertClose(measured.lagSamples, d, 8, 'injected delay recovered');
+});
+
+test('a uniform delay does not move the drift reading', () => {
+  const def = expandSourceSet(SOURCE_SETS[0])[0];
+  const ratio = semitonesToRatio(7);
+  const reference = renderReference(def, ratio);
+  const targets = targetPartials(def, ratio);
+  const delayed = new Float32Array(reference.length);
+  for (let i = 0; i < reference.length; i++) if (i - 96 >= 0) delayed[i] = reference[i - 96];
+  const base = measureFrequencyDrift(reference, def.sampleRate, targets, { onsetSample: def.onsetSample });
+  const shifted = measureFrequencyDrift(delayed, def.sampleRate, targets, { onsetSample: def.onsetSample });
+  assert(Math.abs((shifted.maxAbsSlope ?? 0) - (base.maxAbsSlope ?? 0)) < 3, 'drift unchanged by delay');
+});
+
+test('a pitch glide moves the drift reading but not the delay reading', () => {
+  const sr = SR;
+  const n = Math.round(1.2 * sr);
+  const onset = Math.round(0.05 * sr);
+  const mk = (centsPerSec) => {
+    const out = new Float32Array(n);
+    let ph = 0;
+    const mid = n / 2;
+    for (let i = 0; i < n; i++) {
+      const local = (i - onset) / sr;
+      const e = local < 0 ? 0 : Math.min(1, local / 0.01);
+      const f = 440 * Math.pow(2, (centsPerSec * ((i - mid) / sr)) / 1200);
+      ph += (2 * Math.PI * f) / sr;
+      out[i] = e * 0.3 * Math.sin(ph);
+    }
+    return out;
+  };
+  const steady = mk(0);
+  const glide = mk(45);
+  const targets = [{ sourceHz: 440, targetHz: 440, amp: 0.3 }];
+  const dSteady = measureFrequencyDrift(steady, sr, targets, { onsetSample: onset });
+  const dGlide = measureFrequencyDrift(glide, sr, targets, { onsetSample: onset });
+  assert((dGlide.maxAbsSlope ?? 0) - (dSteady.maxAbsSlope ?? 0) > 20, 'glide raises drift');
+  const delay = measureFixedDelaySamples(glide, steady, sr);
+  assert(Math.abs(delay.lagSamples ?? 0) <= 16, `delay stays near zero (${delay.lagSamples})`);
+});
+
+test('differenceSegments maps each divergence back to an input sample', () => {
+  const sig = dualTone({ freqs: [300, 620], seconds: 0.8 });
+  const opts = { semitones: 5, frameSize: 2048, autoFrameSize: false };
+  const a = processWithBackend('peak-locked', sig, SR, opts).output;
+  const b = processWithBackend('plain-vocoder', sig, SR, opts).output;
+  const segs = differenceSegments(a, b, sig, { sampleRate: SR, threshold: 0.02, envMs: 10, minMs: 20 });
+  assert(segs.count > 0, 'found divergence segments');
+  for (const s of segs.segments) {
+    assert(s.peakSample >= s.startSample && s.peakSample < s.endSample, 'peak inside segment');
+    assert(s.inputSample !== null && s.inputSample >= 0 && s.inputSample < sig.length, 'input sample mapped');
+    assert(s.endSample - s.startSample >= Math.round(0.02 * SR) - 1, 'segments respect min length');
+  }
+});
+
+console.log('\n== legacy presets and projects ==');
+
+const LEGACY_PRESETS = JSON.parse(readFileSync(new URL('../fixtures/legacy/presets.json', import.meta.url), 'utf8'));
+const LEGACY_PROJECTS = JSON.parse(readFileSync(new URL('../fixtures/legacy/projects.json', import.meta.url), 'utf8'));
+
+test('historical key aliases are read across spellings', () => {
+  const read = readLegacyPresets(LEGACY_PRESETS);
+  const byId = new Map(read.presets.map((p) => [p.id, p]));
+  assert(byId.get('old-default').readable, 'fftSize alias read');
+  assert(byId.get('old-default').frameSize === 2048, 'old-default frame');
+  assert(byId.get('old-narrow').frameSize === 1024, 'windowSize alias read');
+  assert(byId.get('old-wide').frameSize === 4096, 'N alias read');
+  assert(byId.get('old-wide').phaseLock === false, 'phase_locked alias read');
+  assert(byId.get('old-broken').readable === false, 'missing window key is unreadable');
+});
+
+test('legacy projects read play-from and marker offsets', () => {
+  const read = readLegacyProjects(LEGACY_PROJECTS);
+  assert(read.projects.length >= 2, 'projects parsed');
+  for (const p of read.projects) {
+    assert(p.playFromSample > 0, `${p.id} playFromSample`);
+    assert(p.markerSample > p.playFromSample, `${p.id} marker after start`);
+  }
+});
+
+test('unreadable preset is classified preset-read-failed, not an onset problem', () => {
+  const c = classifyProjectCompatibility({ presetReadable: false, presetIssues: ['no frameSize'] });
+  assert(c.status === 'preset-read-failed', `status ${c.status}`);
+  assert(c.onsetAligned === null, 'no onset judgement when preset unreadable');
+});
+
+test('mid-stream start without history is first-window-missing-history', () => {
+  const c = classifyProjectCompatibility({
+    presetReadable: true,
+    playFromSample: 36603,
+    hasPreRoll: false,
+    markerSample: 37485,
+    coldOnsetSample: 37307, // -178
+    warmOnsetSample: 37489, // +4
+    coldFirstWindowRmsDiff: 0.17,
+    firstWindowSamples: 2048,
+    delayMs: 1.7,
+    driftCentsPerSec: 2.0,
+    tolerances: { onsetSamples: 64, delayMs: 3, driftCentsPerSec: 5 },
+  });
+  assert(c.status === 'first-window-missing-history', `status ${c.status}`);
+  assert(c.coldErrorSamples === -178 && c.warmErrorSamples === 4, 'both errors reported');
+  assert(/missing history/.test(c.detail), 'explains the cause');
+});
+
+test('readable preset with a real delay excess is a delay-drift regression', () => {
+  const c = classifyProjectCompatibility({
+    presetReadable: true,
+    playFromSample: 0,
+    hasPreRoll: true,
+    markerSample: 1000,
+    coldOnsetSample: 1010,
+    tolerances: { onsetSamples: 64, delayMs: 3, driftCentsPerSec: 5 },
+    delayMs: 9.5,
+    driftCentsPerSec: 1.0,
+  });
+  assert(c.status === 'delay-drift-regression', `status ${c.status}`);
+  assert(/9.50 ms/.test(c.detail), 'delay figure quoted');
 });
 
 console.log('\n== WAV round trip ==');

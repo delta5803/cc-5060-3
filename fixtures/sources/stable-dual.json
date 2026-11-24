@@ -1,0 +1,15 @@
+{
+  "schema": "spectral-transposer/source-set@1",
+  "id": "stable-dual",
+  "scenario": "stable-dual",
+  "note": "Two sustained partials, exactly harmonic-friendly spacing. This is the baseline compatibility case: pitch must land on both partials and neither may drift over time. Edit partials or add a sample rate variant here and rebuild; input, reference and the compatibility targets are all regenerated.",
+  "partials": [
+    { "hz": 440.0, "amp": 0.32, "phase": 0.0 },
+    { "hz": 554.365, "amp": 0.24, "phase": 0.0 }
+  ],
+  "envelope": { "attackSec": 0.01, "releaseSec": 0.03 },
+  "variants": [
+    { "sampleRate": 44100, "durationSec": 1.6, "onsetSample": 6615 },
+    { "sampleRate": 48000, "durationSec": 1.6, "onsetSample": 7200 }
+  ]
+}

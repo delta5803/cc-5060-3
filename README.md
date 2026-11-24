@@ -44,9 +44,83 @@ node scripts/serve.mjs          # 默认 http://127.0.0.1:5173/
    分音源/目标频率、分析相位、目标相位，以及每个归属频率箱的
    `输入相位 + 相位偏移 → 实际使用相位`。
 8. 结果区读取内核回报的样本数、事件位置、算法延迟等；下方面板展示逐帧相位轨迹。
-7. “下载移调 WAV”导出真实文件，“下载相位轨迹 JSON”导出中间相位。
+9. **后端切换与对比**（侧栏“后端”分组）：
+   - “移调后端”下拉可在 **峰锁定相位声码器（当前）** 与 **逐箱相位声码器（旧）**
+     之间切换；切换后自动用同一素材、同一参数重渲染，便于 A/B 试听。
+   - “分析帧长（改窗）”可切到 1024 / 2048 / 4096；改窗后旧预设是否仍可用见下节。
+   - 点“对比两个后端”：同时渲染两个后端，并在频谱上用红色高亮 **超差段**
+     （局部 RMS 差异超过阈值且持续够长）。结果卡片列出段数、差异样本占比、
+     受影响的预设/参数（当前帧长 + 音程），以及每段的峰值位置。
+   - **从差异位置返回输入采样**：点击列表中的任一段，播放头跳到该段差异峰值，
+     并显示差异峰值对应的 **输入采样编号**（`inputSample`），可直接回到原始素材核对。
+10. “下载移调 WAV”导出真实文件，“下载相位轨迹 JSON”导出中间相位。
 
 内核抛出的错误（如超出比例范围）会带错误码回显在“渲染”分组，并回写内核状态徽标。
+
+## 兼容样例库（改窗后哪些预设还可用）
+
+兼容样例完全由可编辑的源音 JSON 重建，不手写音频：
+
+```
+fixtures/sources/stable-dual.json        稳定双音（440 + 554.365 Hz）
+fixtures/sources/short-attack.json       短起音（2 ms 攻击，多分音）
+fixtures/sources/attack-window-edge.json 起音紧贴窗边（近窗边界处起音）
+fixtures/legacy/presets.json             历史预设快照（故意混用旧键名）
+fixtures/legacy/projects.json            旧工程：从中段起播 + 时间标志
+fixtures/singles/legacy-phrase.json      旧工程用的乐句源（带衰减首音）
+```
+
+三种必需情形（稳定双音 / 短起音 / 起音紧贴窗边）各是一份 source-set，按采样率
+列出多个变体；改动 JSON 后重跑构建即可刷新全部派生产物：
+
+```bash
+npm run compat          # 构建 + 旧工程检查 + 审计（= 下面三条）
+npm run compat:build    # scripts/build-compat-library.mjs
+npm run compat:legacy   # scripts/check-legacy-projects.mjs
+npm run compat:audit    # scripts/audit-compat.mjs
+```
+
+`build-compat-library.mjs` 对每个 source × 采样率 × 音程（+7/−5 st）× 窗长
+（1024/2048/4096）生成：
+
+- 输入 WAV（由源音合成）、参考 WAV（由**原始谐音**乘以比例重新生成）；
+- 两个后端的输出 WAV；
+- `outputs/compat/library.json`：逐后端记录起音偏移、固定延迟、频率漂移，
+  以及跨后端差异段（每段回指到输入采样）；
+- `outputs/compat/onset-compensation.md`：**按 (窗长, 采样率) 维护的起音补偿表**。
+
+所有记录的数值都取自 **写盘后再解析回来的 16-bit 样本**（`writeAndReadBack`），
+因此报告描述的就是交付文件本身，而不是内存中的浮点缓冲。
+
+### 旧工程兼容判定：两种失败必须区分
+
+`check-legacy-projects.mjs` 读取旧预设（容忍 `fftSize`/`windowSize`/`N`、
+`osamp`/`hopDiv`、`lockPhase`/`phase_locked` 等历史键名）与旧工程的
+`playFromSample`、`markerSample`，将“第一处有效起音”对齐到工程时间标志，
+并输出 `outputs/compat/legacy-projects.json`：
+
+| 状态 | 含义 | 例 |
+| --- | --- | --- |
+| `preset-read-failed` | 预设读不出来，窗长未知，起音对齐无从谈起 | `old-broken`（缺窗长键） |
+| `first-window-missing-history` | 预设可读，但工程从中段起播，首窗左侧零填充无历史 | `old-midstream`（冷 −178 spl，暖 +4 spl） |
+| `delay-drift-regression` | 有真实历史且延迟/漂移超差 | 真实回归时 |
+| `onset-misaligned` | 有历史、无延迟漂移问题，仅起音偏移超差 | — |
+| `ok` | 全部在容差内 | — |
+
+关键在于：`preset-read-failed` 在**任何测量之前**判定，绝不把“读不出预设”误报成
+“内核起音有问题”；`first-window-missing-history` 由结构事实（`playFromSample>0` 且
+无预卷）+ 暖渲染佐证（补齐一窗真实历史后误差落到 +4 采样）共同确认。
+
+### 固定延迟与频率漂移独立报告
+
+`compat.js` 用两种互不干扰的测量：
+
+- **固定延迟**：累积能量包络对齐（`measureFixedDelaySamples`），对拍频稳健；
+- **频率漂移**：逐分音 cents 误差对时间的线性回归斜率（`measureFrequencyDrift`）。
+
+`audit-compat.mjs` 证明二者独立：注入 128 采样的整体延迟只移动延迟读数（107→235，
+恰好 +128），漂移读数不变；注入 45 音分/秒的线性滑音只移动漂移读数（0→45.02 c/s），
+延迟读数保持 −11 采样。审计从磁盘 WAV 独立重算每个数字，与存储值逐一比对。
 
 ## 无依赖运行
 
@@ -58,10 +132,11 @@ node scripts/serve.mjs          # 默认 http://127.0.0.1:5173/
 ## 测试与验证
 
 ```bash
-node tests/run-tests.mjs        # 内核测试（29 项）
+node tests/run-tests.mjs        # 内核 + 兼容工具测试（45 项）
 node scripts/render-cases.mjs    # 渲染真实 WAV 到 outputs/
 node scripts/verify-outputs.mjs  # 从磁盘上的导出文件反向验证（38 项）
 node scripts/transient-tradeoff.mjs  # 瞬态取舍量化（读导出文件）
+npm run compat                   # 兼容样例库 + 旧工程检查 + 审计（10/10）
 ```
 
 界面测试（需要 Chromium）：
@@ -72,6 +147,16 @@ npx playwright-core install chromium
 node scripts/serve.mjs &
 BASE_URL=http://127.0.0.1:5173/ node tests/ui-check.mjs   # 25 项
 ```
+
+无 Chromium 时的界面接线检查（在 Node 里用最小 DOM 桩运行页面真实模块脚本）：
+
+```bash
+npm run test:ui-dom      # 15 项：后端切换、后端对比、差异段回指输入采样、旧工程面板
+```
+
+> `test:ui-dom` 验证的是**接线与计算**（选择器由注册表填充、对比结果与差异段、
+> 点击差异段跳回对应输入采样、旧工程两种失败分类都能显示），不验证视觉绘制；
+> 视觉由上面的 Chromium 测试覆盖。本机无浏览器二进制时，这是能跑的最近似检查。
 
 ## 交付物（`outputs/`）
 
@@ -87,6 +172,12 @@ BASE_URL=http://127.0.0.1:5173/ node tests/ui-check.mjs   # 25 项
 | `report.json` | 全部用例的测量结果 |
 | `verification.json` | 从导出 WAV 反向解析得到的验证结果 |
 | `transient-tradeoff.json` | 瞬态指标：上升时间、音高散乱度、攻击幅度 |
+| `compat/library.json` | 每 source×窗长×音程 的起音偏移、固定延迟、频率漂移、跨后端差异段 |
+| `compat/onset-compensation.md` | 按 (窗长, 采样率) 的起音补偿表 |
+| `compat/audit.json` | 从磁盘 WAV 独立重算的审计结果（10 项，含延迟/漂移独立性证明） |
+| `compat/legacy-projects.json` | 旧工程逐项判定（冷/暖渲染、延迟、漂移、分类） |
+| `compat/legacy/*_cold.wav` `*_warm.wav` | 旧工程冷启动与补齐历史后的可试听导出 |
+| `compat/inputs/` `references/` `outputs/` | 兼容样例的输入、参考与两个后端输出 |
 
 所有 `.wav` 是真实 16-bit PCM 文件，可直接播放或用任意工具检查样本数。
 
@@ -117,14 +208,23 @@ src/dsp/fft.js             基 2 FFT
 src/dsp/window.js          Hann 窗
 src/dsp/peaks.js           峰检测、瞬时频率、跨帧跟踪
 src/dsp/transpose.js       移调内核（分析/合成/起音/自适应帧长）
+src/dsp/backends.js        后端注册表（峰锁定 / 逐箱相位声码器）
+src/dsp/compat.js          兼容测量：固定延迟、频率漂移、起音、差异段、旧预设/工程
+src/dsp/sources.js         可编辑源音 → 输入/参考合成
 src/dsp/resample.js        带限窗函数 sinc 重采样
 src/dsp/wav.js             WAV 读写
 src/dsp/measure.js         共享测量工具
-tests/run-tests.mjs        内核测试
+fixtures/sources/          可编辑源音（稳定双音 / 短起音 / 起音贴窗边）
+fixtures/legacy/           旧预设快照与旧工程
+fixtures/singles/          旧工程用的乐句源
+tests/run-tests.mjs        内核 + 兼容工具测试（45 项）
 tests/ui-check.mjs         无头浏览器界面测试
 tests/signals.js           合成测试信号
 scripts/serve.mjs          静态服务器
 scripts/render-cases.mjs   批量导出 WAV 与报告
 scripts/verify-outputs.mjs 从导出文件反向验证
 scripts/transient-tradeoff.mjs 瞬态取舍量化
+scripts/build-compat-library.mjs 重建兼容样例库与起音补偿表
+scripts/check-legacy-projects.mjs 旧工程兼容判定
+scripts/audit-compat.mjs   从磁盘 WAV 审计兼容产物
 ```
